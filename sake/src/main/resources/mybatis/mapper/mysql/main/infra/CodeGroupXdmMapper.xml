@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.module.codegroup.CodeGroupDao">
+<resultMap type="com.sake.module.codegroup.CodeGroupDto" id="resultMapObj"></resultMap>
+
+	<select id="selectList" resultMap="resultMapObj">
+		select
+			a.cg_id,
+			a.cg_use,
+			a.cg_code,
+			a.cg_name,
+			a.cg_order
+		from
+			codeGroup a
+		WHERE 1=1
+		ORDER BY a.cg_id asc
+	</select>
+	
+	<select id="selectView" resultMap = "resultMapObj">
+		select
+			a.cg_id,
+			a.cg_use,
+			a.cg_code,
+			a.cg_name,
+			a.cg_order
+		from
+			codeGroup a
+		WHERE a.cg_id = #{cg_id}
+		ORDER BY a.cg_id asc
+	</select>
+	
+	<insert id="insert">
+		insert into codeGroup(
+			cg_id,
+			cg_use,
+			cg_code,
+			cg_name,
+			cg_order
+		)values(
+			#{cg_id},
+			#{cg_use},
+			#{cg_code},
+			#{cg_name},
+			#{cg_order}
+		)
+		<selectKey resultType="String" keyProperty="cg_id" order="AFTER">
+		Select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<delete id="delete">
+		delete from codeGroup
+		where cg_id = #{cg_id}
+	</delete>
+	
+	
+</mapper>
+	

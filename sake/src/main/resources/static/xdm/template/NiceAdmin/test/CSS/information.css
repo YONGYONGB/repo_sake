@@ -1,0 +1,95 @@
+  
+            /* 중앙 정보 */
+.cen{
+    padding: 0px 30px;
+}
+.wrap1{
+    outline: 1px solid;
+    padding: 0px;
+}
+/* .r{
+    padding-left: 5px;
+    padding-top: 5px;
+} */
+label{
+    padding-left: 5px;
+    padding-top: 5px;
+    margin: 0px;
+
+}
+p{
+    padding-left: 5px;
+    padding-top: 5px;
+    margin: 0px;
+}
+
+input{
+    width: 100%;
+}
+select{
+    width: 100%;
+    /* max-height: 30px;
+    height: 100%; */
+}
+
+                /* r1 파트 */
+.r1{
+    margin: 0px;
+    padding: 0px;
+}
+.wrap2{
+    max-height: 50px;
+    height: 100%;
+    border-bottom: 1px solid;
+}
+
+.r1 > .form-label{
+    font-size: 25px;
+    margin: 0px;
+    
+}
+
+.r2{
+    padding-top: 5px;
+}
+                /* r3 파트 */
+                /* r4 파트 */
+
+                /* r5 파트 */
+
+.col-6 > textarea{
+    width: 100%;
+    height: 100%;
+}
+
+.wrap3{
+    padding: 0px 10px;
+    background-color: white;
+}
+
+.wrap4{
+    margin-top: 0PX;
+    padding-top: 35px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+}
+
+
+.r10 > .col-1{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.r10 > .col-1> .bt1{
+    border: 1px solid #000;
+    background-color: white;
+    color: #000;
+}
+
+.r10 > .col-1> .bt2{
+    border: 1px solid #000;
+    background-color: blue;
+    color: white;
+}
