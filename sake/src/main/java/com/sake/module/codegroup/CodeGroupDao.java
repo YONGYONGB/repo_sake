@@ -10,9 +10,11 @@ public interface CodeGroupDao {
 
 	public List<CodeGroupDto> selectList();
 	
-	public CodeGroupDto selectView();
+	public CodeGroupDto selectView(CodeGroupDto codeGroupDto);
 	
 	public int insert(CodeGroupDto codeGroupDto);
+	
+	public int update(CodeGroupDto codeGroupDto);
 	
 	public int delete(CodeGroupDto codeGroupDto);
 }

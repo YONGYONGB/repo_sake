@@ -10,7 +10,7 @@
 
 .ceiling{
     border-bottom: 1px solid;
-    max-width: 1600px;
+    max-width: 100%;
 }
 
 .ceil1{
@@ -98,7 +98,7 @@ p{
     position: relative;
     display: inline-block;
     border: 1px;
-    padding: 0px 0px;
+    padding: 50px 0px;
 }
 
 
@@ -163,7 +163,6 @@ table > tr> th{
 }
 .bb{
     background-color: white;
-  
 }
 .bb > .col-6{
     justify-items: end;
@@ -183,15 +182,38 @@ table > tr> th{
 
 /* 위에 기본 틀 */
 
-.centerh{
-    padding: 0px;
-    border: 1px solid;
-    border-radius: 5px; 
-    margin: 30px;
+.name{
+	padding-left:0px;
 }
 
+
+.centerh{
+	max-width: 1600px;
+	min-width: 480px;
+    padding: 0px;
+    border: 0.1px solid;
+    border-radius: 5px; 
+    margin: 30px 0px;
+    width: 75vw; 
+    height: 28vw;
+}
+
+.col-3{
+    padding: 10px 10px;
+}
+
+.col-6{
+    padding: 10px 10px;
+}
+
+.wrap{
+	border-radius: 5px; 
+    background-color: white;
+}
+
+
 .userbox{
-    border-bottom: 1px solid;
+    border-bottom: 0.5px solid;
     max-height: 50px;
     height: 100%;
 }
@@ -201,9 +223,40 @@ table > tr> th{
 }
 
 .wrap2{
+	border-radius: 5px; 
     background-color: white;
 }
 
 .zero{
     padding-left: 0px;
+}
+
+.invisible-box {
+  border: none;              /* 테두리 제거 */
+  outline: none;             /* 포커스 시 생기는 외곽선 제거 */
+  background-color: transparent; /* 배경을 투명하게 */
+  font-size: 16px;            /* 글자 크기 설정 (원하는 대로 조정 가능) */
+  color: #000;               /* 글자 색상 (예: 검정색) */
+  text-align: center;
+}
+
+.wrapfin > .col-3{
+	padding:20px;
+}
+
+.wrapfin > .fini{
+	 display: flex;
+	 align-items: center;
+	 justify-content: end;
+}
+.wrapfin > .fini > button{
+	margin: 2px;
+}
+
+h6{
+	padding-left:20px;
+}
+
+.rowbotton{
+	padding: 5px;
 }

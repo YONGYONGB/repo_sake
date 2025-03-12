@@ -48,6 +48,18 @@
 		Select last_insert_id()
 		</selectKey>
 	</insert>
+	
+	<update id="update">
+		update codeGroup 
+		set
+		cg_use =#{cg_use},
+		cg_code =#{cg_code},
+		cg_name =#{cg_name},
+		cg_order =#{cg_order}
+		where
+		cg_id = #{cg_id}
+	</update>
+
 
 	<delete id="delete">
 		delete from codeGroup
