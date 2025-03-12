@@ -35,12 +35,12 @@
               <div class="col-3"><label for="exampleFormControlInput1" class="form-label">코드그룹 코드</label> 
                 <input type="text" class="form-control" name="cg_id" id="cg_id" th:value="${item.cg_id}"  disabled></div>
               <div class="col-3"><label for="exampleFormControlInput2" class="form-label" >코드그룹 코드&nbsp;(ANOTHER)</label> 
-                <input type="text" class="form-control" name="cg_code" id="cg_code" required>
+                <input type="text" class="form-control" name="cg_code" id="cg_code" th:value="${item.cg_code}" required>
                 <div class="valid-feedback">Looks good!</div></div>
               <div class="col-3"><label for="exampleFormControlInput3" class="form-label">코드그룹&nbsp;이름</label> 
                 <input type="text" class="form-control" id="cg_name" th:value="${item.cg_name}"required name="cg_name">
                 <div class="valid-feedback">Looks good!</div></div>
-              <div class="col-3"><label for="exampleFormControlInput4" class="form-label">코드그룹&nbsp;이름(영문)</label> 
+              <div class="col-3"><label for="exampleFormControlInput4" class="form-label">갯수</label> 
                 <input type="text" class="form-control" id="exampleFormControlInput4" placeholder=" 영어대소문자, 숫자" required>
                 <div class="valid-feedback">Looks good!</div></div>
             </div>
