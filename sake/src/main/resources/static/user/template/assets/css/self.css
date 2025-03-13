@@ -1,0 +1,61 @@
+.jump{
+    padding-top: 10px;
+}
+.donts::after,i::after,i::before{
+    display: none;
+}
+.slick-prev::after,.slick-prev::before{
+    display: none;
+}
+.image-container {
+position: relative;
+width: 100%;
+height: 500px;
+background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), 
+            url('background.jpg');
+background-size: cover;
+display: flex;
+justify-content: flex-end;
+}
+
+.image {
+    width: 400px;
+    height: auto;
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* 오른쪽에서 왼쪽으로 자연스럽게 사라짐 */
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Safari 지원 */
+    opacity: 0.8; /* 살짝 투명하게 설정 */
+}
+a.dropdown-item {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.item-img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+[data-relatedlink] {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 10; /* div보다 위로 배치 */
+pointer-events: none; /* 마우스 이벤트를 차단 */
+}
+
+[data-trigger-click] {
+    cursor: pointer;
+}
+
+[data-trigger-click] h3,
+[data-trigger-click] p {
+    cursor: pointer;
+}
+
+body{
+    background-color: #fff;
+}

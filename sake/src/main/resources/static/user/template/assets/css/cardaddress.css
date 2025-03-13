@@ -1,0 +1,40 @@
+section>.container {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+}
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+.hidden {
+    display: none;
+}
+.form-check {
+    display: flex;
+    align-items: center;
+}
+.form-check label {
+    margin-left: 10px;
+    font-weight: bold;
+}
+.actions {
+    margin-top: 10px;
+}
+.actions a {
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.text-danger { color: red; }
+.address-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.toggle-btn {
+    cursor: pointer;
+    font-size: 14px;
+    color: #007bff;
+}

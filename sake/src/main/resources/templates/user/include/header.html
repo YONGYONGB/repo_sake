@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+
+ <th:block th:fragment ="header">
+ 
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta content="Codescandy" name="author">
+	<title>Homepage v1 - eCommerce HTML Template - ST.Sake</title>
+
+	<link href="user/template/assets/libs/slick-carousel/slick/slick.css" rel="stylesheet" />
+	<link href="user/template/assets/libs/slick-carousel/slick/slick-theme.css" rel="stylesheet" />
+	<link href="user/template/assets/libs/tiny-slider/dist/tiny-slider.css" rel="stylesheet" />
+
+	<!-- Favicon icon-->
+	<link rel="shortcut icon" type="image/x-icon" href="user/template/assets/images/favicon/favicon.ico">
+
+
+	<!-- Libs CSS -->
+	<link href="user/template/assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+	<link href="user/template/assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
+	<link href="user/template/assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" href="user/template/assets/css/theme.min.css">
+
+	<!-- 내가 추가한 CSS -->
+	<link href="user/template/assets/css/self.css"  rel="stylesheet">
+
+</head>
+
+<body>
+	<!-- navbar -->
+	<div class="border-bottom">
+		<div class="py-5">
+			<div class="container">
+				<div class="row w-100 align-items-center gx-lg-2 gx-0" style="display: flex; text-align: end; align-content: center;">
+					<div class="col-xxl-2 col-lg-3 col-md-6 col-5">
+						<a class="navbar-brand d-none d-lg-block" href="./sake_homepage.html">
+							<img src="user/template/assets/images/logo/ST.SAKE_logo copy.svg" alt="eCommerce HTML Template" />
+						</a>
+						<div class="d-flex justify-content-between w-100 d-lg-none">
+							<a class="navbar-brand" href="./index.html">
+								<img src="user/template/assets/images/logo/ST.SAKE_logo copy.svg" alt="eCommerce HTML Template" />
+							</a>
+						</div>
+					</div>
+					<div class="col-md-3 col-xxl-5 d-none d-lg-block" >
+						<nav class="navbar navbar-expand-lg navbar-light navbar-default py-0"
+						aria-label="Offcanvas navbar large" style="padding: 0px;">
+							<div class="container" style="padding-left: 0px;">
+								<div class="offcanvas offcanvas-start" tabindex="-1" id="navbar-default"
+									aria-labelledby="navbar-defaultLabel">
+									<div class="offcanvas-header pb-1">
+										<a href="./sake_homepage.html"><img src="user/template/assets/images/logo/freshcart-logo.svg"
+												alt="eCommerce HTML Template" /></a>
+										<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+									</div>
+									<div class="offcanvas-body">
+										<div class="d-block d-lg-none mb-4">
+											<form action="#">
+												<div class="input-group">
+													<input class="form-control rounded" type="search"
+														placeholder="Search for products" />
+													<span class="input-group-append">
+														<button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end"
+															type="button">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+																viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+																stroke-linecap="round" stroke-linejoin="round"
+																class="feather feather-search">
+																<circle cx="11" cy="11" r="8"></circle>
+																<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+															</svg>
+														</button>
+													</span>
+												</div>
+											</form>
+										</div>
+										<div>
+											<ul class="navbar-nav align-items-center">
+												<!-- <li class="nav-item dropdown w-100 w-lg-auto ">
+													<a class="nav-link dropdown-toggle donts" href="./sake_homepage.html"
+														aria-expanded="false">홈페이지</a>
+												</li> -->
+												<li class="nav-item dropdown w-100 w-lg-auto">
+													<a class="nav-link dropdown-toggle donts" href="./pages/store-japan_map.html" 
+														aria-expanded="false">지도</a>
+														<!-- <ul class="dropdown-menu">
+														<li><a class="dropdown-item" href="./pages/store-grid.html">지도</a></li>
+													</ul> -->
+												</li>
+												<li class="nav-item dropdown w-100 w-lg-auto dropdown-fullwidth">
+													<a class="nav-link dropdown-toggle donts" href="#" role="button" data-bs-toggle="dropdown"
+														aria-expanded="false"> 사케 </a>
+													<ul class="dropdown-menu">
+														<div class = "row p-2 p-lg-4">
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<h6 class="text-primary ps-3 " >준마이(純米酒)</h6>
+																<a class="dropdown-item" href="./pages/shop-grid-3-column.html">준마이다이긴죠슈(純米大吟醸酒)</a>
+																<a class="dropdown-item" href="./pages/shop-grid.html">준마이긴죠슈(純米吟醸酒)</a>
+																<a class="dropdown-item" href="./pages/shop-grid.html">토쿠베츠준마이슈(特別純米酒)</a>
+																<a class="dropdown-item" href="./pages/shop-grid.html">준마이슈(純米酒)</a>
+															</div>
+															
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<h6 class="text-primary ps-3 " >혼죠조(本醸造)</h6>
+																<a class="dropdown-item" href="./pages/shop-grid.html">다이긴죠(大吟醸酒)</a>
+																<a class="dropdown-item" href="./pages/shop-grid.html">긴죠슈(吟醸酒)</a>
+																<a class="dropdown-item" href="./pages/shop-grid.html">토쿠베츠혼죠조슈(特別本醸造酒)</a>
+																<a class="dropdown-item" href="./pages/shop-grid.html">혼죠조슈(本醸造酒)</a>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<h6 class="text-primary ps-3 " >기타</h6>
+																<a class="dropdown-item" href="./pages/shop-grid.html">일본주 기타</a>
+															</div>
+														</div>
+													</ul>
+												</li>
+												<li class="nav-item dropdown w-100 w-lg-auto dropdown-fullwidth">
+													<a class="nav-link dropdown-toggle donts" href="#" role="button" data-bs-toggle="dropdown"
+														aria-expanded="false">사케 지역</a>
+													<div class="dropdown-menu pb-0">
+														<div class="row p-2 p-lg-4">
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<h6 class="text-primary ps-3 " >간토(関東)</h6>
+																<a class="dropdown-item" href="./pages/shop-area.html">이바라키현(茨城県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">도치기현(栃木県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">군마현(群馬県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">사이타마현(埼玉県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">치바현(千葉県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">가나가와현(神奈川県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">도쿄도(東京都)</a>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<h6 class="text-primary ps-3">주부(中部)</h6>
+																<a class="dropdown-item" href="./pages/shop-area.html">니가타현(新潟県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">도야마현(富山県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">이시카와현(石川県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">후쿠이현(福井県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">야마나시현(山梨県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">나가노현(長野県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">기후현(岐阜県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">시즈오카현(静岡県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">아이치현(愛知県)</a>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<h6 class="text-primary ps-3" >도호쿠(道北)</h6>
+																<a class="dropdown-item" href="./pages/shop-area.html">아오모리현(青森県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">이와테현(岩手県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">미야기현(宮城県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">아키타현(秋田県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">야마가타현(山形県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">후쿠시마현(福島県)</a>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<h6 class="text-primary ps-3" >간사이(関西)</h6>
+																<a class="dropdown-item" href="./pages/shop-area.html">미에현(三重県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">시가현(滋賀県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">교토부(京都府)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">오사카부(大阪府)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">효고현(兵庫県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">나라현(奈良県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">와카야마현(和歌山県)</a>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0 jump">
+																<h6 class="text-primary ps-3">규슈(九州)</h6>
+																<a class="dropdown-item" href="./pages/shop-area.html">후쿠오카현(福岡県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">사가현(佐賀県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">나가시카현(長崎県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">구마모토현(熊本県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">오이타현(大分県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">미야자키현(宮崎県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">가고시마현(鹿児島県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">오키나마현(沖縄県)</a>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0 jump">
+																<h6 class="text-primary ps-3">주고쿠(中国)</h6>
+																<a class="dropdown-item" href="./pages/shop-area.html">돗토리현(鳥取県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">시마네현(島根県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">오카야마현(岡山県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">히로시마현(広島県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">야마구치현(山口県)</a>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0 jump">
+																<h6 class="text-primary ps-3" >시코쿠(四国)</h6>
+																<a class="dropdown-item" href="./pages/shop-area.html">도쿠시마현(徳島県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">고치현(高知県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">에히메현(愛媛県)</a>
+																<a class="dropdown-item" href="./pages/shop-area.html">가가와현(香川県)</a>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0 jump">
+																<h6 class="text-primary ps-3">훗카이도(北海道)</h6>
+																<a class="dropdown-item" href="./pages/shop-area.html">훗카이도(北海道)</a>
+															</div>
+														</div>
+													</div>
+												</li>
+												
+												<li class="nav-item dropdown w-100 w-lg-auto">
+													<a class="nav-link dropdown-toggle donts" href="./pages/shop-brand.html" 
+														aria-expanded="false">브랜드</a>
+														<!-- <ul class="dropdown-menu">
+														<li><a class="dropdown-item" href="./pages/store-grid.html">지도</a></li>
+													</ul> -->
+												</li>
+											
+												<li class="nav-item dropdown w-100 w-lg-auto dropdown-fullwidth">
+													<a class="nav-link dropdown-toggle donts" href="#" role="button" data-bs-toggle="dropdown"
+														aria-expanded="false"> 할인 </a>
+													<ul class="dropdown-menu">
+														<div class="row p-2 p-lg-4">
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<a class="dropdown-item" href="./pages/shop-sale-sake.html">할인 사케</a>
+																<a class="dropdown-item" href="./pages/shop-sale-brand.html">할인 사케 브랜드</a>
+															</div>
+														</div>
+													</ul>
+												</li>
+												<li class="nav-item dropdown w-100 w-lg-auto dropdown-fullwidth">
+													<a class="nav-link dropdown-toggle donts" href="#" role="button" data-bs-toggle="dropdown"
+														aria-expanded="false">계정</a>
+													<ul class="dropdown-menu p-lg-4">
+														<div class="row p-2 p-lg-4">
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<li><a class="dropdown-item" href="./pages/signin.html">로그인</a></li>						
+																<li><a class="dropdown-item" href="./pages/signup.html">회원가입</a></li>
+																<li><a class="dropdown-item" href="./pages/forgot-password.html">비밀번호 재설정</a></li>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<li><a class="dropdown-item"
+																		href="./pages/account-orders.html">주문 내역</a></li>
+																<li><a class="dropdown-item"
+																		href="./pages/account-settings.html">계정 설정</a></li>
+																<li><a class="dropdown-item"
+																		href="./pages/account-setting-password.html">비밀번호 변경</a></li>
+																<li><a class="dropdown-item"
+																		href="./pages/account-setting-withdraw.html">계정 탈퇴</a></li>
+															</div>
+															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
+																<li><a class="dropdown-item"
+																		href="./pages/account-address.html">주소</a></li>
+																<li><a class="dropdown-item"
+																		href="./pages/account-payment-method.html">결제방법</a>
+																</li>
+																<li><a class="dropdown-item"
+																		href="./pages/account-notification.html">알람</a>
+																</li>
+															</div>
+														</div>
+													</ul>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+					<div class="col-xxl-3 col-lg-2 d-none d-lg-block">
+						<form action="#">
+							<div class="input-group">
+								<input class="form-control rounded" type="search" placeholder="Search for products" />
+								<span class="input-group-append">
+									<button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end"
+										type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+											stroke-linecap="round" stroke-linejoin="round"
+											class="feather feather-search">
+											<circle cx="11" cy="11" r="8"></circle>
+											<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+										</svg>
+									</button>
+								</span>
+							</div>
+						</form>
+					</div>
+					<div class="col-lg-2 col-xxl-2 text-end col-md-6 col-7">
+						<div class="list-inline">
+							<div class="list-inline-item me-5">
+								<a href="./pages/shop-wishlist.html" class="text-muted position-relative">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" class="feather feather-heart">
+										<path
+											d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+										</path>
+									</svg>
+									<span
+										class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+										5
+										<span class="visually-hidden">unread messages</span>
+									</span>
+								</a>
+							</div>
+							<div class="list-inline-item me-5">
+								<a href="./pages/signup.html" class="text-muted">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" class="feather feather-user">
+										<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+										<circle cx="12" cy="7" r="4"></circle>
+									</svg>
+								</a>
+							</div>
+							<div class="list-inline-item me-5 me-lg-0">
+								<a class="text-muted position-relative" 
+									 href="./pages/shop-cart.html" role="button">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" class="feather feather-shopping-bag">
+										<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+										<line x1="3" y1="6" x2="21" y2="6"></line>
+										<path d="M16 10a4 4 0 0 1-8 0"></path>
+									</svg>
+									<span
+										class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+										1
+										<span class="visually-hidden">unread messages</span>
+									</span>
+								</a>
+							</div>
+							<div class="list-inline-item d-inline-block d-lg-none">
+								<!-- Button -->
+								<button class="navbar-toggler collapsed" type="button" data-bs-toggle="offcanvas"
+									data-bs-target="#navbar-default" aria-controls="navbar-default"
+									aria-label="Toggle navigation">
+									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+										class="bi bi-text-indent-left text-primary" viewBox="0 0 16 16">
+										<path
+											d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm.646 2.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L4.293 8 2.646 6.354a.5.5 0 0 1 0-.708zM7 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
