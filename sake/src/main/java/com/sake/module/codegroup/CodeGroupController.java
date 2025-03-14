@@ -13,9 +13,23 @@ public class CodeGroupController {
 	@Autowired
 	CodeGroupService codeGroupService;
 
-	@RequestMapping(value = "codeGroupController")
-	public String codeGroupController(Model model) {
-		model.addAttribute("list", codeGroupService.selectList());
+	
+
+	
+	
+	
+	
+	@RequestMapping(value = "codeGroupList")
+	public String codeGroupList(Model model, CodeGroupVo vo) {
+		
+		vo.setParamsPaging(codeGroupService.selectOneCount());
+		
+		
+		model.addAttribute("list", codeGroupService.selectList(vo));
+		model.addAttribute("vo",vo);
+		
+		
+		
 		return "xdm/codegroup/CodeGroupXdmList";
 	}
 	
@@ -35,7 +49,7 @@ public class CodeGroupController {
 	@RequestMapping(value = "codeGroupInst")
 	public String codeGroupInst(CodeGroupDto codeGroupDto) {
 	codeGroupService.insert(codeGroupDto);
-		return "redirect:/codeGroupController";
+		return "redirect:/codeGroupList";
 	}
 	
 	
@@ -52,7 +66,7 @@ public class CodeGroupController {
 		codeGroupService.update(codeGroupDto);
 		System.out.println(codeGroupDto.getCg_id());
 	
-		return "redirect:/codeGroupController";
+		return "redirect:/codeGroupList";
 	}
 	
 	

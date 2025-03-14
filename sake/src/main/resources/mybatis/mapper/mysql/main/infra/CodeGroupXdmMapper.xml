@@ -4,17 +4,35 @@
 <mapper namespace="com.sake.module.codegroup.CodeGroupDao">
 <resultMap type="com.sake.module.codegroup.CodeGroupDto" id="resultMapObj"></resultMap>
 
+
+	<sql id = "selectCommon">
+ 		from codeGroup as a
+ 		where 1=1
+ 		ORDER BY a.cg_id asc
+	</sql>	
+	
+	
+	
+	
+	<select id = "selectOneCount" resultType="Integer">   <!-- result 타입이여서 integer -->
+		SELECT COUNT(*)	
+		<include refid="selectCommon"></include>
+	</select>
+	
+
+
+
 	<select id="selectList" resultMap="resultMapObj">
-		select
-			a.cg_id,
-			a.cg_use,
-			a.cg_code,
-			a.cg_name,
-			a.cg_order
-		from
-			codeGroup a
-		WHERE 1=1
-		ORDER BY a.cg_id asc
+		select aa.* from (
+			select
+				a.cg_id,
+				a.cg_use,
+				a.cg_code,
+				a.cg_name,
+				a.cg_order
+			<include refid="selectCommon"></include>
+		)aa
+		limit #{startRnumForMysql}, #{pageNumToShow}	
 	</select>
 	
 	<select id="selectView" resultMap = "resultMapObj">
@@ -65,6 +83,11 @@
 		delete from codeGroup
 		where cg_id = #{cg_id}
 	</delete>
+	
+	
+	
+	
+	
 	
 	
 </mapper>
