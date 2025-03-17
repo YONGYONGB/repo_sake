@@ -1,0 +1,108 @@
+ <!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+ 	
+ <div th:replace = "~{xdm/include/form_head :: head}"></div>
+
+  <main id="main" class="main">
+  <form action="codeXdmInst" method="post" id="form">
+    <div class = "col cen">  <!-- 중앙 부분  기본정보-->
+      <div class = "row a name">
+        <div>
+          <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Page1</a></li>
+                <li class="breadcrumb-item"><a href="#">Page2</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Default</li>
+              </ol>
+          </nav>
+          <label for="exampleFormControlInput1" class="form-label par"><strong>Code</strong></label> 
+        </div>
+      </div> <!-- 공통복사 부분 end-->
+
+      <div class = "row a centerh">
+        <div class = "wrap">
+          <div class = "row userbox">
+            <div class = "col-12">
+              <p>기본정보</p>
+            </div>
+          </div>
+        </div>
+        <div class = "wrap2">
+          <div class="row needs-validation" novalidate>  
+            <div class = "row">
+              <div class = "col-3">
+                <label for="exampleFormControlInput1" class="form-label">코드그룹</label> 
+                  <select class="form-select" aria-label="Default select example" name ="codeGroup_cg_id" th:each="item:${item}">
+                    <option th:selected="${codeGroup_cg_id.contains(item.cg_id)}" th:value="${item.cg_id}"  th:text="${item.cg_name}">
+                    </option>
+                  </select>
+              </div>
+            </div>
+          
+            <div class = "row">
+              <div class="col-3"><label for="exampleFormControlInput1" class="form-label" >코드</label> 
+                <input type="text" class="form-control" id="exampleFormControlInput1" aria-label="Disabled input example" name ="cd_id" disabled></div>
+              <div class="col-3"><label for="exampleFormControlInput2" class="form-label" >코드&nbsp;(ANOTHER)</label> 
+                <input type="text" class="form-control" id="exampleFormControlInput2" required >
+                <div class="valid-feedback">Looks good!</div></div>
+              <div class="col-3"><label for="exampleFormControlInput3" class="form-label">코드&nbsp;이름</label> 
+                <input type="text" class="form-control" id="exampleFormControlInput3" placeholder="한글, 영어대소문자, 숫자" required name="cd_name">
+                <div class="valid-feedback">Looks good!</div></div>
+              <div class="col-3"><label for="exampleFormControlInput4" class="form-label">코드&nbsp;이름(영문)</label> 
+                <input type="text" class="form-control" id="exampleFormControlInput4" placeholder=" 영어대소문자, 숫자" required>
+                <div class="valid-feedback">Looks good!</div></div>
+            </div>
+          
+          
+            <div class = "row">
+              <div class = "col-3"><label for="exampleFormControlInput5" class="form-label">사용여부</label> 
+                <select class="form-select" aria-label="Default select example" required name ="cd_use">
+                  <option selected value="">선택하세요</option>
+                  <option value="true">사용</option>
+                  <option value="false">미사용</option>
+                </select><div class="invalid-feedback">
+                    Please select a valid state.
+                  </div></div>
+              <div class = "col-3"><label for="exampleFormControlInput6" class="form-label">순서</label> 
+                <input type="text" class="form-control" id="exampleFormControlInput6" required name ="cd_order">
+                <div class="invalid-feedback">
+                  Please select a valid state.
+                </div></div>
+            </div>
+            
+            <div class = "row">
+              <div class = "col-6 ">
+                <label for="exampleFormControlTextarea1" class="form-label zero"> 설명 </label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+               </div>
+            </div>
+            <div class = "row rowbotton">
+              <div class="col-1">
+                <div class ="justify-content-start" style="display: flex;">
+                  <a href="codeXdmList"><button type="button" class="btn btn-outline-dark"><i class="bi bi-list-task"></i></button></a>
+                </div>
+              </div>
+              <div class ="col-10"></div>
+              <div class="col-1 ">
+                <div class ="justify-content-end" style="display: flex;">
+                  <button class="btn btn-primary" type="submit"><i class="bi bi-server"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+   	 </div>
+	</form>
+
+  </main><!-- End #main -->
+  <script type="text/javascript">
+  	document.getElementById("cg_submit").onclick = function(){
+  		document.getElementById("form").submit;
+  	}
+  </script>
+
+  <!-- ======= Footer ======= -->
+<div th:replace = "~{xdm/include/footer::footer}"></div>
+
+</html>

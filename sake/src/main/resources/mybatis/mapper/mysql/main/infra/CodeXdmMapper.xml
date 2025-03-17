@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.module.code.CodeDao">
+<resultMap type="com.sake.module.code.CodeDto" id="resultMapObj"></resultMap>
+
+	<sql id = "selectCommon">
+ 		from code as a
+ 		left join codeGroup b on b.cg_id = a.codeGroup_cg_id
+		where 1=1
+ 		ORDER BY a.cd_id asc
+	</sql>
+	
+	
+	<select id = "selectOneCount" resultType="Integer">   <!-- result 타입이여서 integer -->
+		SELECT COUNT(*)	
+		<include refid="selectCommon"></include>
+	</select>
+
+
+	<select id ="selectList" resultMap="resultMapObj">
+		select aa.* from (
+			select
+			a.cd_id,
+			a.cd_use,
+			b.cg_id,
+       		b.cg_name,
+			a.cd_name,
+			a.cd_order
+		<include refid="selectCommon"></include>
+		)aa
+		limit #{startRnumForMysql}, #{pageNumToShow}	
+		
+		
+	</select>
+	
+	
+	<select id ="selectView" resultMap="resultMapObj">
+		select
+		a.cd_id,
+		a.cd_use,
+		b.cg_id,
+        b.cg_name,
+		a.cd_name,
+		a.cd_order
+		from 
+		code as a
+		left join codeGroup b on b.cg_id = a.codeGroup_cg_id
+		where 1=1
+		And cd_id = #{cd_id}
+ 		ORDER BY a.cd_id asc
+	</select>
+	
+	<insert id="insert">
+	 	insert into code(
+	 		cd_id,
+	 		cd_use,
+	 		cd_name,
+	 		cd_order,
+	 		codeGroup_cg_id
+	 	)values(
+	 		#{cd_id},
+	 		#{cd_use},
+	 		#{cd_name},
+	 		#{cd_order},
+	 		#{codeGroup_cd_id}
+	 	)
+	 	<selectKey resultType="String" keyProperty="cd_id" order="AFTER">
+			Select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	
+	
+	
+
+</mapper>

@@ -4,7 +4,6 @@ public class CodeGroupDto {
 
 	private String cg_id;
 	private Boolean cg_use;
-	private Integer cg_code;
 	private String cg_name;
 	private Integer cg_order;
 	
@@ -24,12 +23,7 @@ public class CodeGroupDto {
 	public void setCg_use(Boolean cg_use) {
 		this.cg_use = cg_use;
 	}
-	public Integer getCg_code() {
-		return cg_code;
-	}
-	public void setCg_code(Integer cg_code) {
-		this.cg_code = cg_code;
-	}
+	
 	public String getCg_name() {
 		return cg_name;
 	}

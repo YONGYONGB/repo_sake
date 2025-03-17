@@ -70,9 +70,9 @@
                   <thead>              
                     <tr>
                       <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="check" id="flexCheckDefault"></th>
-                      <th style="text-align: center;">#</th>
+                      <th style="text-align: center;">#</th> 
                       <th style="text-align: center;">사용</th>
-                      <th style="text-align: center;">코드그룹 코드</th>
+                      <th style="text-align: center;">코드그룹 코드</th> 
                       <th style="text-align: center;">코드그룹 이름</th>
                       <th style="text-align: center;">코드그룹 이름(영문)</th>
                       <th style="text-align: center;">갯수</th>
@@ -89,9 +89,9 @@
                   	</tr>
                   	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
                       <td><input class="form-check-input" type="checkbox" name ="checkbox" id="flexCheckDefault"></td>
-                      <td><a th:href ="@{codeGroupView(cg_id=${list.cg_id})}" th:text = "${list.cg_id}"></a></td>
+                      <td><a th:href ="@{codeGroupView(cg_id=${list.cg_id})}" th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></a></td>
                       <td th:text = "${list.cg_use} ? '사용': '미사용' "></td>
-                      <td th:text = "${list.cg_code}"></td>
+                      <td th:text = "${list.cg_id}"></td>
                       <td th:text = "${list.cg_name}"></td>
                       <td></td>
                       <td th:text = "${list.cg_order}"></td>
@@ -141,5 +141,17 @@
 
   <!-- ======= Footer ======= -->
   <div th:replace = "~{xdm/include/footer :: footer}"></div>
+ <script type="text/javascript">
+ 
+let form = document.querySelector("form[name=formList]");
+goList = function(thisPage) {
+	console.log(thisPage);
+    document.querySelector("input[name=thisPage]").value = thisPage;
+    form.action = "codeGroupList";
+    form.submit();
+}
+</script>
+  
+  
 
 </html>

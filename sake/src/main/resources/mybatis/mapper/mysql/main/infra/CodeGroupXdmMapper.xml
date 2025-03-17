@@ -27,7 +27,6 @@
 			select
 				a.cg_id,
 				a.cg_use,
-				a.cg_code,
 				a.cg_name,
 				a.cg_order
 			<include refid="selectCommon"></include>
@@ -39,7 +38,6 @@
 		select
 			a.cg_id,
 			a.cg_use,
-			a.cg_code,
 			a.cg_name,
 			a.cg_order
 		from
@@ -52,13 +50,11 @@
 		insert into codeGroup(
 			cg_id,
 			cg_use,
-			cg_code,
 			cg_name,
 			cg_order
 		)values(
 			#{cg_id},
 			#{cg_use},
-			#{cg_code},
 			#{cg_name},
 			#{cg_order}
 		)
@@ -71,7 +67,6 @@
 		update codeGroup 
 		set
 		cg_use =#{cg_use},
-		cg_code =#{cg_code},
 		cg_name =#{cg_name},
 		cg_order =#{cg_order}
 		where

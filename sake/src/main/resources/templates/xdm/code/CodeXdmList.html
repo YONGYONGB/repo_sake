@@ -1,9 +1,12 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="kor" xmlns:th="http://www.thymeleaf.org">
- 	
- <div th:replace = "~{xdm/include/background :: head}"></div>
+
+	<div th:replace = "~{xdm/include/background :: head}"></div>
 
   <main id="main" class="main" style=" padding: 0px;">
+   <form name="formList" id="formList" method="post" autocomplete="off">
+		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
           <div class = "col cen">  <!-- 중앙 부분  기본정보-->
             <div class = "a">
               <div>
@@ -14,7 +17,7 @@
                       <li class="breadcrumb-item active" aria-current="page">Default</li>
                     </ol>
                 </nav>
-                <label for="exampleFormControlInput1" class="form-label par"><strong>Code Group</strong></label> 
+                <label for="exampleFormControlInput1" class="form-label par"><strong>Code</strong></label> 
               </div>
             </div>
             <div class = "row-1 firstbody">
@@ -51,7 +54,7 @@
             </div>
             <div class=" row bb ">
               <div class = "row cent justify-content-center;">
-                <div class ="col-3"><h6>Total:50</h6></div>
+                <div class ="col-3"><h6>Total:52</h6></div>
                 <div class ="col-3"></div>
                 <div class ="col-3"></div>
                 <div class ="datatable-dropdown col-3" style="display: flex; justify-content: end;">
@@ -66,55 +69,92 @@
                 <table class="table datatable" style=" text-align: center">   
                   <thead>              
                     <tr>
-                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="check" id="flexCheckDefault"></th>
+                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></th>
                       <th style="text-align: center;">#</th>
                       <th style="text-align: center;">사용</th>
                       <th style="text-align: center;">코드그룹 코드</th>
                       <th style="text-align: center;">코드그룹 이름</th>
-                      <th style="text-align: center;">코드그룹 이름(영문)</th>
-                      <th style="text-align: center;">갯수</th>
+                      <th style="text-align: center;">코드</th>
+                      <th style="text-align: center;">대체코드</th>
+                      <th style="text-align: center;">코드이름</th>
+                      <th style="text-align: center;">코드이름(영문)</th>
                       <th style="text-align: center;">순서</th>
                       <th style="text-align: center;">등록일</th>
                       <th style="text-align: center;">수정일</th>
                     </tr>
                   </thead>
                   <tbody>
-                  	<tr class="invisible-box">
-                  	  <td><input class="form-check-input" type="checkbox" name ="checkbox" id="flexCheckDefault"></td>
+                  	<tr th:if="${#lists.isEmpty(list)}" class="hover-actions-trigger btn-reveal-trigger position-static">
+                  		<td colspan = "10">
+                  			<p class = "fs-0" >there are no date!</p>
+                  		</td>
+                  	</tr>
+                  	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
+                      <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                      <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                      <td th:text ="${list.cd_use} ? '사용': '미사용'"></td>
+                      <td th:text = "${list.cg_id}"></td>
+                      <td th:text = "${list.cg_name}"></td>
+                      <td th:text = "${list.cd_id}"></td>
                       <td></td>
-                      <td th:text="${item?.cg_use}== true ? '사용': '미사용'"></td>
-                      <td th:text="${item?.cg_id}"></td>
-                      <td th:text="${item?.cg_name}"></td>
+                      <td th:text = ${list.cd_name}></td>
                       <td></td>
-                      <td></td>
-                      <td th:text= "${item?.cg_order}"></td>
+                      <td th:text = ${list.cd_order}></td>
                       <td></td>
                       <td></td>
                     </tr>
-                   </tbody>
+                  </tbody>
                 </table> 
               </div>
               
+              <nav class ="datatable-pagination"  style="display: flex; justify-content: center;">
+              	<ul class ="datatable-pagination-list">
+              		<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
+						<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
+					<i class="fa-solid fa-angle-left"></i>
+					</a>
+					</li>
+					<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item" style="cursor: pointer;">
+						<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
+					</li>
+					<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" style="cursor: pointer;">
+					<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
+						<i class="fa-solid fa-angle-right"></i>
+					</a>
+					</li>
+              	</ul>
+              </nav>
+              
+              
               <div class ="row wrapfin">
                 <div class = "col-3">
-                  <a href = "codeGroupDelete" id ="delete"><button type="button" class="btn btn-danger">x</button></a>
+                  <button type="button" class="btn btn-danger">x</button>
                   <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                 </div>
                 <div class= "col-6"></div>
                 <div class = "col-3 fini" style="display: flex; justify-content: end;">
-                  <a th:href = "@{/codeGroupMform(cg_id=${item.cg_id})}"><button type="button" class="btn btn-link" style="text-decoration: none; border: 1px solid;">U</button></a>
+                  <button type="button" class="btn btn-link" style="text-decoration: none; border: 1px solid;">U</button>
                   <button type="button" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i></button>
-                  <a href = "codeGroupForm"><input class="btn btn-primary" type="button" value="+"></a>
+                  <a href ="codeXdmForm"><input class="btn btn-primary" type="button" value="+"></a>
                 </div>
               </div>
             </div>  
-          </div> <!-- 중앙 부분  기본정보-->  
+          </div> <!-- 중앙 부분  기본정보-->
+   </form>
 
   </main><!-- End #main -->
 
+  <!-- ======= Footer ======= -->
+ 	<div th:replace = "~{xdm/include/footer :: footer}"></div>
+ 	 <script type="text/javascript">
+		let form = document.querySelector("form[name=formList]");
+		goList = function(thisPage) {
+		console.log(thisPage);
+    	document.querySelector("input[name=thisPage]").value = thisPage;
+    	form.action = "/codeXdmList";
+    	form.submit();
+		}
+	</script>
 
-  <div th:replace = "~{xdm/include/footer :: footer}"></div>  
-  
+
 </html>
-
- 
