@@ -7,6 +7,8 @@ public class CodeGroupDto {
 	private String cg_name;
 	private Integer cg_order;
 	
+	private Integer xcd_count;
+	
 	
 	
 	//--------------
@@ -35,6 +37,12 @@ public class CodeGroupDto {
 	}
 	public void setCg_order(Integer cg_order) {
 		this.cg_order = cg_order;
+	}
+	public Integer getXcd_count() {
+		return xcd_count;
+	}
+	public void setXcd_count(Integer xcd_count) {
+		this.xcd_count = xcd_count;
 	}
 	
 	

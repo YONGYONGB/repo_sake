@@ -4,7 +4,7 @@
  <div th:replace = "~{xdm/include/form_head :: head}"></div>
 
   <main id="main" class="main">
-  <form action="codeXdmInst" method="post" id="form">
+  <div>
     <div class = "col cen">  <!-- 중앙 부분  기본정보-->
       <div class = "row a name">
         <div>
@@ -28,44 +28,47 @@
           </div>
         </div>
         <div class = "wrap2">
-          <div class="row needs-validation" novalidate>  
+          <form action="codeXdmInst" method="post" id="form" class="row needs-validation" novalidate>  
             <div class = "row">
               <div class = "col-3">
-                <label for="exampleFormControlInput1" class="form-label">코드그룹</label> 
-                  <select class="form-select" aria-label="Default select example" name ="codeGroup_cg_id" th:each="item:${item}">
-                    <option th:selected="${codeGroup_cg_id.contains(item.cg_id)}" th:value="${item.cg_id}"  th:text="${item.cg_name}">
+                <label for="exampleFormControlInput1" class="form-label">코드그룹</label><span style="color: crimson;">*</span>
+                  <select class="form-select" aria-label="Default select example" name ="codeGroup_cg_id" id ="codeGroup_cg_id">
+                  	<option value ="">선택하세요</option>
+                    <option th:each="item:${item}" th:selected="${codeGroup_cg_id == item.cg_id }" th:value="${item.cg_id}"  th:text="${item.cg_name}">
                     </option>
-                  </select>
+                  </select><div class="invalid-feedback" id="codeGroup_cg_idError">
+                   선택을해주세요.
+                  </div>
               </div>
             </div>
           
             <div class = "row">
-              <div class="col-3"><label for="exampleFormControlInput1" class="form-label" >코드</label> 
-                <input type="text" class="form-control" id="exampleFormControlInput1" aria-label="Disabled input example" name ="cd_id" disabled></div>
+              <div class="col-3"><label for="cd_id" class="form-label" >코드</label> 
+                <input type="text" class="form-control" id="cd_id" aria-label="Disabled input example" name ="cd_id" disabled></div>
               <div class="col-3"><label for="exampleFormControlInput2" class="form-label" >코드&nbsp;(ANOTHER)</label> 
-                <input type="text" class="form-control" id="exampleFormControlInput2" required >
-                <div class="valid-feedback">Looks good!</div></div>
-              <div class="col-3"><label for="exampleFormControlInput3" class="form-label">코드&nbsp;이름</label> 
-                <input type="text" class="form-control" id="exampleFormControlInput3" placeholder="한글, 영어대소문자, 숫자" required name="cd_name">
-                <div class="valid-feedback">Looks good!</div></div>
+                <input type="text" class="form-control" id="exampleFormControlInput2">
+                </div>
+              <div class="col-3"><label for="cd_name" class="form-label">코드&nbsp;이름</label><span style="color: crimson;">*</span>
+                <input type="text" class="form-control" id="cd_name" name="cd_name" placeholder="한글, 영어대소문자, 숫자" required>
+                <div class="invalid-feedback" id="cd_nameError">Looks good!</div></div>
               <div class="col-3"><label for="exampleFormControlInput4" class="form-label">코드&nbsp;이름(영문)</label> 
-                <input type="text" class="form-control" id="exampleFormControlInput4" placeholder=" 영어대소문자, 숫자" required>
-                <div class="valid-feedback">Looks good!</div></div>
+                <input type="text" class="form-control" id="exampleFormControlInput4" placeholder=" 영어대소문자, 숫자">
+              </div>
             </div>
           
           
             <div class = "row">
-              <div class = "col-3"><label for="exampleFormControlInput5" class="form-label">사용여부</label> 
-                <select class="form-select" aria-label="Default select example" required name ="cd_use">
+              <div class = "col-3"><label for="exampleFormControlInput5" class="form-label">사용여부</label><span style="color: crimson;">*</span>
+                <select class="form-select" aria-label="Default select example" required id ="cd_use" name ="cd_use">
                   <option selected value="">선택하세요</option>
                   <option value="true">사용</option>
                   <option value="false">미사용</option>
-                </select><div class="invalid-feedback">
+                </select><div class="invalid-feedback" id="cd_useError">
                     Please select a valid state.
                   </div></div>
-              <div class = "col-3"><label for="exampleFormControlInput6" class="form-label">순서</label> 
-                <input type="text" class="form-control" id="exampleFormControlInput6" required name ="cd_order">
-                <div class="invalid-feedback">
+              <div class = "col-3"><label for="exampleFormControlInput6" class="form-label">순서</label><span style="color: crimson;">*</span>
+                <input type="text" class="form-control" id="cd_order" required name ="cd_order">
+                <div class="invalid-feedback" id="cd_orderError">
                   Please select a valid state.
                 </div></div>
             </div>
@@ -73,7 +76,7 @@
             <div class = "row">
               <div class = "col-6 ">
                 <label for="exampleFormControlTextarea1" class="form-label zero"> 설명 </label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                </div>
             </div>
             <div class = "row rowbotton">
@@ -85,24 +88,104 @@
               <div class ="col-10"></div>
               <div class="col-1 ">
                 <div class ="justify-content-end" style="display: flex;">
-                  <button class="btn btn-primary" type="submit"><i class="bi bi-server"></i></button>
+                  <button class="btn btn-primary" type="submit" id="cd_submit"><i class="bi bi-server"></i></button>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div> 
    	 </div>
-	</form>
+	</div>
 
-  </main><!-- End #main -->
-  <script type="text/javascript">
-  	document.getElementById("cg_submit").onclick = function(){
-  		document.getElementById("form").submit;
-  	}
-  </script>
-
-  <!-- ======= Footer ======= -->
+  </main>
 <div th:replace = "~{xdm/include/footer::footer}"></div>
+
+<script type="text/javascript">
+	  
+  	document.getElementById("cd_submit").addEventListener("click",function(event){
+		event.preventDefault();
+		
+		
+		document.getElementById("codeGroup_cg_id").classList.remove("is-invalid");
+		document.getElementById("codeGroup_cg_id").classList.remove("is-valid");
+		
+	    document.getElementById("cd_name").classList.remove("is-invalid");
+	    document.getElementById("cd_name").classList.remove("is-valid");
+	   
+	    document.getElementById("cd_use").classList.remove("is-invalid");
+	    document.getElementById("cd_use").classList.remove("is-valid");
+	   
+	    document.getElementById("cd_order").classList.remove("is-invalid");
+	    document.getElementById("cd_order").classList.remove("is-valid");
+	    
+		
+  		document.getElementById("codeGroup_cg_idError").textContent = '';  		
+    	document.getElementById("cd_nameError").textContent = '';
+    	document.getElementById("cd_useError").textContent = '';
+   		document.getElementById("cd_orderError").textContent = '';
+        	      
+  		let isValid = true; 
+  	    
+  		
+  		const cg = document.getElementById("codeGroup_cg_id").value;
+  		if(cg == null || cg == ""){
+  			document.getElementById("codeGroup_cg_idError").textContent = "코드그룹을 선택해주세요";
+  			document.getElementById("codeGroup_cg_id").classList.add("is-invalid");
+  			isValid = false;
+  		}else{
+  			document.getElementById("codeGroup_cg_id").classList.add("is-valid");
+  		}
+  	    
+  		const name = document.getElementById("cd_name").value;
+  		if(name == null || name == ""){
+  			document.getElementById("cd_nameError").textContent = "코드그룹을 선택해주세요";
+  			document.getElementById("cd_name").classList.add("is-invalid");
+  			isValid = false;
+  		}else if(name.trim() != name){
+			document.getElementById("cd_nameError").textContent = "띄어쓰기를 하지말아 주세요";
+			document.getElementById("cd_name").classList.add("is-invalid");
+			isValid = false;
+		}else{
+  			document.getElementById("cd_name").classList.add("is-valid");
+  		}
+  		
+  		const use = document.getElementById("cd_use").value;  
+  		if(use == null || use == ""){
+  			document.getElementById("cd_useError").textContent = "사용여부에 대한 값을 입력해주세요";
+  			document.getElementById("cd_use").classList.add("is-invalid");
+  			isValid = false;
+  		}else{
+  			document.getElementById("cd_use").classList.add("is-valid");
+  		}
+  		
+   	    const order = document.getElementById("cd_order").value;
+   	 	let regex = /^[0-9]+$/;
+   		 if(order == null || order == ""){
+			document.getElementById("cd_orderError").textContent = "값을 입력해주세요";
+			document.getElementById("cd_order").classList.add("is-invalid");
+			isValid = false;
+		}else if(order.trim() != order){
+			document.getElementById("cd_orderError").textContent = "띄어쓰기를 하지말아 주세요";
+			document.getElementById("cd_order").classList.add("is-invalid");
+			isValid = false;
+		}else if(!regex.test(order)){
+			document.getElementById("cd_orderError").textContent = "숫자를 입력해주세요";
+			document.getElementById("cd_order").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("cd_order").classList.add("is-valid");
+		}
+   		 
+  		if(isValid){
+  			console.log("폼 제출"); 
+  			document.getElementById("form").submit();
+  		}else {
+            console.log("유효성 검사 실패: 폼 제출 안 함");
+        }
+  	});
+  
+    </script>
+
 
 </html>

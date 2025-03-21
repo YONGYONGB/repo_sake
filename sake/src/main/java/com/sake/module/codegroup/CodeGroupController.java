@@ -2,9 +2,10 @@ package com.sake.module.codegroup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.sake.module.code.CodeService;
 
 
 @Controller
@@ -14,7 +15,8 @@ public class CodeGroupController {
 	CodeGroupService codeGroupService;
 
 	
-
+	@Autowired
+	CodeService codeService;
 	
 	
 	
@@ -34,8 +36,10 @@ public class CodeGroupController {
 	}
 	
 	@RequestMapping(value = "codeGroupView")
-	public String codeGroupView(Model model, CodeGroupDto codeGroupDto) {
+	public String codeGroupView(Model model, CodeGroupDto codeGroupDto,CodeGroupVo vo) {
+		vo.setParamsPaging(codeGroupService.selectOneCount());
 		model.addAttribute("item", codeGroupService.selectView(codeGroupDto));
+		model.addAttribute("vo",vo);
 		return "xdm/codegroup/CodeGroupXdmView";
 	}
 	

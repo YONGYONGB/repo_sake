@@ -11,9 +11,10 @@ public interface CodeDao {
 	
 	public int selectOneCount();
 	
-	public CodeDto selectView(CodeDto codeDto);
+	public List<CodeDto> selectCg(CodeDto codeDto);
 	
 	public int insert(CodeDto codeDto);
 	
 	
+	public List<CodeDto> selectListCachedCodeArrayList();
 }

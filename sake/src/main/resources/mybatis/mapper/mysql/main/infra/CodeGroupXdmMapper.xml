@@ -8,7 +8,7 @@
 	<sql id = "selectCommon">
  		from codeGroup as a
  		where 1=1
- 		ORDER BY a.cg_id asc
+ 		ORDER BY a.cg_id desc
 	</sql>	
 	
 	
@@ -27,6 +27,10 @@
 			select
 				a.cg_id,
 				a.cg_use,
+				(select count(*) from code b
+				where 1=1
+				AND a.cg_id = b.codeGroup_cg_id
+				) as xcd_count,
 				a.cg_name,
 				a.cg_order
 			<include refid="selectCommon"></include>
@@ -39,11 +43,15 @@
 			a.cg_id,
 			a.cg_use,
 			a.cg_name,
+			(select count(*) from code b
+			where 1=1
+			AND a.cg_id = b.codeGroup_cg_id
+			) as xcd_count,
 			a.cg_order
 		from
 			codeGroup a
 		WHERE a.cg_id = #{cg_id}
-		ORDER BY a.cg_id asc
+		ORDER BY a.cg_id desc
 	</select>
 	
 	<insert id="insert">

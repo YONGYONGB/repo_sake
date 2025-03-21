@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.module.member.MemberDao">
+<resultMap type="com.sake.module.member.MemberDto" id="resultMapObj"></resultMap>
+
+
+	<sql id = "selectCommon">
+ 		from user as a
+ 		where 1=1
+ 		ORDER BY a.user_id desc
+	</sql>	
+
+	<select id="selectOneCount" resultType="Integer">
+		select count(*)
+		<include refid="selectCommon"></include>
+	</select>
+	
+
+	<select id="selectList" resultMap="resultMapObj">
+	select aa.* from (
+		select
+			a.user_id,
+			a.name,
+			a.gender,
+			a.birthday,
+			a.clearance,
+			a.id,
+			a.email,
+			a.password,
+			a.address,
+			a.user_delny
+		<include refid="selectCommon"></include>
+		)aa
+		limit #{startRnumForMysql}, #{pageNumToShow}	
+	</select>
+
+
+	<select id ="selectView" resultMap="resultMapObj">
+		select
+			a.user_id,
+			a.name,
+			a.gender,
+			a.birthday,
+			a.clearance,
+			a.id,
+			a.email,
+			a.password,
+			a.address,
+			a.user_delny
+		from user a
+		where a.user_id = #{user_id}
+		ORDER BY a.user_id desc
+	</select>
+
+
+	<insert id="insert">
+		insert into user(
+			user_id,
+			name,
+			gender,
+			birthday,
+			clearance,
+			id,
+			email,
+			password,
+			address,
+			user_delny
+		)values(
+			#{user_id},
+			#{name},
+			#{gender},
+			#{birthday},
+			#{clearance},	
+			#{id},
+			#{email},
+			#{password},		
+			#{address},		
+			#{user_delny}		
+		)
+		<selectKey resultType="String" keyProperty="user_id" order="AFTER">
+			Select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	
+	<update id="update">
+		update user 
+		set
+		name = #{name},
+		gender = #{gender},
+		id = #{id},
+		birthday = #{birthday},
+		clearance = #{clearance},
+		email = #{email},
+		password = #{password},
+		address = #{address},
+		user_delny = #{user_delny}
+		where
+		user_id =#{user_id}
+	</update>
+	
+	
+</mapper>

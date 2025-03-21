@@ -1,5 +1,8 @@
 package com.sake.module.code;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CodeDto {
 
 	private String cd_id;
@@ -10,10 +13,13 @@ public class CodeDto {
 	private String cg_name;
 	private String cd_name;
 	private Integer cd_order;
-	private Integer codeGroup_cg_id;
+	private String codeGroup_cg_id;
+	
+//	for cache
+	public static List<CodeDto> cachedCodeArrayList = new ArrayList<CodeDto>();
 	
 	
-	//-----
+//-----
 	
 	
 	public String getCd_id() {
@@ -59,12 +65,13 @@ public class CodeDto {
 	public void setCd_order(Integer cd_order) {
 		this.cd_order = cd_order;
 	}
-	public Integer getCodeGroup_cg_id() {
+	public String getCodeGroup_cg_id() {
 		return codeGroup_cg_id;
 	}
-	public void setCodeGroup_cg_id(Integer codeGroup_cg_id) {
+	public void setCodeGroup_cg_id(String codeGroup_cg_id) {
 		this.codeGroup_cg_id = codeGroup_cg_id;
 	}
+	
 	
 	
 

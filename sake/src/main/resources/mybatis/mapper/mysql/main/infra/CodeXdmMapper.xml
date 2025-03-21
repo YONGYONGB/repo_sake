@@ -8,7 +8,7 @@
  		from code as a
  		left join codeGroup b on b.cg_id = a.codeGroup_cg_id
 		where 1=1
- 		ORDER BY a.cd_id asc
+ 		ORDER BY a.cd_id desc
 	</sql>
 	
 	
@@ -29,26 +29,18 @@
 			a.cd_order
 		<include refid="selectCommon"></include>
 		)aa
-		limit #{startRnumForMysql}, #{pageNumToShow}	
-		
-		
+		limit #{startRnumForMysql}, #{rowNumToShow}		
 	</select>
 	
 	
-	<select id ="selectView" resultMap="resultMapObj">
+	<select id ="selectCg" resultMap="resultMapObj">
 		select
-		a.cd_id,
-		a.cd_use,
-		b.cg_id,
-        b.cg_name,
-		a.cd_name,
-		a.cd_order
+			a.cg_id,
+        	a.cg_name
 		from 
-		code as a
-		left join codeGroup b on b.cg_id = a.codeGroup_cg_id
-		where 1=1
-		And cd_id = #{cd_id}
- 		ORDER BY a.cd_id asc
+		codeGroup as a
+			where 1=1
+ 		ORDER BY a.cg_id desc
 	</select>
 	
 	<insert id="insert">
@@ -63,7 +55,8 @@
 	 		#{cd_use},
 	 		#{cd_name},
 	 		#{cd_order},
-	 		#{codeGroup_cd_id}
+	 		<if test="codeGroup_cg_id == null">NULL</if>
+        	<if test="codeGroup_cg_id != null">#{codeGroup_cg_id}</if>
 	 	)
 	 	<selectKey resultType="String" keyProperty="cd_id" order="AFTER">
 			Select last_insert_id()
@@ -71,7 +64,16 @@
 	</insert>
 	
 	
-	
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+		SELECT 
+			cd_id,
+			cd_name,
+			codeGroup_cg_id
+		FROM
+			code
+		WHERE 1=1
+		    AND cd_use = 1
+   </select>
 	
 
 </mapper>

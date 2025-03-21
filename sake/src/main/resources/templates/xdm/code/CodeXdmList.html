@@ -54,15 +54,15 @@
             </div>
             <div class=" row bb ">
               <div class = "row cent justify-content-center;">
-                <div class ="col-3"><h6>Total:52</h6></div>
+                <div class ="col-3"><h6 th:text="'총 갯수: ' + ${vo.totalRows}"></h6></div>
                 <div class ="col-3"></div>
                 <div class ="col-3"></div>
                 <div class ="datatable-dropdown col-3" style="display: flex; justify-content: end;">
                   <label>
-                    <select class ="datatable-selector" name="per-page">
-                      <option value="5">5</option>
-                      <option value="10">10</option>
-                      <option value="-1">All</option>
+                    <select class ="datatable-selector" name="rowNumToShow"  onchange="goView(this.value)">
+                      <option th:selected="${vo.rowNumToShow} == 5 ">5</option>
+                      <option th:selected="${vo.rowNumToShow}== 10 ">10</option>
+                      <option th:selected="${vo.rowNumToShow} == 15">15</option>
                     </select> 
                   </label>
                 </div>
@@ -91,13 +91,13 @@
                   	</tr>
                   	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
                       <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                      <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                      <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> <!--디버깅 테스트를 위해서-->
                       <td th:text ="${list.cd_use} ? '사용': '미사용'"></td>
                       <td th:text = "${list.cg_id}"></td>
                       <td th:text = "${list.cg_name}"></td>
                       <td th:text = "${list.cd_id}"></td>
                       <td></td>
-                      <td th:text = ${list.cd_name}></td>
+                      <td th:text = ${list.cd_name}></td> <!-- th:text = ${list.cd_name} -->
                       <td></td>
                       <td th:text = ${list.cd_order}></td>
                       <td></td>
@@ -110,7 +110,7 @@
               <nav class ="datatable-pagination"  style="display: flex; justify-content: center;">
               	<ul class ="datatable-pagination-list">
               		<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
-						<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
+						<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">    
 					<i class="fa-solid fa-angle-left"></i>
 					</a>
 					</li>
@@ -146,15 +146,26 @@
 
   <!-- ======= Footer ======= -->
  	<div th:replace = "~{xdm/include/footer :: footer}"></div>
+ 	 	
+ 	
  	 <script type="text/javascript">
 		let form = document.querySelector("form[name=formList]");
 		goList = function(thisPage) {
 		console.log(thisPage);
     	document.querySelector("input[name=thisPage]").value = thisPage;
-    	form.action = "/codeXdmList";
     	form.submit();
 		}
 	</script>
-
+	
+	<script type="text/javascript">
+    function goView(selectedValue) {
+        console.log(selectedValue); // 선택한 값 확인
+        let form = document.querySelector("form[name=formList]"); // 폼 찾기
+        document.querySelector("input[name=rowNumToShow]").value = selectedValue; // 값 설정
+        form.action = "/codeXdmList"; // 폼 제출할 URL 설정
+        form.submit(); // 폼 제출
+    }
+	</script>
+	
 
 </html>

@@ -3,9 +3,8 @@ package com.sake.module.code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -18,23 +17,20 @@ public class CodeController {
 	
 	@RequestMapping( value = "codeXdmList")
 	public String codeXdmList(Model model, CodeVo vo) {
-		vo.setParamsPaging(codeService.selectOneCount());
-		model.addAttribute("vo",vo);
-		model.addAttribute("list", codeService.selectList(vo));
 		
+		vo.setParamsPaging(codeService.selectOneCount());
+		model.addAttribute("list", codeService.selectList(vo));
+		model.addAttribute("vo",vo);
 		return "xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping( value = "codeXdmView")
-	public String codeXdmView(Model model, CodeDto codeDto) {
-		model.addAttribute("item", codeService.selectView(codeDto));
-		return "xdm/code/CodeXdmView";
-	}
 	
 	
 	@RequestMapping(value = "codeXdmForm")
-	public String codeXdmForm(Model model, CodeDto codeDto) {
-		model.addAttribute("item", codeService.selectView(codeDto));
+	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, CodeDto codeDto, Model model)throws Exception{
+		
+		model.addAttribute("item", codeService.selectCg(codeDto));		
+		
 		return "xdm/code/CodeXdmForm";
 	}
 	
@@ -42,7 +38,7 @@ public class CodeController {
 	@RequestMapping(value = "codeXdmInst")
 	public String codeXdmInst(CodeDto codeDto) {
 		codeService.insert(codeDto);
-		return "redirect:codeXdmList";
+		return "redirect:/codeXdmList";
 	}
 	
 	
