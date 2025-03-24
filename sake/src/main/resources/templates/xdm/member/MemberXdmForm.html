@@ -164,7 +164,7 @@
 			document.getElementById("name").classList.add("is-invalid");
 			isValid = false;
 		}else{
-			document.getElementById("codeGroup_cg_id").classList.add("is-valid");
+			document.getElementById("name").classList.add("is-valid");
 		}
 	    
 		const gender = document.getElementById("gender").value;
@@ -197,7 +197,7 @@
 		}
  		 
  		const id = document.getElementById("id").value;
- 		let expIdText = /^[A-Za-z0-9]{4,10}$/;
+ 		let expIdText = /^[A-Za-z]{4,20}$/;
 		if(id == null || id == ""){
 			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
 			document.getElementById("id").classList.add("is-invalid");
@@ -206,8 +206,8 @@
 			document.getElementById("idError").textContent = "띄어쓰기를 제거해주세요.";
 			document.getElementById("id").classList.add("is-invalid");
 			isValid = false;
-		}else if(!expIdText.test(name)){
-			document.getElementById("idError").textContent = "숫자 영어로 구성된 4~10자리의 아이디를 만드세요.";
+		}else if(!expIdText.test(id)){
+			document.getElementById("idError").textContent = "영어로 구성된 4~10자리의 아이디를 만드세요.";
 			document.getElementById("id").classList.add("is-invalid");
 			isValid = false;
 		}else{
