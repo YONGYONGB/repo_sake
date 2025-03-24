@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+
+	<div th:replace = "~{xdm/include/background :: head}"></div>
+
+  <main id="main" class="main" style=" padding: 0px;">
+   <form name="formList" id="formList" method="post" autocomplete="off">
+		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+          <div class = "col cen">  <!-- 중앙 부분  기본정보-->
+            <div class = "a">
+              <div>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Page1</a></li>
+                      <li class="breadcrumb-item"><a href="#">Page2</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Default</li>
+                    </ol>
+                </nav>
+                <label for="exampleFormControlInput1" class="form-label par"><strong>Product</strong></label> 
+              </div>
+            </div>
+            <div class = "row-1 firstbody">
+                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
+                    <option selected>N</option>
+                    <option value="2">N</option>
+                  </select></div>
+                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
+                    <option selected>Y</option>
+                    <option value="1">Y</option>
+                  </select></div>
+                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
+                    <option selected>날짜</option>
+                    <option value="1">날짜</option>
+                  </select></div>
+                <div class = "col-2 fbele"><input type="date" class="form-control"></div>
+                <div class = "col-2 fbele"><input type="date" class="form-control"></div>
+            </div>
+            <div class = "row-1 firstbody">
+                <div class = "col-2  fbele "><select class="form-select" aria-label="Default select example">
+                    <option selected>검색구분</option>
+                      <option value="1">검색구분</option>
+                      <option value="2">코드그룹 코드</option>
+                      <option value="3">코드그룹 이름</option>
+                      <option value="4">코드</option>
+                      <option value="4">대체코드</option>
+                      <option value="4">코드그룹 이름</option>
+                      <option value="4">코드그룹 이름(영문)</option>
+                  </select></div>
+                <div class = "col-2 fbele"><input type="text" class="form-control" placeholder="검색어"></div>
+                <div class = "col-2 fbele bu"><button type="button" class="btn btn-outline-dark" title="Search"><i class="bi bi-search"></i></button>
+                  <button type="button" class="btn btn-outline-dark"><i class="bi bi-arrow-clockwise"></i></button>
+                </div>
+            </div>
+            <div class=" row bb ">
+              <div class = "row cent justify-content-center;">
+                <div class ="col-3"><h6 th:text="'총 갯수: ' + ${vo.totalRows}"></h6></div>
+                <div class ="col-3"></div>
+                <div class ="col-3"></div>
+                <div class ="datatable-dropdown col-3" style="display: flex; justify-content: end;">
+                  <label>
+                    <select class ="datatable-selector" name="rowNumToShow"  onchange="goView(this.value)">
+                      <option th:selected="${vo.rowNumToShow} == 5 ">5</option>
+                      <option th:selected="${vo.rowNumToShow}== 10 ">10</option>
+                      <option th:selected="${vo.rowNumToShow} == 15">15</option>
+                    </select> 
+                  </label>
+                </div>
+                <table class="table datatable" style=" text-align: center">   
+                  <thead>              
+                    <tr>
+                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></th>
+                      <th style="text-align: center;">#</th>
+                      <th style="text-align: center;">코드</th>
+                      <th style="text-align: center;">제품이름</th>
+                      <th style="text-align: center;">일본 지역</th>
+                      <th style="text-align: center;">상세 지역</th>
+                      <th style="text-align: center;">브랜드</th>
+                      <th style="text-align: center;">타입</th>
+                      <th style="text-align: center;">용량</th>
+                      <th style="text-align: center;">도수</th>
+                      <th style="text-align: center;">정가</th>
+                      <th style="text-align: center;">할인여부</th>
+                      <th style="text-align: center;">재고</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  	<tr th:if="${#lists.isEmpty(list)}" class="hover-actions-trigger btn-reveal-trigger position-static">
+                  		<td colspan = "10">
+                  			<p class = "fs-0" >there are no date!</p>
+                  		</td>
+                  	</tr>
+                  	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
+                      <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                      <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> <!--디버깅 테스트를 위해서-->
+                      <td th:text ="${list.product_id}"></td>
+                      <td th:text ="${list.name}"></td>
+                      <td th:text = "${list.local}"></td>
+                      <td th:text = "${list.local_detail}"></td>
+                      <td th:text = "${list.brand}"></td>
+                      <td th:text = "${list.type}"></td>
+                      <td th:text = "${list.capacity}"></td> <!-- th:text = ${list.cd_name} -->
+                      <td th:text = "${list.liquor}"></td>
+                      <td th:text = "${list.fixed_price}"></td>
+                      <td th:text ="${list.discountNY} ? '할인적용': '할인미적용'"></td>
+                      <td th:text ="${list.product_number}"></td>
+                    </tr>
+                  </tbody>
+                </table> 
+              </div>
+              
+              <nav class ="datatable-pagination"  style="display: flex; justify-content: center;">
+              	<ul class ="datatable-pagination-list">
+              		<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
+						<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">    
+					<i class="fa-solid fa-angle-left"></i>
+					</a>
+					</li>
+					<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item" style="cursor: pointer;">
+						<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
+					</li>
+					<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" style="cursor: pointer;">
+					<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
+						<i class="fa-solid fa-angle-right"></i>
+					</a>
+					</li>
+              	</ul>
+              </nav>
+              
+              
+              <div class ="row wrapfin">
+                <div class = "col-3">
+                  <button type="button" class="btn btn-danger">x</button>
+                  <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                </div>
+                <div class= "col-6"></div>
+                <div class = "col-3 fini" style="display: flex; justify-content: end;">
+                  <button type="button" class="btn btn-link" style="text-decoration: none; border: 1px solid;">U</button>
+                  <button type="button" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i></button>
+                  <a href ="productXdmForm"><input class="btn btn-primary" type="button" value="+"></a>
+                </div>
+              </div>
+            </div>  
+          </div> <!-- 중앙 부분  기본정보-->
+   </form>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+ 	<div th:replace = "~{xdm/include/footer :: footer}"></div>
+ 	 	
+ 	
+ 	 <script type="text/javascript">
+		let form = document.querySelector("form[name=formList]");
+		goList = function(thisPage) {
+		console.log(thisPage);
+    	document.querySelector("input[name=thisPage]").value = thisPage;
+    	form.submit();
+		}
+	</script>
+	
+	<script type="text/javascript">
+    function goView(selectedValue) {
+        console.log(selectedValue); // 선택한 값 확인
+        let form = document.querySelector("form[name=formList]"); // 폼 찾기
+        document.querySelector("input[name=rowNumToShow]").value = selectedValue; // 값 설정
+        form.action = "/codeXdmList"; // 폼 제출할 URL 설정
+        form.submit(); // 폼 제출
+    }
+	</script>
+	
+
+</html>

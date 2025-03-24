@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.module.product.ProductDao">
+<resultMap type="com.sake.module.product.ProductDto" id="resultMapObj"></resultMap>
+
+
+	<sql id = "selectCommon">
+ 		from product as a
+ 		where 1=1
+ 		ORDER BY a.product_id desc
+	</sql>	
+	
+	<select id = "selectOneCount" resultType="Integer">   <!-- result 타입이여서 integer -->
+		SELECT COUNT(*)	
+		<include refid="selectCommon"></include>
+	</select>
+
+	<select id="selectList" resultMap="resultMapObj">
+		select
+			a.product_id,
+			a.name,
+			a.local,
+			a.local_detail,
+			a.brand,
+			a.type,
+			a.capacity,
+			a.liquor,
+			a.fixed_price,
+			a.discountNY,
+			a.product_number
+		<include refid="selectCommon"></include>
+	</select>
+
+</mapper>
