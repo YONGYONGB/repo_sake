@@ -27,6 +27,32 @@
   <script src="xdm/template/NiceAdmin/assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="xdm/template/NiceAdmin/assets/vendor/php-email-form/validate.js"></script>
   
+  
+  
+  <script type="text/javascript">
+	 document.getElementById("selectAllCheckbox").addEventListener("click", function(event) {
+	        const isChecked = this.checked;
+	        const itemCheckboxes = document.querySelectorAll(".itemCheckbox");
+
+	        itemCheckboxes.forEach(function(checkbox) {
+	            checkbox.checked = isChecked;
+	        });
+	    });
+
+	    // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 업데이트
+	    const itemCheckboxes = document.querySelectorAll(".itemCheckbox");
+
+	    itemCheckboxes.forEach(function(checkbox) {
+	        checkbox.addEventListener("click", function() {
+	            const allChecked = Array.from(itemCheckboxes).every(function(item) {
+	                return item.checked;
+	            });
+
+	            document.getElementById("selectAllCheckbox").checked = allChecked;
+	        });
+	    });
+	</script>
+  
 
   <!-- Template Main JS File -->
   <script src="xdm/template/NiceAdmin/assets/js/main.js"></script>

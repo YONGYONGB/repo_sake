@@ -7,7 +7,8 @@
    <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-          <div class = "col cen">  <!-- 중앙 부분  기본정보-->
+		<input type="hidden" name="cd_id">
+          <div id="divSearch" class = "col cen">  <!-- 중앙 부분  기본정보-->
             <div class = "a">
               <div>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -21,35 +22,41 @@
               </div>
             </div>
             <div class = "row-1 firstbody">
-                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
-                    <option selected>N</option>
-                    <option value="2">N</option>
+                <div class = "col-2 fbele"><select id="shDelNy" name="shDelNy" class="form-select" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                    <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
                   </select></div>
-                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
-                    <option selected>Y</option>
-                    <option value="1">Y</option>
+                <div class = "col-2 fbele"><select name="shUseNy" id="shUseNy" class="form-select" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shUseNy == null}">사용 여부</option>
+                    <option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
                   </select></div>
-                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
-                    <option selected>날짜</option>
-                    <option value="1">날짜</option>
+                <div class = "col-2 fbele"><select id="shOptionDate" name="shOptionDate" class="form-select" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                    <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+					<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
                   </select></div>
-                <div class = "col-2 fbele"><input type="date" class="form-control"></div>
-                <div class = "col-2 fbele"><input type="date" class="form-control"></div>
+                <div class = "col-2 fbele"><input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
+                 <!-- th:value="${#strings.substring(vo.shDateStart, 0, 10)}" -->
+                </div>
+                <div class = "col-2 fbele"><input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">
+                <!-- th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" -->
+                </div>
             </div>
             <div class = "row-1 firstbody">
-                <div class = "col-2  fbele "><select class="form-select" aria-label="Default select example">
-                    <option selected>검색구분</option>
-                      <option value="1">검색구분</option>
-                      <option value="2">코드그룹 코드</option>
-                      <option value="3">코드그룹 이름</option>
-                      <option value="4">코드</option>
-                      <option value="4">대체코드</option>
-                      <option value="4">코드그룹 이름</option>
-                      <option value="4">코드그룹 이름(영문)</option>
-                  </select></div>
-                <div class = "col-2 fbele"><input type="text" class="form-control" placeholder="검색어"></div>
-                <div class = "col-2 fbele bu"><button type="button" class="btn btn-outline-dark" title="Search"><i class="bi bi-search"></i></button>
-                  <button type="button" class="btn btn-outline-dark"><i class="bi bi-arrow-clockwise"></i></button>
+                <div class = "col-2  fbele ">
+                	<select id="shOption" name="shOption" class="form-select" aria-label="Default select example">
+                    	<option value="" th:selected="${vo.shOption == null}">검색구분</option>
+						<option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
+						<option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
+						<option value="3" th:selected="${vo.shOption == 3}">코드 이름</option>
+                 	</select>
+                 </div>
+                <div class = "col-2 fbele"><input type="text" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" class="form-control form-control-sm"></div>
+                <div class="col-2 fbele invalid-feedback" id="shValueFeedback"></div>
+                <div class = "col-2 fbele bu"><button id="btnSearch" type="button" class="btn btn-outline-dark" title="Search"><i class="bi bi-search"></i></button>
+                  <button type="button"  id="btnReset" class="btn btn-outline-dark"><i class="bi bi-arrow-clockwise"></i></button>
                 </div>
             </div>
             <div class=" row bb ">
@@ -69,7 +76,7 @@
                 <table class="table datatable" style=" text-align: center">   
                   <thead>              
                     <tr>
-                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></th>
+                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" value=""  id="selectAllCheckbox"></th>
                       <th style="text-align: center;">#</th>
                       <th style="text-align: center;">사용</th>
                       <th style="text-align: center;">코드그룹 코드</th>
@@ -90,14 +97,14 @@
                   		</td>
                   	</tr>
                   	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
-                      <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                      <td><input class="form-check-input itemCheckbox" type="checkbox" value="" id="fitemCheckbox"></td>
                       <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> <!--디버깅 테스트를 위해서-->
                       <td th:text ="${list.cd_use} ? '사용': '미사용'"></td>
                       <td th:text = "${list.cg_id}"></td>
                       <td th:text = "${list.cg_name}"></td>
-                      <td th:text = "${list.cd_id}"></td>
+                      <td th:text= "${list.cd_id}"></td>
                       <td></td>
-                      <td th:text = ${list.cd_name}></td> <!-- th:text = ${list.cd_name} -->
+                      <td class ="cd_name"><a href="javascript:void(0);" th:text="${list.cd_name}" th:attr="onclick=|goForm('${list.cd_id}')|"></a></td> <!-- th:text = ${list.cd_name} -->
                       <td></td>
                       <td th:text = ${list.cd_order}></td>
                       <td></td>
@@ -133,9 +140,8 @@
                 </div>
                 <div class= "col-6"></div>
                 <div class = "col-3 fini" style="display: flex; justify-content: end;">
-                  <button type="button" class="btn btn-link" style="text-decoration: none; border: 1px solid;">U</button>
                   <button type="button" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i></button>
-                  <a href ="codeXdmForm"><input class="btn btn-primary" type="button" value="+"></a>
+                  <button type="button" id="cd_form" class="btn btn-primary"><i class="bi bi-file-earmark-plus-fill"></i></button>
                 </div>
               </div>
             </div>  
@@ -145,10 +151,30 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
+  	<script type="text/javascript">
+  	let seq = document.querySelector("input[name=cd_id]");	
+  	</script>
+  
+  	<script type="text/javascript">
+  	document.getElementById("cd_form").onclick = function () {
+  	    goForm(0);
+  	}
+
+  	goForm = function (keyValue) {
+  	    seq.value = keyValue;
+  	    form.action = "codeXdmForm";
+ 
+  	   
+  	    form.submit();
+  	}
+  	</script>
+  	
+  
+  
+  
  	<div th:replace = "~{xdm/include/footer :: footer}"></div>
- 	 	
  	
- 	 <script type="text/javascript">
+ 	<script type="text/javascript">
 		let form = document.querySelector("form[name=formList]");
 		goList = function(thisPage) {
 		console.log(thisPage);
@@ -166,6 +192,14 @@
         form.submit(); // 폼 제출
     }
 	</script>
-	
+ 	
 
+	<script type="text/javascript">
+	document.getElementById("btnSearch").onclick = function () {
+	    form.action = "codeXdmList";
+	    form.submit();
+	};
+	
+	</script>
+	
 </html>

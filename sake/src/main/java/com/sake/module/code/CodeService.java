@@ -21,8 +21,12 @@ public class CodeService {
 		return codeDao.selectList(vo);
 	}
 	
-	public int selectOneCount(){
-		return codeDao.selectOneCount();
+	public CodeDto selectView(CodeDto codeDto){
+		return codeDao.selectView(codeDto);
+	}
+	
+	public int selectOneCount(CodeVo vo){
+		return codeDao.selectOneCount(vo);
 	}
 	
 	
@@ -32,6 +36,10 @@ public class CodeService {
 	
 	public int insert(CodeDto codeDto) {
 		return codeDao.insert(codeDto);
+	}
+	
+	public int update(CodeDto codeDto) {
+		return codeDao.update(codeDto);
 	}
 	
 	

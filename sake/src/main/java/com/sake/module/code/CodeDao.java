@@ -9,7 +9,7 @@ public interface CodeDao {
 
 	public List<CodeDto> selectList(CodeVo vo);
 	
-	public int selectOneCount();
+	public int selectOneCount(CodeVo vo);
 	
 	public List<CodeDto> selectCg(CodeDto codeDto);
 	
@@ -17,4 +17,9 @@ public interface CodeDao {
 	
 	
 	public List<CodeDto> selectListCachedCodeArrayList();
+	
+	public CodeDto selectView(CodeDto codeDto);
+	
+	
+	public int update(CodeDto codeDto);
 }

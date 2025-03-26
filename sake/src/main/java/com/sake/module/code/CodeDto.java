@@ -15,7 +15,13 @@ public class CodeDto {
 	private Integer cd_order;
 	private String codeGroup_cg_id;
 	
-//	for cache
+@Override
+	public String toString() {
+		return "CodeDto [cd_id=" + cd_id + ", cd_use=" + cd_use + ", cg_id=" + cg_id + ", cg_code=" + cg_code
+				+ ", cg_name=" + cg_name + ", cd_name=" + cd_name + ", cd_order=" + cd_order + ", codeGroup_cg_id="
+				+ codeGroup_cg_id + "]";
+	}
+	//	for cache
 	public static List<CodeDto> cachedCodeArrayList = new ArrayList<CodeDto>();
 	
 	

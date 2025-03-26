@@ -28,29 +28,29 @@
           </div>
         </div>
         <div class = "wrap2">
-          <form action="codeXdmInst" method="get" id="form" class="row needs-validation" novalidate>  
+          <form action="" method="post" id="form" class="row needs-validation" novalidate>  
             <div class = "row">
               <div class = "col-3">
                 <label for="exampleFormControlInput1" class="form-label">코드그룹</label><span style="color: crimson;">*</span>
-                  <select class="form-select" name ="codeGroup_cg_id" id ="codeGroup_cg_id">
+                  <select class="form-select" aria-label="Default select example" name ="codeGroup_cg_id" id ="codeGroup_cg_id">
                   	<option value ="">선택하세요</option>
-                    <option th:each="list:${lists}" th:selected="${item?.codeGroup_cg_id == list.cg_id}" th:value="${list.cg_id}"  th:text="${list.cg_name}"></option>
-                  </select><!--selected  메인에 보이게-->
-                  <div class="invalid-feedback" id="codeGroup_cg_idError">
+                    <option th:each="item:${item}" th:selected="${codeGroup_cg_id == item.cg_id }" th:value="${item.cg_id}"  th:text="${item.cg_name}">
+                    </option>
+                  </select><div class="invalid-feedback" id="codeGroup_cg_idError">
                    선택을해주세요.
                   </div>
               </div>
             </div>
           
             <div class = "row">
-            	<input type="hidden" name="cd_id" th:value="${vo.cd_id}">	
+            	<input type="hidden" name ="cd_id" th:value ="${item.cd_id}">
               <div class="col-3"><label for="cd_id" class="form-label" >코드</label> 
-                <input type="text" class="form-control" id="cd_id" name ="cd_id" th:value="${item?.cd_id}" disabled></div>
+                <input type="text" class="form-control" id="cd_id" aria-label="Disabled input example" name ="cd_id"  th:value ="${item.cd_id}" disabled></div>
               <div class="col-3"><label for="exampleFormControlInput2" class="form-label" >코드&nbsp;(ANOTHER)</label> 
                 <input type="text" class="form-control" id="exampleFormControlInput2">
                 </div>
               <div class="col-3"><label for="cd_name" class="form-label">코드&nbsp;이름</label><span style="color: crimson;">*</span>
-                <input type="text" class="form-control" id="cd_name" name="cd_name" placeholder="한글, 영어대소문자, 숫자" th:value="${item?.cd_name}" required>
+                <input type="text" class="form-control" id="cd_name" name="cd_name" th:value ="${item.cd_name}" required>
                 <div class="invalid-feedback" id="cd_nameError">Looks good!</div></div>
               <div class="col-3"><label for="exampleFormControlInput4" class="form-label">코드&nbsp;이름(영문)</label> 
                 <input type="text" class="form-control" id="exampleFormControlInput4" placeholder=" 영어대소문자, 숫자">
@@ -60,15 +60,15 @@
           
             <div class = "row">
               <div class = "col-3"><label for="exampleFormControlInput5" class="form-label">사용여부</label><span style="color: crimson;">*</span>
-                <select class="form-select" id ="cd_use" name ="cd_use" required>
-                  <option value="">선택하세요</option>
-                  <option value="true" th:selected="${item?.cd_use == true}">사용</option>
-                  <option value="false" th:selected="${item?.cd_use == false}" >미사용</option>
+                <select class="form-select" aria-label="Default select example" required id ="cd_use" name ="cd_use">
+                  <option selected value="">선택하세요</option>
+                  <option value="true" th:selected="${item.cd_use == 0}">사용</option>
+                  <option value="false"th:selected="${item.cd_use == 1}">미사용</option>
                 </select><div class="invalid-feedback" id="cd_useError">
                     Please select a valid state.
                   </div></div>
               <div class = "col-3"><label for="exampleFormControlInput6" class="form-label">순서</label><span style="color: crimson;">*</span>
-                <input type="text" class="form-control" id="cd_order" required name ="cd_order"  th:value="${item?.cd_order}">
+                <input type="text" class="form-control" id="cd_order" required name ="cd_order" th:vlaue ="${item.cd_order}">
                 <div class="invalid-feedback" id="cd_orderError">
                   Please select a valid state.
                 </div></div>
@@ -104,9 +104,7 @@
 
 <script type="text/javascript">
 	  
-document.getElementById("cd_submit").onclick = function () {
-  		
-  		let seq = document.querySelector("input[name=cd_id]");
+  	document.getElementById("cd_submit").addEventListener("click",function(event){
 		event.preventDefault();
 		
 		
@@ -181,21 +179,12 @@ document.getElementById("cd_submit").onclick = function () {
 		}
    		 
   		if(isValid){
-  			if(seq.value == "0" || seq.value == "") {
-  				form.action = "codeXdmInst";
-  				form.submit();
-  			}else{
-  				form.action = "codeXdmUpdate";
-  				form.submit();
-  			}
-  		}else{
+  			console.log("폼 제출"); 
+  			document.getElementById("form").submit();
+  		}else {
             console.log("유효성 검사 실패: 폼 제출 안 함");
         }
-  		
-  			
-  		
-  		
-  };
+  	});
   
     </script>
 

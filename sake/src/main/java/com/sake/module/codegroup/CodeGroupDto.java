@@ -6,6 +6,7 @@ public class CodeGroupDto {
 	private Boolean cg_use;
 	private String cg_name;
 	private Integer cg_order;
+	private Integer cg_delny;
 	
 	private Integer xcd_count;
 	
@@ -45,6 +46,11 @@ public class CodeGroupDto {
 		this.xcd_count = xcd_count;
 	}
 	
-	
+	public Integer getCg_delny() {
+		return cg_delny;
+	}
+	public void setCg_delny(Integer cg_delny) {
+		this.cg_delny = cg_delny;
+	}
 	
 }

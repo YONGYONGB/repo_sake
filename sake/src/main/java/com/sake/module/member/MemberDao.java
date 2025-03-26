@@ -11,7 +11,7 @@ public interface MemberDao {
 	
 	public MemberDto selectView(MemberDto memberdto);
 	
-	public int selectOneCount();
+	public int selectOneCount(MemberVo vo);
 	
 	public int insert(MemberDto memberdto);
 	

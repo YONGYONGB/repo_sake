@@ -7,7 +7,8 @@
  	 <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-          <div class = "col cen">  <!-- 중앙 부분  기본정보-->
+		<input type="hidden" name="cg_id">
+          <div id="divSearch" class = "col cen">  <!-- 중앙 부분  기본정보-->
             <div class = "a">
               <div>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -21,55 +22,61 @@
               </div>
             </div>
             <div class = "row-1 firstbody">
-                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
-                    <option selected>N</option>
-                    <option value="2">N</option>
+                <div class = "col-2 fbele"><select id="shDelNy" name="shDelNy" class="form-select" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                    <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
                   </select></div>
-                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
-                    <option selected>Y</option>
-                    <option value="1">Y</option>
+                <div class = "col-2 fbele"><select name="shUseNy" id="shUseNy" class="form-select" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+                    <option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
                   </select></div>
-                <div class = "col-2 fbele"><select class="form-select" aria-label="Default select example">
-                    <option selected>날짜</option>
-                    <option value="1">날짜</option>
+                <div class = "col-2 fbele"><select id="shOptionDate" name="shOptionDate" class="form-select" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                    <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+                    <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
                   </select></div>
-                <div class = "col-2 fbele"><input type="date" class="form-control"></div>
-                <div class = "col-2 fbele"><input type="date" class="form-control"></div>
+                <div class = "col-2 fbele"><input type="text" id="shDateStart" name="shDateStart"   placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
+              		<!-- th:value="${#strings.substring(vo.shDateStart, 0, 10)}" -->
+                </div>
+                <div class = "col-2 fbele"><input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일"   class="form-control form-control-sm" autocomplete="off">
+             <!-- th:value="${#strings.substring(vo.shDateEnd, 0, 10)}"  -->
+                </div>
             </div>
             <div class = "row-1 firstbody">
-                <div class = "col-2  fbele "><select class="form-select" aria-label="Default select example">
-                    <option selected>검색구분</option>
-                      <option value="1">검색구분</option>
-                      <option value="2">코드그룹 코드</option>
-                      <option value="3">코드그룹 이름</option>
-                      <option value="4">코드</option>
-                      <option value="4">대체코드</option>
-                      <option value="4">코드그룹 이름</option>
-                      <option value="4">코드그룹 이름(영문)</option>
-                  </select></div>
-                <div class = "col-2 fbele"><input type="text" class="form-control" placeholder="검색어"></div>
-                <div class = "col-2 fbele bu"><button type="button" class="btn btn-outline-dark" title="Search"><i class="bi bi-search"></i></button>
-                  <button type="button" class="btn btn-outline-dark"><i class="bi bi-arrow-clockwise"></i></button>
+                <div class = "col-2  fbele ">
+                	<select id="shOption" name="shOption" class="form-select" aria-label="Default select example">
+                    	<option value ="" th:selected="${vo.shOption == null}">검색구분</option>
+                      	<option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
+                      	<option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
+                  	</select>
+                </div>
+                <div class = "col-2 fbele"><input type="text" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" class="form-control form-control-sm"></div>
+                <div class="col-2 fbele invalid-feedback" id="shValueFeedback"></div> <!--  화면에러 조심 --> 
+                <div class = "col-2 fbele bu">
+                	<button type="button" id="btnSearch" class="btn btn-outline-dark" title="Search"><i class="bi bi-search"></i></button>
+                  	<button type="button" id="btnReset" class="btn btn-outline-dark"><i class="bi bi-arrow-clockwise"></i></button>
                 </div>
             </div>
             <div class=" row bb ">
               <div class = "row cent justify-content-center;">
-                <div class ="col-3"><h6>Total:50</h6></div>
+                <div class ="col-3"><h6 th:text="'총 갯수:' + ${vo.totalRows}"></h6></div>
                 <div class ="col-3"></div>
                 <div class ="col-3"></div>
                 <div class ="datatable-dropdown col-3" style="display: flex; justify-content: end;">
                   <label>
-                    <select class ="datatable-selector" name="per-page">
-                      <option value="5">5</option>
-                      <option value="10">10</option>
-                      <option value="-1">All</option>
+                    <select class ="datatable-selector" name="rowNumToShow"  onchange="goView(this.value)">
+                      <option th:selected="${vo.rowNumToShow} == 5 ">5</option>
+                      <option th:selected="${vo.rowNumToShow}== 10 ">10</option>
+                      <option th:selected="${vo.rowNumToShow} == 15">15</option>
                     </select> 
                   </label>
                 </div>
                 <table class="table datatable" style=" text-align: center">   
                   <thead>              
                     <tr>
-                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="check" id="flexCheckDefault"></th>
+                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="check" id="selectAllCheckbox"></th>
                       <th style="text-align: center;">#</th> 
                       <th style="text-align: center;">사용</th>
                       <th style="text-align: center;">코드그룹 코드</th> 
@@ -88,11 +95,11 @@
                   		</td>
                   	</tr>
                   	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
-                      <td><input class="form-check-input" type="checkbox" name ="checkbox" id="flexCheckDefault"></td>
+                      <td><input class="form-check-input itemCheckbox" type="checkbox" name ="checkbox" id="itemCheckbox"></td>
                       <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                       <td th:text = "${list.cg_use} ? '사용': '미사용' "></td>
                       <td th:text = "${list.cg_id}"></td>
-                      <td><a th:href= "@{/codeGroupMform(cg_id=${list.cg_id})}" th:text="${list.cg_name}"></a></td>                    
+                      <td class ="cg_name"> <a th:href= "|javascript:void(0);|" th:text="${list.cg_name}" th:attr="onclick=|goForm('${list.cg_id}')|"></a></td>           
                       <td></td>
                       <td th:text = "${list.xcd_count}"></td>
                       <td th:text = "${list.cg_order}"></td>                    
@@ -106,7 +113,7 @@
               <nav class ="datatable-pagination"  style="display: flex; justify-content: center;">
               	<ul class ="datatable-pagination-list">
               		<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
-						<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
+						<a class="page-link" href="'javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
 					<i class="fa-solid fa-angle-left"></i>
 					</a>
 					</li>
@@ -124,14 +131,13 @@
               
               <div class ="row wrapfin">
                 <div class = "col-3">
-                  <a href = "codeGroupDelete" id ="delete"><button type="button" class="btn btn-danger">x</button></a>
+                  <button type="button" id="btnUelete" class="btn btn-danger btn_custom"><i class="bi bi-file-earmark-x"></i></button>
                   <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                 </div>
                 <div class= "col-6"></div>
-                <div class = "col-3 fini" style="display: flex; justify-content: end;">               
-                  <button type="button" class="btn btn-link" style="text-decoration: none; border: 1px solid;">U</button>
+                <div class = "col-3 fini" style="display: flex; justify-content: end;">         
                   <button type="button" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i></button>
-                  <a href = "codeGroupForm"><input class="btn btn-primary" type="button" value="+"></a>
+                  <button type="button" id="btnForm" class="btn btn-primary"><i class="bi bi-file-earmark-plus-fill"></i></button>
                 </div>
               </div>
             </div>  
@@ -141,17 +147,100 @@
 
   <!-- ======= Footer ======= -->
   <div th:replace = "~{xdm/include/footer :: footer}"></div>
- <script type="text/javascript">
- 
-let form = document.querySelector("form[name=formList]");
-goList = function(thisPage) {
-	console.log(thisPage);
-    document.querySelector("input[name=thisPage]").value = thisPage;
-    form.action = "codeGroupList";
-    form.submit();
-}
-</script>
+  <script type="text/javascript">
+  <div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="modalConfirmBody">
+				body
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal"><i class="fa-solid fa-angle-left fa-lg"></i></button>
+				<button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalDelete"><i class="fa-solid fa-x fa-lg"></i></button>
+				<button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalUelete"><i class="far fa-trash-alt fa-lg"></i></button>
+			</div>
+		</div>
+	</div>
+</div>
+  </script>
   
+  
+  <script type="text/javascript">
+  if(document.getElementById("btnUelete")){
+		document.getElementById("btnUelete").onclick = function () {
+			document.querySelector("#modalConfirmTitle").textContent = "확 인";
+			document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+			document.querySelector("#btnModalUelete").style.display = '';
+			document.querySelector("#btnModalDelete").style.display = 'none';
+			$("#modalConfirm").modal("show");      	
+		}
+	}
+
+
+	document.getElementById("btnModalUelete").onclick = function () {
+		form.action = goUrlXdmUele;
+		form.submit();
+	}
+  </script>
+  
+  
+  
+  <script type="text/javascript">
+  let seq = document.querySelector("input[name=cg_id]");
+  </script>
+  
+  
+  <script type="text/javascript">
+  document.getElementById("btnForm").onclick = function () {
+	    goForm(0);
+	}
+  </script>
+  
+  	<script type="text/javascript">
+  		goForm = function (keyValue) {
+	    seq.value = keyValue;
+	    form.action = "codeGroupForm";
+	    form.submit();
+	    alert(name="cg_id");
+		}
+  	</script>
+  	
+  	
+  	
+  
+  
+  	<script type="text/javascript">
+		let form = document.querySelector("form[name=formList]");
+		goList = function(thisPage) {
+		console.log(thisPage);
+    	document.querySelector("input[name=thisPage]").value = thisPage;
+    	form.submit();
+		}
+	</script>
+	
+	<script type="text/javascript">
+    function goView(selectedValue) {
+        console.log(selectedValue); // 선택한 값 확인
+        let form = document.querySelector("form[name=formList]"); // 폼 찾기
+        document.querySelector("input[name=rowNumToShow]").value = selectedValue; // 값 설정
+        form.action = "/codeGroupList"; // 폼 제출할 URL 설정
+        form.submit(); // 폼 제출
+    }
+	</script>
+  
+  
+  
+
+ <script type="text/javascript">
+ document.getElementById("btnSearch").onclick = function () {
+	    form.action = "codeGroupList";
+	    form.submit();
+	};
+ </script>
   
 
 </html>

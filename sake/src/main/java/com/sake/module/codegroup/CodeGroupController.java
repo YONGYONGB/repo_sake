@@ -3,9 +3,11 @@ package com.sake.module.codegroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sake.module.code.CodeService;
+import com.sake.module.code.CodeVo;
 
 
 @Controller
@@ -22,29 +24,26 @@ public class CodeGroupController {
 	
 	
 	@RequestMapping(value = "codeGroupList")
-	public String codeGroupList(Model model, CodeGroupVo vo) {
-		
-		vo.setParamsPaging(codeGroupService.selectOneCount());
+	public String codeGroupList(@ModelAttribute("vo") CodeGroupVo vo,Model model) throws Exception{
 		
 		
+		vo.setParamsPaging(codeGroupService.selectOneCount(vo));
 		model.addAttribute("list", codeGroupService.selectList(vo));
-		model.addAttribute("vo",vo);
-		
 		
 		
 		return "xdm/codegroup/CodeGroupXdmList";
 	}
 	
-	@RequestMapping(value = "codeGroupView")
-	public String codeGroupView(Model model, CodeGroupDto codeGroupDto,CodeGroupVo vo) {
-		vo.setParamsPaging(codeGroupService.selectOneCount());
-		model.addAttribute("item", codeGroupService.selectView(codeGroupDto));
-		model.addAttribute("vo",vo);
-		return "xdm/codegroup/CodeGroupXdmView";
-	}
+	
 	
 	@RequestMapping(value = "codeGroupForm")
-	public String codeGroupForm() {
+	public String codeGroupForm(@ModelAttribute("vo") CodeGroupVo vo,CodeGroupDto codeGroupDto,Model model){
+		
+		if(vo.getCg_id().equals("0") || vo.getCg_id().equals(" ")) {
+		} else {
+			model.addAttribute("item", codeGroupService.selectView(codeGroupDto));
+		}
+		
 		return "xdm/codegroup/CodeGroupForm";
 	}
 
@@ -57,18 +56,11 @@ public class CodeGroupController {
 	}
 	
 	
-	@RequestMapping(value = "codeGroupMform")
-	public String codeGroupMForm(Model model, CodeGroupDto codeGroupDto) {
-		model.addAttribute("item", codeGroupService.selectView(codeGroupDto));
-		return "xdm/codegroup/CodeGroupMform";
-	}
 
 	
 	@RequestMapping(value = "codeGroupUpdate")
 	public String codeGroupUpdate(CodeGroupDto codeGroupDto) {
-		System.out.println(codeGroupDto.getCg_id());
 		codeGroupService.update(codeGroupDto);
-		System.out.println(codeGroupDto.getCg_id());
 	
 		return "redirect:/codeGroupList";
 	}
@@ -84,6 +76,8 @@ public class CodeGroupController {
 	
 	
 
+	
+	
 	
 	
 }

@@ -9,6 +9,7 @@
  		from product as a
  		where 1=1
  		ORDER BY a.product_id desc
+										<!--검색기능 넣지않음-->
 	</sql>	
 	
 	<select id = "selectOneCount" resultType="Integer">   <!-- result 타입이여서 integer -->
@@ -17,6 +18,7 @@
 	</select>
 
 	<select id="selectList" resultMap="resultMapObj">
+	select aa.* from (
 		select
 			a.product_id,
 			a.name,
@@ -30,6 +32,8 @@
 			a.discountNY,
 			a.product_number
 		<include refid="selectCommon"></include>
+		)aa
+		limit #{startRnumForMysql}, #{rowNumToShow}		
 	</select>
 
 </mapper>

@@ -11,11 +11,11 @@ public class ProductService {
 	@Autowired
 	ProductDao productDao;
 	
-	public List<ProductDto> selectList(ProductVo productVo){
-		return productDao.selectList(productVo);
+	public List<ProductDto> selectList(ProductVo vo){
+		return productDao.selectList(vo);
 	}
 	
-	public int selectOneCount() {
-		return productDao.selectOneCount();
+	public int selectOneCount(ProductVo vo) {
+		return productDao.selectOneCount(vo);
 	}
 }

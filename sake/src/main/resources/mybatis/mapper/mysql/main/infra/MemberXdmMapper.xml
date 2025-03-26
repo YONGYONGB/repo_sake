@@ -8,7 +8,14 @@
 	<sql id = "selectCommon">
  		from user as a
  		where 1=1
- 		ORDER BY a.user_id desc
+ 		<if test="shUseNy != null and !shUseNy.equals('')">AND 1 = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.user_delny = #{shDelNy}</if>
+
+        <choose>
+            <when test="shOption == 1">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>  <!-- AND a.user_name = #{shValue} -->
+            <when test="shOption == 2">AND a.gender LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND a.email LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
 	</sql>	
 
 	<select id="selectOneCount" resultType="Integer">
@@ -31,8 +38,9 @@
 			a.address,
 			a.user_delny
 		<include refid="selectCommon"></include>
+		ORDER BY a.user_id desc
 		)aa
-		limit #{startRnumForMysql}, #{pageNumToShow}	
+		limit #{startRnumForMysql}, #{rowNumToShow}		
 	</select>
 
 

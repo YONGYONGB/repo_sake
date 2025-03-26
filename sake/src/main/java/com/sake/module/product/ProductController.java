@@ -3,9 +3,8 @@ package com.sake.module.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -16,12 +15,10 @@ public class ProductController {
 	ProductService productservice;
 	
 	@RequestMapping(value = "productXdmList")
-	public String productXdmList(Model model, ProductVo productVo) {
+	public String productXdmList(@ModelAttribute("vo") ProductVo vo,Model model) {
 		
-		productVo.setParamsPaging(productservice.selectOneCount());
-		model.addAttribute("list", productservice.selectList(productVo));
-		model.addAttribute("vo",productVo);
-		
+		vo.setParamsPaging(productservice.selectOneCount(vo));
+		model.addAttribute("list", productservice.selectList(vo));
 		return "xdm/product/ProductXdmList";
 	}
 	

@@ -8,7 +8,19 @@
  		from code as a
  		left join codeGroup b on b.cg_id = a.codeGroup_cg_id
 		where 1=1
- 		ORDER BY a.cd_id desc
+ 		 <if test="shUseNy != null and !shUseNy.equals('')">AND a.cd_use = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.cd_delny = #{shDelNy}</if>
+<!-- 				
+				<choose>
+					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				</choose>
+ -->				
+        <choose>
+            <when test="shOption == 1">AND b.cg_id = #{shValue}</when>
+            <when test="shOption == 2">AND b.cg_name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND a.cd_name LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
 	</sql>
 	
 	
@@ -28,8 +40,24 @@
 			a.cd_name,
 			a.cd_order
 		<include refid="selectCommon"></include>
+		ORDER BY a.cd_id desc
 		)aa
 		limit #{startRnumForMysql}, #{rowNumToShow}		
+	</select>
+	
+	<select id ="selectView" resultMap="resultMapObj">
+			select
+			a.cd_id,
+			a.cd_use,
+			b.cg_id,
+       		b.cg_name,
+			a.cd_name,
+			a.cd_order,
+			a.codeGroup_cg_id
+		from code as a
+ 		left join codeGroup b on b.cg_id = a.codeGroup_cg_id
+		where a.cd_id = #{cd_id}<!--여기서는 id만 값을 가져와서쓴다-->
+		ORDER BY a.cd_id desc
 	</select>
 	
 	
@@ -74,6 +102,16 @@
 		WHERE 1=1
 		    AND cd_use = 1
    </select>
+	
+	<update id="update">
+		update code 
+		set
+		cd_use =#{cd_use},
+		cd_name =#{cd_name},
+		cd_order =#{cd_order}
+		where
+		cd_id = #{cd_id}
+	</update>
 	
 
 </mapper>
