@@ -14,12 +14,35 @@ public class ProductDto {
 	private Boolean discountNY;
 	private Integer product_number;
 	
-	
-	
+	private Double discount_rate;
+	private String discount_dateS;
+	private String discount_dateF;
+
 	
 	//  - - - - -
+	
+	
+	
 	public String getProduct_id() {
 		return product_id;
+	}
+	public Double getDiscount_rate() {
+		return discount_rate;
+	}
+	public void setDiscount_rate(Double discount_rate) {
+		this.discount_rate = discount_rate;
+	}
+	public String getDiscount_dateS() {
+		return discount_dateS;
+	}
+	public void setDiscount_dateS(String discount_dateS) {
+		this.discount_dateS = discount_dateS;
+	}
+	public String getDiscount_dateF() {
+		return discount_dateF;
+	}
+	public void setDiscount_dateF(String discount_dateF) {
+		this.discount_dateF = discount_dateF;
 	}
 	public void setProduct_id(String product_id) {
 		this.product_id = product_id;

@@ -19,6 +19,10 @@ public class MemberDto {
 	
 	
 	
+	@Override
+	public String toString() {
+		return "MemberDto [id=" + id + ", password=" + password + "]";
+	}
 	public String getUser_id() {
 		return user_id;
 	}

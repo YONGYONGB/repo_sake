@@ -9,11 +9,14 @@ public interface MemberDao {
 	
 	public List<MemberDto> selectList(MemberVo vo);
 	
-	public MemberDto selectView(MemberDto memberdto);
+	public MemberDto selectView(MemberDto memberSto);
 	
 	public int selectOneCount(MemberVo vo);
 	
 	public int insert(MemberDto memberdto);
 	
 	public int update(MemberDto memberdto);
+	
+	
+	
 }

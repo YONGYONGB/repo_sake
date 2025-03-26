@@ -31,4 +31,6 @@ public class MemberService {
 	public int update(MemberDto memberdto) {
 		return memberDao.update(memberdto);
 	}
+	
+	
 }

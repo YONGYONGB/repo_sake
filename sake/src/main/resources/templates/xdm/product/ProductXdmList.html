@@ -88,6 +88,9 @@
                       <th style="text-align: center;">정가</th>
                       <th style="text-align: center;">할인여부</th>
                       <th style="text-align: center;">재고</th>
+                      <th style="text-align: center;">할인율</th>
+                      <th style="text-align: center;">할인시작일</th>
+                      <th style="text-align: center;">할인종료일</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -110,6 +113,9 @@
                       <td th:text = "${list.fixed_price}"></td>
                       <td th:text ="${list.discountNY} ? '할인적용': '할인미적용'"></td>
                       <td th:text ="${list.product_number}"></td>
+                      <td th:text ="${list.discount_rate}"></td>
+                      <td th:text ="${list.discount_dateS}"></td>
+                      <td th:text ="${list.discount_dateF}"></td>
                     </tr>
                   </tbody>
                 </table> 

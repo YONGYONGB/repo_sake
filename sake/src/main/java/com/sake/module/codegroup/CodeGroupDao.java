@@ -2,6 +2,7 @@ package com.sake.module.codegroup;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,7 +17,8 @@ public interface CodeGroupDao {
 	
 	public int update(CodeGroupDto codeGroupDto);
 	
-	public int delete(CodeGroupDto codeGroupDto);
-	
 	public int selectOneCount(CodeGroupVo vo);
+	
+	
+	public int uelete(@Param("cgIds")List<Integer> cgIds);
 }

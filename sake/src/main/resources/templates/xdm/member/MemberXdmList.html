@@ -7,6 +7,7 @@
  	 <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+		<input type="hidden" name="user_id">
           <div id="divSearch" class = "col cen">  <!-- 중앙 부분  기본정보-->
             <div class = "a">
               <div>
@@ -101,7 +102,7 @@
                   	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
                       <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
                       <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                      <td><a th:href= "@{/memberXdmMform(user_id=${list.user_id})}" th:text ="${list.name}"></a></td>
+                      <td><a href="javascript:void(0);" th:text="${list.name}" th:attr="onclick=|goForm('${list.user_id}')|"></a></td>
                       <td th:text="${@codeService.selectOneCachedCode(list.gender)}"></td>  <!--" th:text ="${list.gender}" --> 
                       <td th:text ="${list.birthday}"></td>
                       <td th:text ="${list.user_id}"></td>
@@ -142,7 +143,7 @@
                 <div class= "col-6"></div>
                 <div class = "col-3 fini" style="display: flex; justify-content: end;">
                   <button type="button" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i></button>
-                  <a href ="memberXdmForm"><input class="btn btn-primary" type="button" value="+"></a>
+                  <button type="button" id="btnForm" class="btn btn-primary"><i class="bi bi-file-earmark-plus-fill"></i></button>
                 </div>
               </div>
             </div>  
@@ -151,6 +152,23 @@
   </main><!-- End #main -->
 
   <div th:replace = "~{xdm/include/footer :: footer}"></div>
+  
+  <script type="text/javascript">
+  let seq = document.querySelector("input[name=user_id]");	
+  </script>
+  
+  <script type="text/javascript">
+  document.getElementById("btnForm").onclick = function () {
+	    goForm(0);
+	}
+	goForm = function (keyValue) {
+	    seq.value = keyValue;
+	    form.action = "memberXdmForm";
+	    form.submit();
+	}
+  </script>
+  
+  
   <script type="text/javascript">
   let form = document.querySelector("form[name=formList]");
 	goList = function (thisPage) {

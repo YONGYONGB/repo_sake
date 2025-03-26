@@ -1,29 +1,40 @@
 package com.sake.module.codegroup;
 
+import java.util.List;
+
 public class CodeGroupDto {
 
 	private String cg_id;
-	private Boolean cg_use;
+	private Integer cg_use;
 	private String cg_name;
 	private Integer cg_order;
 	private Integer cg_delny;
 	
 	private Integer xcd_count;
 	
+	private List<Integer> cgIds;
 	
 	
 	//--------------
 	
+	
+	
 	public String getCg_id() {
 		return cg_id;
+	}
+	public List<Integer> getCgIds() {
+		return cgIds;
+	}
+	public void setCgIds(List<Integer> cgIds) {
+		this.cgIds = cgIds;
 	}
 	public void setCg_id(String cg_id) {
 		this.cg_id = cg_id;
 	}
-	public Boolean getCg_use() {
+	public Integer getCg_use() {
 		return cg_use;
 	}
-	public void setCg_use(Boolean cg_use) {
+	public void setCg_use(Integer cg_use) {
 		this.cg_use = cg_use;
 	}
 	

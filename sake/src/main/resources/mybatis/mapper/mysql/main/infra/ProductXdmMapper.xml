@@ -7,8 +7,8 @@
 
 	<sql id = "selectCommon">
  		from product as a
+ 		left join discount b on b.product_product_id = a.product_id
  		where 1=1
- 		ORDER BY a.product_id desc
 										<!--검색기능 넣지않음-->
 	</sql>	
 	
@@ -30,8 +30,12 @@
 			a.liquor,
 			a.fixed_price,
 			a.discountNY,
-			a.product_number
+			a.product_number,
+			b.discount_rate,
+			b.discount_dateS,
+			b.discount_dateF
 		<include refid="selectCommon"></include>
+		ORDER BY a.product_id desc
 		)aa
 		limit #{startRnumForMysql}, #{rowNumToShow}		
 	</select>

@@ -52,8 +52,6 @@ public class CodeController {
 	
 	@RequestMapping(value = "codeXdmUpdate")
 	public String codeXdm(CodeDto codeDto) {
-		System.out.println(codeDto);
-		System.out.println("####################################");
 		codeService.update(codeDto);
 		return "redirect:/codeXdmList";
 	}
