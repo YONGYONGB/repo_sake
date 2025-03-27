@@ -160,7 +160,7 @@
 		
 	 });
 	 
-	 function validation() {
+function validation() {
 	 	document.getElementById("id").classList.remove("is-invalid");
 	 	document.getElementById("id").classList.remove("is-valid");
 
@@ -210,7 +210,7 @@
 		,cache: false
 		,type: "post"
 		,url: "/signinXdmProc"
-		,data : { "id" : $("#id").val(), "password" : $("#password").val(), "autoLogin" : $("#autoLogin").is(":checked")}
+		,data : { "id" : $("#id").val(), "password" : $("#password").val()}
 		,success: function(response) {
 			
 			if(response.rt == "success") {

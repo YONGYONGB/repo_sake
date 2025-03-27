@@ -9,7 +9,7 @@ public interface MemberDao {
 	
 	public List<MemberDto> selectList(MemberVo vo);
 	
-	public MemberDto selectView(MemberDto memberSto);
+	public MemberDto selectView(MemberDto memberdto);
 	
 	public int selectOneCount(MemberVo vo);
 	
@@ -19,4 +19,5 @@ public interface MemberDao {
 	
 	
 	
+	public MemberDto selectOneLogin(MemberDto memberdto);
 }

@@ -19,12 +19,16 @@ public class MemberDto {
 	
 	
 	
-	@Override
-	public String toString() {
-		return "MemberDto [id=" + id + ", password=" + password + "]";
-	}
+	
+	
 	public String getUser_id() {
 		return user_id;
+	}
+	@Override
+	public String toString() {
+		return "MemberDto [user_id=" + user_id + ", name=" + name + ", gender=" + gender + ", birthday=" + birthday
+				+ ", clearance=" + clearance + ", id=" + id + ", email=" + email + ", password=" + password
+				+ ", address=" + address + ", user_delny=" + user_delny + "]";
 	}
 	public Integer getGender() {
 		return gender;

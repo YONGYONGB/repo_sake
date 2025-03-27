@@ -109,4 +109,19 @@
 	</update>
 	
 	
+	<select id="selectOneLogin" resultMap="resultMapObj">
+		select
+			a.user_id,
+			a.id,
+			a.name,
+			a.password
+		from
+			user a 
+		where 1=1
+			
+			<if test ="id != null and !id.equals('')">AND a.id = #{id}</if>
+			<if test ="password != null and !password.equals('')">AND a.password = #{password}</if>
+	</select>
+	
+	
 </mapper>

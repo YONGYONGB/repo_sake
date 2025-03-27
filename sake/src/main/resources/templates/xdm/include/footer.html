@@ -57,8 +57,10 @@
  
   <script type="text/javascript">
     const URL_SIGNIN_FORM_XDM = "login"
-	const URL_SIGNOUT_PROC_XDM = "/signinXdmProc"
+	const URL_SIGNOUT_PROC_XDM = "/signlogoutXdmProc"
 	const URL_INDEX_VIEW_XDM = "memberXdmList"
+	
+		/* httpSession.getAttribute("sessSeqUsr"); */
 	
 		document.getElementById("btnSignout").onclick = function(){
 			$.ajax({
@@ -79,8 +81,7 @@
 				}
 			});
 		};
-  
-  
   </script>
+  
  
 </th:block>

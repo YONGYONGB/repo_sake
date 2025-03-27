@@ -62,31 +62,56 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/signinXdmProc")
-	public Map<String, Object> signinXdmProc(MemberVo vo,MemberDto dto, HttpSession httpSession) throws Exception {
+	public Map<String, Object> signinXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
-
-	    List<MemberDto> members = memberService.selectList(vo);
+		MemberDto member = memberService.selectOneLogin(dto);
+		System.out.println(member);
+//		혹시라도 데이터가 넘어오지않으면 null이 되어버림.
+		if(member != null) {
+			returnMap.put("rt", "success");	
+			httpSession.setAttribute("sessSeqXdm", member.getUser_id());
+			httpSession.setAttribute("sessIdXdm", member.getId());
+			httpSession.setAttribute("sessNameXdm", member.getPassword());
+		}else{
+			returnMap.put("rt", "false");	
+		}
 		
-	    boolean isValidUser = false;
-	    for (MemberDto member : members) {
-	        if (member.getId().equals(dto.getId()) && member.getPassword().equals(dto.getPassword())) {
-	            isValidUser = true;
-	            break;
-	        }
-	    }
-	    
-	    if (isValidUser) {
-	        returnMap.put("rt", "success");
-	        System.out.println("성공");
-	    } else {
-	        returnMap.put("rt", "false");
-	        System.out.println("실패");
-	    }
-	    
-	    
+	        
+			
+			return returnMap;
+		}
+		
+
+@ResponseBody
+@RequestMapping(value = "/signlogoutXdmProc")
+public Map<String, Object> signlogoutXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
+	Map<String, Object> returnMap = new HashMap<String, Object>();
+	
+	
+		returnMap.put("rt", "false");	
+
+		
 		return returnMap;
 	}
 	
-	
 }
+
+
+//  List<MemberDto> members = memberService.selectList(vo);
+//
+//	boolean isValidUser = false;
+//	for (MemberDto member : members) {
+//    if (member.getId().equals(dto.getId()) && member.getPassword().equals(dto.getPassword())) {
+//        isValidUser = true;
+//        break;
+//    	}
+//	}
+//
+//	if (isValidUser) {
+//		returnMap.put("rt", "success");
+//		System.out.println("성공");
+//	} else {
+//		returnMap.put("rt", "false");
+//		System.out.println("실패");
+//	}
