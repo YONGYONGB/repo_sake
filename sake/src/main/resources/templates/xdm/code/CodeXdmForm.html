@@ -62,8 +62,8 @@
               <div class = "col-3"><label for="exampleFormControlInput5" class="form-label">사용여부</label><span style="color: crimson;">*</span>
                 <select class="form-select" id ="cd_use" name ="cd_use" required>
                   <option value="">선택하세요</option>
-                  <option value="true" th:selected="${item?.cd_use == true}">사용</option>
-                  <option value="false" th:selected="${item?.cd_use == false}" >미사용</option>
+                  <option value="1" th:selected="${item?.cd_use == 1}">사용</option>
+                  <option value="0" th:selected="${item?.cd_use == 0}" >미사용</option>
                 </select><div class="invalid-feedback" id="cd_useError">
                     Please select a valid state.
                   </div></div>

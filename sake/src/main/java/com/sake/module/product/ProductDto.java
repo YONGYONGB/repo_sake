@@ -2,18 +2,21 @@ package com.sake.module.product;
 
 public class ProductDto {
 
-	private String product_id;
+	private String pd_id;
 	private String name;
 	private Integer local;
 	private Integer detail_local;
 	private Integer brand;
 	private Integer type;
-	private Boolean capacity;
+	private Integer capacity;
 	private Integer liquor;
 	private Integer fixed_price;
-	private Boolean discountNY;
+	private Integer discountNY;
 	private Integer product_number;
+	private String discount_dc_id;
 	
+	private String dc_id;
+	private String discount_name;
 	private Double discount_rate;
 	private String discount_dateS;
 	private String discount_dateF;
@@ -23,8 +26,26 @@ public class ProductDto {
 	
 	
 	
-	public String getProduct_id() {
-		return product_id;
+	public String getPd_id() {
+		return pd_id;
+	}
+	public String getDc_id() {
+		return dc_id;
+	}
+	public void setDc_id(String dc_id) {
+		this.dc_id = dc_id;
+	}
+	public String getDiscount_name() {
+		return discount_name;
+	}
+	public void setDiscount_name(String discount_name) {
+		this.discount_name = discount_name;
+	}
+	public String getDiscount_dc_id() {
+		return discount_dc_id;
+	}
+	public void setDiscount_dc_id(String discount_dc_id) {
+		this.discount_dc_id = discount_dc_id;
 	}
 	public Double getDiscount_rate() {
 		return discount_rate;
@@ -44,8 +65,8 @@ public class ProductDto {
 	public void setDiscount_dateF(String discount_dateF) {
 		this.discount_dateF = discount_dateF;
 	}
-	public void setProduct_id(String product_id) {
-		this.product_id = product_id;
+	public void setPd_id(String pd_id) {
+		this.pd_id = pd_id;
 	}
 	public String getName() {
 		return name;
@@ -77,10 +98,10 @@ public class ProductDto {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	public Boolean getCapacity() {
+	public Integer getCapacity() {
 		return capacity;
 	}
-	public void setCapacity(Boolean capacity) {
+	public void setCapacity(Integer capacity) {
 		this.capacity = capacity;
 	}
 	public Integer getLiquor() {
@@ -95,10 +116,10 @@ public class ProductDto {
 	public void setFixed_price(Integer fixed_price) {
 		this.fixed_price = fixed_price;
 	}
-	public Boolean getDiscountNY() {
+	public Integer getDiscountNY() {
 		return discountNY;
 	}
-	public void setDiscountNY(Boolean discountNY) {
+	public void setDiscountNY(Integer discountNY) {
 		this.discountNY = discountNY;
 	}
 	public Integer getProduct_number() {

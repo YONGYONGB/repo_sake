@@ -7,7 +7,7 @@
 
 	<sql id = "selectCommon">
  		from product as a
- 		left join discount b on b.product_product_id = a.product_id
+ 		left join discount b on b.dc_id = a.discount_dc_id
  		where 1=1
 										<!--검색기능 넣지않음-->
 	</sql>	
@@ -20,7 +20,7 @@
 	<select id="selectList" resultMap="resultMapObj">
 	select aa.* from (
 		select
-			a.product_id,
+			a.pd_id,
 			a.name,
 			a.local,
 			a.local_detail,
@@ -31,13 +31,86 @@
 			a.fixed_price,
 			a.discountNY,
 			a.product_number,
+			b.dc_id,
+			b.discount_name,
 			b.discount_rate,
 			b.discount_dateS,
 			b.discount_dateF
 		<include refid="selectCommon"></include>
-		ORDER BY a.product_id desc
+		ORDER BY a.pd_id desc
 		)aa
 		limit #{startRnumForMysql}, #{rowNumToShow}		
 	</select>
 
+
+	<select id="selectView" resultMap="resultMapObj">
+		select
+			a.pd_id,
+			a.name,
+			a.local,
+			a.local_detail,
+			a.brand,
+			a.type,
+			a.capacity,
+			a.liquor,
+			a.fixed_price,
+			a.discountNY,
+			a.product_number,
+			b.dc_id,
+			b.discount_name,
+			b.discount_rate,
+			b.discount_dateS,
+			b.discount_dateF
+		from product as a
+ 		left join discount b on b.dc_id = a.discount_dc_id
+ 		where 1=1
+ 		and pd_id = #{pd_id};
+ 		ORDER BY a.pd_id desc		
+	</select>
+	
+	<select id="dcView" resultMap="resultMapObj">
+		select
+			a.dc_id,
+			a.discount_name
+		from discount as a
+		where 1=1
+		ORDER BY a.dc_id desc		
+	</select>
+	
+	
+	<insert id="insert">
+	insert into user(
+			pd_id,
+			name,
+			local,
+			local_detail,
+			brand,
+			type,
+			capacity,
+			liquor,
+			fixed_price,
+			discountNY,
+			product_number,
+			discount_dc_id
+	)
+	values(
+		#{pd_id},
+	 	#{name},
+	 	#{local},
+	 	#{local_detail},
+	 	#{brand},
+	 	#{type},
+	 	#{capacity},
+	 	#{liquor},
+	 	#{fixed_price},
+	 	#{discountNY},
+	 	#{product_number},
+	 	<if test="discount_dc_id== null">NULL</if>
+        <if test="discount_dc_id != null">#{discount_dc_id}</if>
+	)
+	<selectKey resultType="String" keyProperty="pd_id" order="AFTER">
+			Select last_insert_id()
+		</selectKey>
+	</insert>
+	
 </mapper>

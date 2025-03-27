@@ -2,6 +2,7 @@ package com.sake.module.code;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,4 +23,8 @@ public interface CodeDao {
 	
 	
 	public int update(CodeDto codeDto);
+	
+	
+	
+	public int uelete(@Param("cdIds")List<Integer> cdIds);
 }

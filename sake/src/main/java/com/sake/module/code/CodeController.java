@@ -1,12 +1,14 @@
 package com.sake.module.code;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sake.module.codegroup.CodeGroupDto;
 
 
 
@@ -53,6 +55,12 @@ public class CodeController {
 	@RequestMapping(value = "codeXdmUpdate")
 	public String codeXdm(CodeDto codeDto) {
 		codeService.update(codeDto);
+		return "redirect:/codeXdmList";
+	}
+	
+	@RequestMapping(value = "codeXdmUelete")
+	public String codeXdmUelete(@RequestParam("cd_id") List<Integer> cdIdList) {
+		codeService.uelete(cdIdList);
 		return "redirect:/codeXdmList";
 	}
 	

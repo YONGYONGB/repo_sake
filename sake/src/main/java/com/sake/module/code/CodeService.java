@@ -42,6 +42,9 @@ public class CodeService {
 		return codeDao.update(codeDto);
 	}
 	
+	public int uelete(List<Integer> cgIds) {
+		return codeDao.uelete(cgIds);
+	}
 	
 	
 	@PostConstruct

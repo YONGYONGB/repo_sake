@@ -113,5 +113,14 @@
 		cd_id = #{cd_id}
 	</update>
 	
+	<update id="uelete">
+		update code
+		set
+		cd_use = 0
+		where cd_id in
+    <foreach collection="cdIds" item="cdId" open="(" separator="," close=")">
+        #{cdId}
+    </foreach>
+	</update>
 
 </mapper>

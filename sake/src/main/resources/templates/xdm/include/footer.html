@@ -19,6 +19,7 @@
    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="xdm/jquery/jquery-3.7.1min.js"></script>
   <script src="xdm/template/NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="xdm/template/NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="xdm/template/NiceAdmin/assets/vendor/chart.js/chart.umd.js"></script>
@@ -26,8 +27,9 @@
   <script src="xdm/template/NiceAdmin/assets/vendor/quill/quill.js"></script>  
   <script src="xdm/template/NiceAdmin/assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="xdm/template/NiceAdmin/assets/vendor/php-email-form/validate.js"></script>
+  <script src="xdm/template/NiceAdmin/assets/js/main.js"></script>
   
-  
+ 
   
   <script type="text/javascript">
 	 document.getElementById("selectAllCheckbox").addEventListener("click", function(event) {
@@ -52,9 +54,33 @@
 	        });
 	    });
 	</script>
+ 
+  <script type="text/javascript">
+    const URL_SIGNIN_FORM_XDM = "login"
+	const URL_SIGNOUT_PROC_XDM = "/signinXdmProc"
+	const URL_INDEX_VIEW_XDM = "memberXdmList"
+	
+		document.getElementById("btnSignout").onclick = function(){
+			$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: URL_SIGNOUT_PROC_XDM
+				,data: {}
+				,success: function(response) {
+					if(response.rt == "false") {
+						location.href = URL_SIGNIN_FORM_XDM;
+					} else {
+						// by pass
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+		};
   
-
-  <!-- Template Main JS File -->
-  <script src="xdm/template/NiceAdmin/assets/js/main.js"></script>
+  
+  </script>
  
 </th:block>

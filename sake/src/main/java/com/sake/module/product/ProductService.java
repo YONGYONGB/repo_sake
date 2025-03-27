@@ -14,8 +14,20 @@ public class ProductService {
 	public List<ProductDto> selectList(ProductVo vo){
 		return productDao.selectList(vo);
 	}
+	public List<ProductDto> dcView(){
+		return productDao.dcView();
+	}
+	
 	
 	public int selectOneCount(ProductVo vo) {
 		return productDao.selectOneCount(vo);
+	}
+	
+	public ProductDto selectView(ProductDto dto) {
+		return productDao.selectView(dto);
+	}
+	
+	public int insert(ProductDto dto) {
+		return productDao.insert(dto);
 	}
 }

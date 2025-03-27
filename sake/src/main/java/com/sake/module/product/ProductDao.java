@@ -9,5 +9,13 @@ public interface ProductDao {
 
 	public List<ProductDto> selectList(ProductVo vo);
 	
+	public List<ProductDto> dcView();
+	
 	public int selectOneCount(ProductVo vo);
+	
+	public ProductDto selectView(ProductDto dto);
+	
+	public int insert(ProductDto dto);
+	
+	
 }

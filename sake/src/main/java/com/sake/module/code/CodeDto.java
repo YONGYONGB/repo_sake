@@ -6,7 +6,7 @@ import java.util.List;
 public class CodeDto {
 
 	private String cd_id;
-	private Boolean cd_use;
+	private Integer cd_use;
 	
 	private String cg_id;
 	private Integer cg_code;
@@ -14,6 +14,8 @@ public class CodeDto {
 	private String cd_name;
 	private Integer cd_order;
 	private String codeGroup_cg_id;
+	
+	private List<Integer> cdIds;
 	
 @Override
 	public String toString() {
@@ -31,6 +33,12 @@ public class CodeDto {
 	public String getCd_id() {
 		return cd_id;
 	}
+	public List<Integer> getCdIds() {
+		return cdIds;
+	}
+	public void setCdIds(List<Integer> cdIds) {
+		this.cdIds = cdIds;
+	}
 	public String getCg_id() {
 		return cg_id;
 	}
@@ -40,10 +48,10 @@ public class CodeDto {
 	public void setCd_id(String cd_id) {
 		this.cd_id = cd_id;
 	}
-	public Boolean getCd_use() {
+	public Integer getCd_use() {
 		return cd_use;
 	}
-	public void setCd_use(Boolean cd_use) {
+	public void setCd_use(Integer cd_use) {
 		this.cd_use = cd_use;
 	}
 	
