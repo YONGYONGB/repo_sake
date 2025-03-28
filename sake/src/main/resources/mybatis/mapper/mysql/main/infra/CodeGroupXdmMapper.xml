@@ -10,6 +10,11 @@
  		where 1=1
  			<if test="shUseNy != null and !shUseNy.equals('')">AND a.cg_use = #{shUseNy}</if>		 
   	      	<if test="shDelNy != null and !shDelNy.equals('')">AND a.cg_delny = #{shDelNy}</if>
+  	      	
+  	      		<choose>
+					<when test="shOptionDate == 1">AND a.cg_register BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.cg_modifDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				</choose> 
         <choose>
             <when test="shOption == 1">AND a.cg_id = #{shValue}</when>
             <when test="shOption == 2">AND a.cg_name LIKE CONCAT('%',#{shValue},'%')</when>
@@ -70,15 +75,13 @@
 			cg_use,
 			cg_name,
 			cg_order,
-			cg_register,
-			cg_modifDate
+			cg_register
 		)values(
 			#{cg_id},
 			#{cg_use},
 			#{cg_name},
-			#{cg_order}
-			#{cg_register},
-			#{cg_modifDate}		
+			#{cg_order},
+			now()
 		)
 		<selectKey resultType="String" keyProperty="cg_id" order="AFTER">
 		Select last_insert_id()
@@ -91,7 +94,7 @@
 		cg_use =#{cg_use},
 		cg_name =#{cg_name},
 		cg_order =#{cg_order},
-		cg_modifDate = #{cg_modifDate}	
+		cg_modifDate = now()	
 		where
 		cg_id = #{cg_id}
 	</update>
@@ -100,7 +103,8 @@
 	<update id="uelete">
 		update codeGroup
 		set
-		cg_use = 0
+		cg_use = 0,
+		cg_modifDate = now()
 		where cg_id in
     <foreach collection="cgIds" item="cgId" open="(" separator="," close=")">
         #{cgId}

@@ -32,16 +32,16 @@
                     <option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
                     <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
                   </select></div>
-                <div class = "col-2 fbele"><select id="shOptionDate" name="shOptionDate" class="form-select" aria-label="Default select example">
+                <div class = "col-2 fbele"><select id="shOptionDate" name="shOptionDate" class="form-select">
                     <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
                     <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
                     <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
                   </select></div>
-                <div class = "col-2 fbele"><input type="text" id="shDateStart" name="shDateStart"   placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
-              		<!-- th:value="${#strings.substring(vo.shDateStart, 0, 10)}" -->
+                <div class = "col-2 fbele">
+                	<input type="text" id="shDateStart">
                 </div>
-                <div class = "col-2 fbele"><input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일"   class="form-control form-control-sm" autocomplete="off">
-             <!-- th:value="${#strings.substring(vo.shDateEnd, 0, 10)}"  -->
+                <div class = "col-2 fbele">
+                	<input type="text" id="shDateEnd">
                 </div>
             </div>
             <div class = "row-1 firstbody">
@@ -170,12 +170,18 @@
   </div>
 
   <!-- ======= Footer ======= -->
-  <script src="xdm/jquery/jquery-3.7.1min.js"></script>
-  <script src="xdm/jquery/datetime.js"></script>
+
+
+ 
   <div th:replace = "~{xdm/include/footer :: footer}"></div>
   
   
-  
+
+<script type="text/javascript">
+jQuery('#shDateStart').datetimepicker();
+jQuery('#shDateEnd').datetimepicker();
+
+</script>
   
   
   <script type="text/javascript">

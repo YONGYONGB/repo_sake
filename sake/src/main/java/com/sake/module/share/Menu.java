@@ -1,5 +1,7 @@
 package com.sake.module.share;
 
+import java.time.LocalDateTime;
+
 public class Menu {
 
 //paging
@@ -21,8 +23,8 @@ public class Menu {
 	private Integer shUseNy = 1; 									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shDelNy = 0; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shOptionDate = 2;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private String shDateStart;
-	private String shDateEnd;
+	private LocalDateTime shDateStart;
+	private LocalDateTime shDateEnd;
 	private Integer shOption;									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shValue;
 	
@@ -54,19 +56,19 @@ public class Menu {
 		this.shOptionDate = shOptionDate;
 	}
 
-	public String getShDateStart() {
+	public LocalDateTime getShDateStart() {
 		return shDateStart;
 	}
 
-	public void setShDateStart(String shDateStart) {
+	public void setShDateStart(LocalDateTime shDateStart) {
 		this.shDateStart = shDateStart;
 	}
 
-	public String getShDateEnd() {
+	public LocalDateTime getShDateEnd() {
 		return shDateEnd;
 	}
 
-	public void setShDateEnd(String shDateEnd) {
+	public void setShDateEnd(LocalDateTime shDateEnd) {
 		this.shDateEnd = shDateEnd;
 	}
 
