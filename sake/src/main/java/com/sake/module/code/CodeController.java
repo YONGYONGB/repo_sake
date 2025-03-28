@@ -13,23 +13,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
+@RequestMapping(value="/xdm/code/")
 public class CodeController {
 
 	
 	@Autowired
 	CodeService codeService;
 	
-	@RequestMapping( value = "codeXdmList")
+	@RequestMapping( value = "/CodeXdmList")
 	public String codeXdmList( @ModelAttribute("vo") CodeVo vo,Model model) {
 		
 		vo.setParamsPaging(codeService.selectOneCount(vo));
 		model.addAttribute("list", codeService.selectList(vo));
-		return "xdm/code/CodeXdmList";
+		return "/xdm/code/CodeXdmList";
 	}
 	
 	
 	
-	@RequestMapping(value = "codeXdmForm")
+	@RequestMapping(value = "/CodeXdmForm")
 	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, CodeDto codeDto, Model model)throws Exception{
 		model.addAttribute("lists", codeService.selectCg(codeDto));
 		
@@ -41,27 +42,27 @@ public class CodeController {
 			System.out.println(codeDto);
 		}
 		
-		return "xdm/code/CodeXdmForm";
+		return "/xdm/code/CodeXdmForm";
 	}
 	
 	
 	
-	@RequestMapping(value = "codeXdmInst")
+	@RequestMapping(value = "/CodeXdmInst")
 	public String codeXdmInst(CodeDto codeDto) {
 		codeService.insert(codeDto);
-		return "redirect:/codeXdmList";
+		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping(value = "codeXdmUpdate")
+	@RequestMapping(value = "/CodeXdmUpdate")
 	public String codeXdm(CodeDto codeDto) {
 		codeService.update(codeDto);
-		return "redirect:/codeXdmList";
+		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping(value = "codeXdmUelete")
+	@RequestMapping(value = "/CodeXdmUelete")
 	public String codeXdmUelete(@RequestParam("cd_id") List<Integer> cdIdList) {
 		codeService.uelete(cdIdList);
-		return "redirect:/codeXdmList";
+		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
 	

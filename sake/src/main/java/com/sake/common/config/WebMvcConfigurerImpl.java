@@ -1,0 +1,28 @@
+package com.sake.common.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.sake.common.interceptor.CheckLoginSessionInterceptor;
+
+@Configuration
+public class WebMvcConfigurerImpl implements WebMvcConfigurer{
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new CheckLoginSessionInterceptor())
+//				.order(1)
+				.addPathPatterns("/*/*/*Xdm*", "/*/*/*User*")
+				.excludePathPatterns(
+//						"/resources/**",
+						"/user/**",
+						"/adt/**",
+//						"/xdm/**",
+						"/xdm/member/SignupXdmForm",
+						"/xdm/member/SigninXdmForm",
+						"/xdm/member/SigninXdmProc"
+		);
+	}
+
+}

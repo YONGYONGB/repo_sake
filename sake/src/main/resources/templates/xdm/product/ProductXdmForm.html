@@ -55,7 +55,7 @@
             <div class = "row">
            		<input type="hidden" name="pd_id" th:value="${vo.pd_id}">	
               <div class="col-3"><label for="pd_id" class="form-label" >코드</label> 
-                <input type="text" class="form-control" id="pd_id" aria-label="Disabled input example" name ="pd_id" disabled></div>
+                <input type="text" class="form-control" id="pd_id" name ="pd_id"  th:value="${item?.pd_id}" disabled></div>
               <div class="col-3"><label for="type" class="form-label" >타입</label><span style="color: crimson;">*</span> 
                 <select class="form-select" aria-label="Default select example" name ="type" id="type" required>
                 	<option value ="">선택하세요</option>
@@ -149,6 +149,9 @@
 	    discountNY.addEventListener("change", toggleDiscountSelection);
 
 	    function toggleDiscountSelection() {
+	    	document.getElementById("discount_dc_id").classList.remove("is-invalid");
+	  	    document.getElementById("discount_dc_id").classList.remove("is-valid");
+	    	
 	        if (discountNY.value === "1") {  
 	            discount_dc_id.disabled = false;  
 	            discount_dc_id.classList.add("is-valid");  
@@ -165,7 +168,8 @@
   
   <script type="text/javascript">
   document.getElementById("product_submit").onclick = function () {
-	  
+	  	
+	 	let seq = document.querySelector("input[name=pd_id]");
 
 		event.preventDefault();
 		
@@ -200,8 +204,7 @@
 	    document.getElementById("product_number").classList.remove("is-invalid");
 	    document.getElementById("product_number").classList.remove("is-valid");
 	    
-	    document.getElementById("discount_dc_id").classList.remove("is-invalid");
-	    document.getElementById("discount_dc_id").classList.remove("is-valid");
+	  
 	    
 	    
 		
@@ -221,7 +224,7 @@
 	    
 		
 		const name = document.getElementById("name").value;
-		let n = /^[가-힣ぁ-んァ-ン一-龥]{2,5}$/;
+		let n = /^[가-힣ぁ-んァ-ン一-龥]{1,20}$/;
 		if(name == null || name == ""){
 			document.getElementById("nameError").textContent = "이름을 넣어주세요.";
 			document.getElementById("name").classList.add("is-invalid");
@@ -231,7 +234,7 @@
 			document.getElementById("name").classList.add("is-invalid");
 			isValid = false;
 		}else if(!n.test(name)){
-			document.getElementById("nameError").textContent = "한글이름이 2~5글자 사이가 아닙니다.";
+			document.getElementById("nameError").textContent = "제품 이름이 20글자를 초과했습니다.";
 			document.getElementById("name").classList.add("is-invalid");
 			isValid = false;
 		}else{
@@ -271,7 +274,7 @@
 			document.getElementById("type").classList.add("is-invalid");
 			isValid = false;
 		}else{
-			document.getElementById("brand").classList.add("is-valid");
+			document.getElementById("type").classList.add("is-valid");
 		}
 		
 		const capacity = document.getElementById("capacity").value;
@@ -283,17 +286,17 @@
 			document.getElementById("capacity").classList.add("is-valid");
 		}
 		
-		const liquor = document.getElementById("liquor").value;
+		const liq = document.getElementById("liquor").value;
  		let li = /^[0-9]{1,10}$/;
-		if(liquor == null || liquor == ""){
+		if(liq == null || liq == ""){
 			document.getElementById("liquorError").textContent = "가격을 입력해주세요.";
 			document.getElementById("liquor").classList.add("is-invalid");
 			isValid = false;
-		}else if(price.trim() != id){
+		}else if(liq.trim() != liq){
 			document.getElementById("liquorError").textContent = "띄어쓰기를 제거해주세요.";
 			document.getElementById("liquor").classList.add("is-invalid");
 			isValid = false;
-		}else if(!li.test(liquor)){
+		}else if(!li.test(liq)){
 			document.getElementById("liquorError").textContent = "숫자로만 구성된 3~10자리의 가격을 만드세요.";
 			document.getElementById("liquor").classList.add("is-invalid");
 			isValid = false;
@@ -308,7 +311,7 @@
 			document.getElementById("priceError").textContent = "가격을 입력해주세요.";
 			document.getElementById("fixed_price").classList.add("is-invalid");
 			isValid = false;
-		}else if(price.trim() != id){
+		}else if(price.trim() != price){
 			document.getElementById("priceError").textContent = "띄어쓰기를 제거해주세요.";
 			document.getElementById("fixed_price").classList.add("is-invalid");
 			isValid = false;
@@ -336,7 +339,7 @@
 			document.getElementById("numberError").textContent = "가격을 입력해주세요.";
 			document.getElementById("product_number").classList.add("is-invalid");
 			isValid = false;
-		}else if(number.trim() != id){
+		}else if(number.trim() != number){
 			document.getElementById("numberError").textContent = "띄어쓰기를 제거해주세요.";
 			document.getElementById("product_number").classList.add("is-invalid");
 			isValid = false;
@@ -360,7 +363,7 @@
  		 
   		if(isValid){
   			if(seq.value == "0" || seq.value == "") {
-  				form.action = "productXdmInsert";
+  				form.action = "/xdm/product/ProductXdmInsert";
   				form.submit();
   			}else{
   				form.action = "";

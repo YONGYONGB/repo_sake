@@ -5,7 +5,7 @@ public class ProductDto {
 	private String pd_id;
 	private String name;
 	private Integer local;
-	private Integer detail_local;
+	private Integer local_detail;
 	private Integer brand;
 	private Integer type;
 	private Integer capacity;
@@ -80,11 +80,11 @@ public class ProductDto {
 	public void setLocal(Integer local) {
 		this.local = local;
 	}
-	public Integer getDetail_local() {
-		return detail_local;
+	public Integer getLocal_detail() {
+		return local_detail;
 	}
-	public void setDetail_local(Integer detail_local) {
-		this.detail_local = detail_local;
+	public void setLocal_detail(Integer local_detail) {
+		this.local_detail = local_detail;
 	}
 	public Integer getBrand() {
 		return brand;

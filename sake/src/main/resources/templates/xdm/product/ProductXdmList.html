@@ -112,7 +112,7 @@
                       <td th:text = "${list.capacity}"></td> <!-- th:text = ${list.cd_name} -->
                       <td th:text = "${list.liquor}"></td>
                       <td th:text = "${list.fixed_price}"></td>
-                      <td th:text ="${list.discountNY} ? '할인적용': '할인미적용'"></td>
+                      <td th:text ="${list.discountNY==1} ? '할인적용': '할인미적용'"></td>
                       <td th:text ="${list.product_number}"></td>
                       <td th:text ="${list.discount_rate}"></td>
                       <td th:text ="${list.discount_dateS}"></td>
@@ -176,7 +176,7 @@
 
   	goForm = function (keyValue) {
   	    seq.value = keyValue;
-  	    form.action = "productXdmForm";   
+  	    form.action = "/xdm/product/ProductXdmForm";   
   	    form.submit();
   	}
   	</script>
@@ -197,7 +197,7 @@
         console.log(selectedValue); // 선택한 값 확인
         let form = document.querySelector("form[name=formList]"); // 폼 찾기
         document.querySelector("input[name=rowNumToShow]").value = selectedValue; // 값 설정
-        form.action = "/productXdmList"; // 폼 제출할 URL 설정
+        form.action = "/xdm/product/ProductXdmList"; // 폼 제출할 URL 설정
         form.submit(); // 폼 제출
     }
 	</script>

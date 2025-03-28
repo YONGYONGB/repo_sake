@@ -19,15 +19,15 @@
    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="xdm/jquery/jquery-3.7.1min.js"></script>
-  <script src="xdm/template/NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="xdm/template/NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="xdm/template/NiceAdmin/assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="xdm/template/NiceAdmin/assets/vendor/echarts/echarts.min.js"></script>
-  <script src="xdm/template/NiceAdmin/assets/vendor/quill/quill.js"></script>  
-  <script src="xdm/template/NiceAdmin/assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="xdm/template/NiceAdmin/assets/vendor/php-email-form/validate.js"></script>
-  <script src="xdm/template/NiceAdmin/assets/js/main.js"></script>
+  <script src="/xdm/jquery/jquery-3.7.1min.js"></script>
+  <script src="/xdm/template/NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/xdm/template/NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/xdm/template/NiceAdmin/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="/xdm/template/NiceAdmin/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/xdm/template/NiceAdmin/assets/vendor/quill/quill.js"></script>  
+  <script src="/xdm/template/NiceAdmin/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/xdm/template/NiceAdmin/assets/vendor/php-email-form/validate.js"></script>
+  <script src="/xdm/template/NiceAdmin/assets/js/main.js"></script>
   
  
   
@@ -56,9 +56,9 @@
 	</script>
  
   <script type="text/javascript">
-    const URL_SIGNIN_FORM_XDM = "login"
-	const URL_SIGNOUT_PROC_XDM = "/signlogoutXdmProc"
-	const URL_INDEX_VIEW_XDM = "memberXdmList"
+    const URL_SIGNIN_FORM_XDM = "/xdm/member/SigninXdmForm"
+	const URL_SIGNOUT_PROC_XDM = "/xdm/member/SignoutXdmProc"
+	const URL_INDEX_VIEW_XDM = "/xdm/member/MemberXdmList"
 	
 		/* httpSession.getAttribute("sessSeqUsr"); */
 	
@@ -70,7 +70,7 @@
 				,url: URL_SIGNOUT_PROC_XDM
 				,data: {}
 				,success: function(response) {
-					if(response.rt == "false") {
+					if(response.rt == "success") {
 						location.href = URL_SIGNIN_FORM_XDM;
 					} else {
 						// by pass

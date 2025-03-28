@@ -250,11 +250,11 @@
  		 
 		if(isValid){
 				if(seq.value == "0" || seq.value == "") {
-					form.action = "memberXdmInst";
+					form.action = "xdm/member/MemberXdmInst";
 					form.submit();
 				} else {
 					if(validationUpdt() == false) return false;
-					form.action = "memberXdmUpdate";
+					form.action = "xdm/member/MemberXdmUpdate";
 					form.submit();
 				}
 			document.getElementById("form").submit();

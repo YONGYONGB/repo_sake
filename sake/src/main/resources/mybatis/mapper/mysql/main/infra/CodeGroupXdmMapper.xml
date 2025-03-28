@@ -37,7 +37,9 @@
 				AND a.cg_id = b.codeGroup_cg_id
 				) as xcd_count,
 				a.cg_name,
-				a.cg_order
+				a.cg_order,
+				a.cg_register,
+				a.cg_modifDate
 			<include refid="selectCommon"></include>
 			ORDER BY a.cg_id desc
 		)aa
@@ -53,7 +55,9 @@
 			where 1=1
 			AND a.cg_id = b.codeGroup_cg_id
 			) as xcd_count,
-			a.cg_order
+			a.cg_order,
+			a.cg_register,
+			a.cg_modifDate
 		from
 			codeGroup a
 		WHERE a.cg_id = #{cg_id}
@@ -65,12 +69,16 @@
 			cg_id,
 			cg_use,
 			cg_name,
-			cg_order
+			cg_order,
+			cg_register,
+			cg_modifDate
 		)values(
 			#{cg_id},
 			#{cg_use},
 			#{cg_name},
 			#{cg_order}
+			#{cg_register},
+			#{cg_modifDate}		
 		)
 		<selectKey resultType="String" keyProperty="cg_id" order="AFTER">
 		Select last_insert_id()
@@ -82,7 +90,8 @@
 		set
 		cg_use =#{cg_use},
 		cg_name =#{cg_name},
-		cg_order =#{cg_order}
+		cg_order =#{cg_order},
+		cg_modifDate = #{cg_modifDate}	
 		where
 		cg_id = #{cg_id}
 	</update>

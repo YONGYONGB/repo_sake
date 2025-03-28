@@ -175,11 +175,11 @@
 			console.log("폼 제출"); 
 			if(seq.value == "0" || seq.value == "") {
 				/* if(validationInst() == false) return false; */
-				form.action = "codeGroupInst";
+				form.action = "/xdm/codegroup/CodeGroupXdmInst";
 				form.submit();
 			} else {
 				/* if(validationUpdt() == false) return false; */
-				form.action = "codeGroupUpdate";
+				form.action = "/xdm/codegroup/CodeGroupXdmUpdate";
 				form.submit();
 			}
 		}else {

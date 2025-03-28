@@ -79,7 +79,7 @@
 	
 	
 	<insert id="insert">
-	insert into user(
+	insert into product(
 			pd_id,
 			name,
 			local,
@@ -110,7 +110,7 @@
 	)
 	<selectKey resultType="String" keyProperty="pd_id" order="AFTER">
 			Select last_insert_id()
-		</selectKey>
+	</selectKey>
 	</insert>
 	
 </mapper>

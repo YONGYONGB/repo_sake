@@ -105,9 +105,10 @@
                       <td class ="cg_name"> <a th:href= "|javascript:void(0);|" th:text="${list.cg_name}" th:attr="onclick=|goForm('${list.cg_id}')|"></a></td>           
                       <td></td>
                       <td th:text = "${list.xcd_count}"></td>
-                      <td th:text = "${list.cg_order}"></td>                    
-                      <td></td>
-                      <td></td>
+                      <td th:text = "${list.cg_order}"></td>           
+                      <td th:text = "${list.cg_register}"></td>
+                      <td th:text = "${list.cg_modifDate}"></td>
+                      
                     </tr>
                    </tbody>
                  </table> 
@@ -170,6 +171,7 @@
 
   <!-- ======= Footer ======= -->
   <script src="xdm/jquery/jquery-3.7.1min.js"></script>
+  <script src="xdm/jquery/datetime.js"></script>
   <div th:replace = "~{xdm/include/footer :: footer}"></div>
   
   
@@ -208,7 +210,7 @@
 	        });
 			
 			seq.value = selectedValues.join(',');
-			form.action = "codeGroupUelete";
+			form.action = "/xdm/codegroup/CodeGroupXdmUelete";
 			form.submit();
 		}
 	}
@@ -224,7 +226,7 @@
   	<script type="text/javascript">
   		goForm = function (keyValue) {
 	    seq.value = keyValue;
-	    form.action = "codeGroupForm";
+	    form.action = "/xdm/codegroup/CodeGroupXdmForm";
 	    form.submit();
 		}
   	</script>
@@ -247,7 +249,7 @@
         console.log(selectedValue); // 선택한 값 확인
         let form = document.querySelector("form[name=formList]"); // 폼 찾기
         document.querySelector("input[name=rowNumToShow]").value = selectedValue; // 값 설정
-        form.action = "/codeGroupList"; // 폼 제출할 URL 설정
+        form.action = "/xdm/codegroup/CodeGroupXdmList"; // 폼 제출할 URL 설정
         form.submit(); // 폼 제출
     }
 	</script>
@@ -257,7 +259,7 @@
 
  <script type="text/javascript">
  document.getElementById("btnSearch").onclick = function () {
-	    form.action = "codeGroupList";
+	    form.action = "/xdm/codegroup/CodeGroupXdmList";
 	    form.submit();
 	};
  </script>

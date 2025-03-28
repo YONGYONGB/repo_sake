@@ -12,21 +12,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
+@RequestMapping(value="/xdm/product/")
 public class ProductController {
 
 	@Autowired
 	ProductService productservice;
 	
-	@RequestMapping(value = "productXdmList")
+	@RequestMapping(value = "ProductXdmList")
 	public String productXdmList(@ModelAttribute("vo") ProductVo vo,Model model) {
 		
 		vo.setParamsPaging(productservice.selectOneCount(vo));
 		model.addAttribute("list", productservice.selectList(vo));
-		return "xdm/product/ProductXdmList";
+		return "/xdm/product/ProductXdmList";
 	}
 	
 	
-	@RequestMapping(value ="productXdmForm")
+	@RequestMapping(value ="ProductXdmForm")
 	public String productXdmForm(@ModelAttribute("vo") ProductVo vo, ProductDto dto, Model model)throws Exception{
 	
 		model.addAttribute("lists", productservice.dcView());
@@ -38,13 +39,13 @@ public class ProductController {
 //			update mode
 			model.addAttribute("item", productservice.selectView(dto));
 		}
-		return "xdm/product/ProductXdmForm";
+		return "/xdm/product/ProductXdmForm";
 	}
 	
-	@RequestMapping(value="productXdmInsert")
+	@RequestMapping(value="ProductXdmInsert")
 	public String productXdmInsert(ProductDto dto) {
 		productservice.insert(dto);
-		return "redirect:/productXdmList";
+		return "redirect:/xdm/product/ProductXdmList";
 	}
 	
 	

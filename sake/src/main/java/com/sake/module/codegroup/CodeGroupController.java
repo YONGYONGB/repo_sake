@@ -14,6 +14,7 @@ import com.sake.module.code.CodeService;
 
 
 @Controller
+@RequestMapping(value="/xdm/codegroup/")
 public class CodeGroupController {
 	
 	@Autowired
@@ -26,20 +27,20 @@ public class CodeGroupController {
 	
 	
 	
-	@RequestMapping(value = "codeGroupList")
-	public String codeGroupList(@ModelAttribute("vo") CodeGroupVo vo,Model model) throws Exception{
+	@RequestMapping(value = "CodeGroupXdmList")
+	public String CodeGroupList(@ModelAttribute("vo") CodeGroupVo vo,Model model) throws Exception{
 		
 		
 		vo.setParamsPaging(codeGroupService.selectOneCount(vo));
 		model.addAttribute("lists", codeGroupService.selectList(vo));
 		
 		
-		return "xdm/codegroup/CodeGroupXdmList";
+		return "/xdm/codegroup/CodeGroupXdmList";
 	}
 	
 	
 	
-	@RequestMapping(value = "codeGroupForm")
+	@RequestMapping(value = "CodeGroupXdmForm")
 	public String codeGroupForm(@ModelAttribute("vo") CodeGroupVo vo,CodeGroupDto codeGroupDto,Model model){
 		// html에 있는 값을 자동으로 vo로 저장 dto 랑 vo.
 		if(vo.getCg_id().equals("0") || vo.getCg_id().equals(" ")) {
@@ -47,31 +48,31 @@ public class CodeGroupController {
 			model.addAttribute("item", codeGroupService.selectView(codeGroupDto));
 		}
 		
-		return "xdm/codegroup/CodeGroupForm";
+		return "/xdm/codegroup/CodeGroupForm";
 	}
 
 	
 	
-	@RequestMapping(value = "codeGroupInst")
+	@RequestMapping(value = "CodeGroupXdmInst")
 	public String codeGroupInst(CodeGroupDto codeGroupDto) {
 	codeGroupService.insert(codeGroupDto);
-		return "redirect:/codeGroupList";
+		return "redirect:/xdm/codegroup/CodeGroupXdmList";
 	}
 	
 	
 
 	
-	@RequestMapping(value = "codeGroupUpdate")
+	@RequestMapping(value = "CodeGroupXdmUpdate")
 	public String codeGroupUpdate(CodeGroupDto codeGroupDto) {
 		codeGroupService.update(codeGroupDto);
 	
-		return "redirect:/codeGroupList";
+		return "redirect:/xdm/codegroup/CodeGroupXdmList";
 	}
 	
 	
 	
 	
-	@RequestMapping(value = "/codeGroupUelete")
+	@RequestMapping(value = "CodeGroupXdmUelete")
 	public String codeGroupUelete(@RequestParam("cg_id") String seq) {
 		   
 		String[] cgIdArray = seq.split(",");
@@ -84,7 +85,7 @@ public class CodeGroupController {
 	    // 리스트를 서비스로 전달하여 업데이트
 	    codeGroupService.uelete(cgIdList);
 
-	    return "redirect:/codeGroupList";
+	    return "redirect:/xdm/codegroup/CodeGroupXdmList";
 	}
 	
 	

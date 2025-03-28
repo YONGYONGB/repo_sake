@@ -12,6 +12,9 @@ public class CodeGroupDto {
 	
 	private Integer xcd_count;
 	
+	private String cg_register;
+	private String cg_modifDate;
+	
 	private List<Integer> cgIds;
 	
 	
@@ -63,5 +66,20 @@ public class CodeGroupDto {
 	public void setCg_delny(Integer cg_delny) {
 		this.cg_delny = cg_delny;
 	}
+	public String getCg_register() {
+		return cg_register;
+	}
+	public void setCg_register(String cg_register) {
+		this.cg_register = cg_register;
+	}
+	public String getCg_modifDate() {
+		return cg_modifDate;
+	}
+	public void setCg_modifDate(String cg_modifDate) {
+		this.cg_modifDate = cg_modifDate;
+	}
+	
+	
+	
 	
 }

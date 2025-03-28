@@ -206,7 +206,7 @@
 	        });
 			
 			seq.value = selectedValues.join(',');
-			form.action = "codeXdmUelete";
+			form.action = "/xdm/code/CodeXdmUelete";
 			form.submit();
 		}
 	}
@@ -221,7 +221,7 @@
 
   	goForm = function (keyValue) {
   	    seq.value = keyValue;
-  	    form.action = "codeXdmForm";
+  	    form.action = "/xdm/code/CodeXdmForm";
  
   	   
   	    form.submit();
@@ -249,7 +249,7 @@
         console.log(selectedValue); // 선택한 값 확인
         let form = document.querySelector("form[name=formList]"); // 폼 찾기
         document.querySelector("input[name=rowNumToShow]").value = selectedValue; // 값 설정
-        form.action = "/codeXdmList"; // 폼 제출할 URL 설정
+        form.action = "/xdm/code/CodeXdmList"; // 폼 제출할 URL 설정
         form.submit(); // 폼 제출
     }
 	</script>
@@ -257,7 +257,7 @@
 
 	<script type="text/javascript">
 	document.getElementById("btnSearch").onclick = function () {
-	    form.action = "codeXdmList";
+	    form.action = "/xdm/code/CodeXdmList";
 	    form.submit();
 	};
 	
