@@ -1,5 +1,6 @@
 package com.sake.module.code;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,9 @@ public class CodeDto {
 	private String cd_name;
 	private Integer cd_order;
 	private String codeGroup_cg_id;
+	private LocalDateTime cd_register;
+	private LocalDateTime cd_modifDate;
+	
 	
 	private List<Integer> cdIds;
 	
@@ -84,6 +88,18 @@ public class CodeDto {
 	}
 	public void setCodeGroup_cg_id(String codeGroup_cg_id) {
 		this.codeGroup_cg_id = codeGroup_cg_id;
+	}
+	public LocalDateTime getCd_register() {
+		return cd_register;
+	}
+	public void setCd_register(LocalDateTime cd_register) {
+		this.cd_register = cd_register;
+	}
+	public LocalDateTime getCd_modifDate() {
+		return cd_modifDate;
+	}
+	public void setCd_modifDate(LocalDateTime cd_modifDate) {
+		this.cd_modifDate = cd_modifDate;
 	}
 	
 	

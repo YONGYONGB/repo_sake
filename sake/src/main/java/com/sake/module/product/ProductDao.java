@@ -17,5 +17,5 @@ public interface ProductDao {
 	
 	public int insert(ProductDto dto);
 	
-	
+	public int update(ProductDto dto);
 }

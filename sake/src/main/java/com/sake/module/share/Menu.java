@@ -1,6 +1,5 @@
 package com.sake.module.share;
 
-import java.time.LocalDateTime;
 
 public class Menu {
 
@@ -22,9 +21,9 @@ public class Menu {
 //	search
 	private Integer shUseNy = 1; 									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shDelNy = 0; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private Integer shOptionDate = 2;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private LocalDateTime shDateStart;
-	private LocalDateTime shDateEnd;
+	private Integer shOptionDate;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	private String shDateStart;
+	private String shDateEnd;
 	private Integer shOption;									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shValue;
 	
@@ -56,20 +55,28 @@ public class Menu {
 		this.shOptionDate = shOptionDate;
 	}
 
-	public LocalDateTime getShDateStart() {
+	public String getShDateStart() {
 		return shDateStart;
 	}
 
-	public void setShDateStart(LocalDateTime shDateStart) {
-		this.shDateStart = shDateStart;
+	public void setShDateStart(String shDateStart) {
+//		if(shDateStart == null || shDateStart.trim().isEmpty()) {
+//			shDateStart = "1900-01-01 00:00:00";
+//		}else {
+			this.shDateStart = shDateStart;
+//		}
 	}
 
-	public LocalDateTime getShDateEnd() {
+	public String getShDateEnd() {
 		return shDateEnd;
 	}
 
-	public void setShDateEnd(LocalDateTime shDateEnd) {
-		this.shDateEnd = shDateEnd;
+	public void setShDateEnd(String shDateEnd) {
+//		if(shDateEnd == null || shDateEnd.trim().isEmpty()) {
+//			shDateEnd = "2100-01-01 00:00:00";
+//		}else {
+			this.shDateEnd = shDateEnd;
+//		}
 	}
 
 	public Integer getShOption() {
@@ -153,6 +160,9 @@ public class Menu {
 	public void setStartRnumForMysql(int startRnumForMysql) {
 		this.startRnumForMysql = startRnumForMysql;
 	}
+	
+	
+	
 	
 	
 	public void setParamsPaging(int totalRows) {

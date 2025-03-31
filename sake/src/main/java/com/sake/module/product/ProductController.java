@@ -48,5 +48,11 @@ public class ProductController {
 		return "redirect:/xdm/product/ProductXdmList";
 	}
 	
+	@RequestMapping(value="ProductXdmUpdate")
+	public String productXdmUpdate(ProductDto dto) {
+		productservice.update(dto);
+		return "redirect:/xdm/product/ProductXdmList";
+	}
+	
 	
 }

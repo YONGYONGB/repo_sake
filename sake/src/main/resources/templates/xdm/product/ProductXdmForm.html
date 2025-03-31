@@ -82,7 +82,7 @@
                     Please select a valid state.
                   </div></div>
               <div class = "col-3"><label for="discountNY" class="form-label">할인여부</label> 
-                <select class="form-select" aria-label="Default select example" name ="discountNY" id="discountNY" required>
+                <select class="form-select" name ="discountNY" id="discountNY" required>
                 	<option value ="">선택하세요</option>
                 	<option value="1" th:selected = "${item?.discountNY == 1}" >할인 적용</option>
                    <option value="0" th:selected = "${item?.discountNY == 0}">할인 미적용</option>
@@ -91,16 +91,16 @@
                   Please select a valid state.
                 </div></div>
               <div class = "col-3"><label for="product_number" class="form-label">재고</label><span style="color: crimson;">*</span> 
-                <input type="text" class="form-control" id="product_number" placeholder="가격을 입력하세요." required name="product_number" th:text="${item?.product_number}">
+                <input type="text" class="form-control" id="product_number" placeholder="가격을 입력하세요." required name="product_number" th:value="${item?.product_number}">
                 <div class="invalid-feedback" id="numberError">
                     Please select a valid state.
-                  </div></div>
+                  </div></div>   
               <div class = "col-3">
                 <label for="exampleFormControlInput1" class="form-label">할인부분</label><span style="color: crimson;">*</span>
                   <select class="form-select" name ="discount_dc_id" id ="discount_dc_id" required>
                   	<option value ="">선택하세요</option>
-                    <option th:each="list:${lists}" th:selected="${item?.discount_dc_id == list.dc_id}" th:value="${list.dc_id}"  th:text="${list.discount_name}"></option>
-                  </select><!--selected  메인에 보이게-->
+                    <option th:each="list:${lists}" th:selected ="${item?.discount_dc_id == list.dc_id}" th:value="${list.dc_id}"  th:text="${list.discount_name}"></option>
+                  </select>
                   <div class="invalid-feedback" id="discounttypeError">
                    선택을해주세요.
                   </div>
@@ -143,8 +143,7 @@
   <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
 	    let discountNY = document.getElementById("discountNY");
-	    let discount_dc_id = document.getElementById("discount_dc_id");
-
+	    
 	    // 할인 여부 변경 시 실행
 	    discountNY.addEventListener("change", toggleDiscountSelection);
 
@@ -153,12 +152,22 @@
 	  	    document.getElementById("discount_dc_id").classList.remove("is-valid");
 	    	
 	        if (discountNY.value === "1") {  
-	            discount_dc_id.disabled = false;  
-	            discount_dc_id.classList.add("is-valid");  
-	        } else {
-	            discount_dc_id.disabled = true;   
-	            discount_dc_id.value = "";  
-	            discount_dc_id.classList.remove("is-valid");  
+	        	 discount_dc_id.disabled = false;
+	             // '1' 값을 선택하지 못하도록 option 비활성화
+	             // '1' 값을 선택하지 못하도록 option 비활성화
+    			let option1 = discount_dc_id.querySelector("option[value='1']");
+    			if (option1) option1.disabled = true;
+
+    			// '' (빈 값) 옵션도 비활성화
+    			let optionEmpty = discount_dc_id.querySelector("option[value='']");
+    			if (optionEmpty) optionEmpty.disabled = true;
+	             if (discount_dc_id.value === "1") {
+	                 discount_dc_id.value = "";  // 기본값으로 변경
+	             }
+	             
+	        }else{
+	        	discount_dc_id.value = "1";  
+	            discount_dc_id.disabled = true;             
 	        }
 	    }
 
@@ -224,7 +233,7 @@
 	    
 		
 		const name = document.getElementById("name").value;
-		let n = /^[가-힣ぁ-んァ-ン一-龥]{1,20}$/;
+		let n = /^[가-힣ぁ-んァ-ン一-龥0-9]{1,20}$/;
 		if(name == null || name == ""){
 			document.getElementById("nameError").textContent = "이름을 넣어주세요.";
 			document.getElementById("name").classList.add("is-invalid");
@@ -351,22 +360,23 @@
 			document.getElementById("product_number").classList.add("is-valid"); 	
 		}
 			
-		const cg = document.getElementById("discount_dc_id").value;	
-  		if(cg == null || cg == ""){
-  			if(discountNY  != null || discountNY  != "" || discountNY  != "1"){
+		const dc = document.getElementById("discount_dc_id").value;	
+  		if(dc == null || dc == ''){
+  			if(discount  == "1"){
   				document.getElementById("discounttypeError").textContent = "사용여부를 선택해주세요";
   				document.getElementById("discount_dc_id").classList.add("is-invalid");
-  			}
+  			}		
   		}else{
   			document.getElementById("discount_dc_id").classList.add("is-valid");
   		}
+  		
  		 
   		if(isValid){
   			if(seq.value == "0" || seq.value == "") {
   				form.action = "/xdm/product/ProductXdmInsert";
   				form.submit();
   			}else{
-  				form.action = "";
+  				form.action = "/xdm/product/ProductXdmUpdate";			
   				form.submit();
   			}
   		}else{

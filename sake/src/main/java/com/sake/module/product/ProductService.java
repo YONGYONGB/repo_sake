@@ -30,4 +30,8 @@ public class ProductService {
 	public int insert(ProductDto dto) {
 		return productDao.insert(dto);
 	}
+	
+	public int update(ProductDto dto){
+		return productDao.update(dto);
+	}
 }

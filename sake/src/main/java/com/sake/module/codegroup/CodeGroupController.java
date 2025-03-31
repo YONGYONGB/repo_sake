@@ -30,7 +30,8 @@ public class CodeGroupController {
 	@RequestMapping(value = "CodeGroupXdmList")
 	public String CodeGroupList(@ModelAttribute("vo") CodeGroupVo vo,Model model) throws Exception{
 		
-		
+
+		model.addAttribute("vo", vo);
 		vo.setParamsPaging(codeGroupService.selectOneCount(vo));
 		model.addAttribute("lists", codeGroupService.selectList(vo));
 		

@@ -31,6 +31,7 @@
 			a.fixed_price,
 			a.discountNY,
 			a.product_number,
+			a.discount_dc_id,
 			b.dc_id,
 			b.discount_name,
 			b.discount_rate,
@@ -56,6 +57,7 @@
 			a.fixed_price,
 			a.discountNY,
 			a.product_number,
+			a.discount_dc_id,
 			b.dc_id,
 			b.discount_name,
 			b.discount_rate,
@@ -64,7 +66,7 @@
 		from product as a
  		left join discount b on b.dc_id = a.discount_dc_id
  		where 1=1
- 		and pd_id = #{pd_id};
+ 		and pd_id = #{pd_id}
  		ORDER BY a.pd_id desc		
 	</select>
 	
@@ -112,5 +114,24 @@
 			Select last_insert_id()
 	</selectKey>
 	</insert>
+	
+	
+	<update id="update">
+		update product set
+		name = #{name},
+		local = #{local},
+		local_detail = #{local_detail},
+		brand = #{brand},
+		type = #{type},
+		capacity = #{capacity},
+		liquor = #{liquor},
+		fixed_price = #{fixed_price},
+		discountNY = #{discountNY},
+		product_number = #{product_number},
+		discount_dc_id = <if test="discount_dc_id== null">1</if>
+        				 <if test="discount_dc_id != null">#{discount_dc_id}</if>
+		WHERE 1=1
+		and pd_id = #{pd_id}
+	</update>
 	
 </mapper>

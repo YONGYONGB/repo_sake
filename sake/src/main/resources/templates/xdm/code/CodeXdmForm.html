@@ -182,10 +182,10 @@ document.getElementById("cd_submit").onclick = function () {
    		 
   		if(isValid){
   			if(seq.value == "0" || seq.value == "") {
-  				form.action = "xdm/code/CodeXdmInst";
+  				form.action = "/xdm/code/CodeXdmInst";
   				form.submit();
   			}else{
-  				form.action = "xdm/code/CodeXdmUpdate";
+  				form.action = "/xdm/code/CodeXdmUpdate";
   				form.submit();
   			}
   		}else{

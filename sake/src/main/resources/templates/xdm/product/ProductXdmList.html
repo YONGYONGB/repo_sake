@@ -105,7 +105,7 @@
                       <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> <!--디버깅 테스트를 위해서-->
                       <td th:text ="${list.pd_id}"></td>
                       <td><a href="javascript:void(0);" th:text="${list.name}" th:attr="onclick=|goForm('${list.pd_id}')|"></a></td>
-                      <td th:text = "${list.local}"></td>
+                      <td th:text = "${@codeService.selectOneCachedCode(list.local)}"></td>
                       <td th:text = "${list.local_detail}"></td>
                       <td th:text = "${list.brand}"></td>
                       <td th:text = "${list.type}"></td>
@@ -148,7 +148,6 @@
                 </div>
                 <div class= "col-6"></div>
                 <div class = "col-3 fini" style="display: flex; justify-content: end;">
-                  <button type="button" class="btn btn-link" style="text-decoration: none; border: 1px solid;">U</button>
                   <button type="button" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i></button>
                   <button type="button" id="pd_form" class="btn btn-primary"><i class="bi bi-file-earmark-plus-fill"></i></button>
                 </div>

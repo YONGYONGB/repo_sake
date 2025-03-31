@@ -22,7 +22,11 @@ public class CodeController {
 	
 	@RequestMapping( value = "/CodeXdmList")
 	public String codeXdmList( @ModelAttribute("vo") CodeVo vo,Model model) {
+		System.out.println(vo.getShDateStart());
+		System.out.println(vo.getShDateEnd());
+	
 		
+		model.addAttribute("vo", vo);
 		vo.setParamsPaging(codeService.selectOneCount(vo));
 		model.addAttribute("list", codeService.selectList(vo));
 		return "/xdm/code/CodeXdmList";

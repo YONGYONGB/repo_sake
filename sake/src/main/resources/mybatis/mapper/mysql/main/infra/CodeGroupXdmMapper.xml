@@ -75,13 +75,15 @@
 			cg_use,
 			cg_name,
 			cg_order,
-			cg_register
+			cg_register,
+			cg_modifDate
 		)values(
 			#{cg_id},
 			#{cg_use},
 			#{cg_name},
 			#{cg_order},
-			now()
+			now(),
+			null
 		)
 		<selectKey resultType="String" keyProperty="cg_id" order="AFTER">
 		Select last_insert_id()

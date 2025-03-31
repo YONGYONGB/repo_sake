@@ -38,10 +38,10 @@
                     <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
                   </select></div>
                 <div class = "col-2 fbele">
-                	<input type="text" id="shDateStart">
+                	<input type="text" id="shDateStart" name ="shDateStart" th:value="${vo.shDateStart}">
                 </div>
                 <div class = "col-2 fbele">
-                	<input type="text" id="shDateEnd">
+                	<input type="text" id="shDateEnd" name ="shDateEnd" th:value="${vo.shDateEnd}">
                 </div>
             </div>
             <div class = "row-1 firstbody">
@@ -178,8 +178,14 @@
   
 
 <script type="text/javascript">
-jQuery('#shDateStart').datetimepicker();
-jQuery('#shDateEnd').datetimepicker();
+jQuery('#shDateStart').datetimepicker({
+	format:'Y.m.d',
+	lang:'ru'
+});
+jQuery('#shDateEnd').datetimepicker({
+	format:'Y.m.d',
+	  lang:'ru'
+});
 
 </script>
   
