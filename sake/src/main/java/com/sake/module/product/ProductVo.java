@@ -1,8 +1,8 @@
 package com.sake.module.product;
 
-import com.sake.module.share.Menu;
+import com.sake.module.base.BaseVo;
 
-public class ProductVo extends Menu{
+public class ProductVo extends BaseVo{
 
 	private String pd_id;
 	private String discount_dc_id;

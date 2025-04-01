@@ -1,19 +1,23 @@
 package com.sake.module.product;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.sake.module.base.BaseController;
 
 
 
 
 @Controller
 @RequestMapping(value="/xdm/product/")
-public class ProductController {
+public class ProductController extends BaseController{
 
 	@Autowired
 	ProductService productservice;
@@ -21,6 +25,8 @@ public class ProductController {
 	@RequestMapping(value = "ProductXdmList")
 	public String productXdmList(@ModelAttribute("vo") ProductVo vo,Model model) {
 		
+		addEnd(vo);
+		model.addAttribute("vo", vo);
 		vo.setParamsPaging(productservice.selectOneCount(vo));
 		model.addAttribute("list", productservice.selectList(vo));
 		return "/xdm/product/ProductXdmList";
@@ -51,6 +57,12 @@ public class ProductController {
 	@RequestMapping(value="ProductXdmUpdate")
 	public String productXdmUpdate(ProductDto dto) {
 		productservice.update(dto);
+		return "redirect:/xdm/product/ProductXdmList";
+	}
+	
+	@RequestMapping(value="ProductXdmUelete")
+	public String ProductXdmUelete(@RequestParam("pd_id") List<Integer>pdIdList) {
+		productservice.uelete(pdIdList);
 		return "redirect:/xdm/product/ProductXdmList";
 	}
 	

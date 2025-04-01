@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.module.discount.DiscountDao">
+<resultMap type="com.sake.module.discount.DiscountDto" id="resultMapObj"></resultMap>
+
+
+
+	<sql id = "selectCommon">
+ 		from discount as a
+ 		where 1=1
+ 			<if test="shUseNy != null and !shUseNy.equals('')">AND a.dc_use  = #{shUseNy}</if>		 
+  	      	<if test="shDelNy != null and !shDelNy.equals('')">AND 0 = #{shDelNy}</if>	      	
+  	      		<!-- <choose>
+					<when test="shOptionDate == 1">AND a.cg_register BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.cg_modifDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				</choose>  -->
+        <choose>
+            <when test="shOption == 1">AND a.dc_id = #{shValue}</when>
+            <when test="shOption == 2">AND a.discount_name LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
+	</sql>	
+
+	<select id = "selectOneCount" resultType="Integer">   <!-- result 타입이여서 integer -->
+		SELECT COUNT(*)	
+		<include refid="selectCommon"></include>
+	</select>
+
+	<select id="selectList" resultMap ="resultMapObj">
+		select aa.* from (
+		select 
+			a.dc_id,
+			a.dc_use,
+			a.discount_name,
+			a.discount_rate,
+			a.discount_dateS,
+			a.discount_dateF
+			<include refid="selectCommon"></include>
+			ORDER BY a.dc_id desc
+			)aa
+		limit #{startRnumForMysql}, #{rowNumToShow}	
+	</select>
+	
+	
+	<select id="selectView" resultMap ="resultMapObj">
+		select 
+			a.dc_id,
+			a.dc_use,
+			a.discount_name,
+			a.discount_rate,
+			a.discount_dateS,
+			a.discount_dateF
+		from
+			discount as a
+		where 1=1
+		and dc_id = #{dc_id}
+		ORDER BY a.dc_id desc
+	</select>
+	
+	
+	
+	<insert id="insert">
+		insert into discount(
+			dc_id,
+			dc_use,
+			discount_name,
+			discount_rate,
+			discount_dateS,
+			discount_dateF
+		)values(
+			#{dc_id},
+			#{dc_use},
+			#{discount_name},
+			#{discount_rate},
+			#{discount_dateS},
+			#{discount_dateF}
+		)
+		<selectKey resultType="String" keyProperty="dc_id" order="AFTER">
+			Select last_insert_id()
+		</selectKey>	
+	</insert>
+	
+	<update id="update">
+		update discount set
+			dc_use = #{dc_use},
+			discount_name = #{discount_name},
+			discount_rate = #{discount_rate},
+			discount_dateS = #{discount_dateS},
+			discount_dateF = #{discount_dateF}
+		where
+			dc_id = #{dc_id}			
+	</update>
+
+</mapper>

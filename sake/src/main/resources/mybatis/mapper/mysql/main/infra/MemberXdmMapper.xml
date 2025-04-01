@@ -8,8 +8,8 @@
 	<sql id = "selectCommon">
  		from user as a
  		where 1=1
- 		<if test="shUseNy != null and !shUseNy.equals('')">AND 1 = #{shUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND a.user_delny = #{shDelNy}</if>
+ 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.user_delny = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND 0 = #{shDelNy}</if>
 
         <choose>
             <when test="shOption == 1">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>  <!-- AND a.user_name = #{shValue} -->
@@ -36,7 +36,9 @@
 			a.email,
 			a.password,
 			a.address,
-			a.user_delny
+			a.user_delny,
+			a.user_regiDate,
+			a.user_modiDate
 		<include refid="selectCommon"></include>
 		ORDER BY a.user_id desc
 		)aa
@@ -73,7 +75,9 @@
 			email,
 			password,
 			address,
-			user_delny
+			user_delny,
+			user_regiDate,
+			user_modiDate
 		)values(
 			#{user_id},
 			#{name},
@@ -84,7 +88,9 @@
 			#{email},
 			#{password},		
 			#{address},		
-			#{user_delny}		
+			#{user_delny},
+			now(),
+			0	
 		)
 		<selectKey resultType="String" keyProperty="user_id" order="AFTER">
 			Select last_insert_id()
@@ -103,7 +109,8 @@
 		email = #{email},
 		password = #{password},
 		address = #{address},
-		user_delny = #{user_delny}
+		user_delny = #{user_delny},
+		user_modiDate = now()
 		where
 		user_id =#{user_id}
 	</update>
@@ -117,11 +124,21 @@
 			a.password
 		from
 			user a 
-		where 1=1
-			
+		where 1=1		
 			<if test ="id != null and !id.equals('')">AND a.id = #{id}</if>
 			<if test ="password != null and !password.equals('')">AND a.password = #{password}</if>
 	</select>
 	
+	
+	<update id="uelete">
+		update user
+		set
+		user_delny = 0,
+		user_modiDate = now() 
+		where user_id in
+    <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+        #{userId}
+    </foreach>
+	</update>
 	
 </mapper>

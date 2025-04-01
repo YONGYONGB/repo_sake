@@ -39,10 +39,10 @@
                     	<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
                   	</select>
                 </div>
-                <div class = "col-2 fbele"><input type="text" id="shDateStart" name="shDateStart"   placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
+                <div class = "col-2 fbele"><input type="text" id="shDateStart" name="shDateStart" th:value="${vo.shDateStart}" placeholder="시작일" class="form-control form-control-sm">
               		<!-- th:value="${#strings.substring(vo.shDateStart, 0, 10)}" -->
                 </div>
-                <div class = "col-2 fbele"><input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일"   class="form-control form-control-sm" autocomplete="off">
+                <div class = "col-2 fbele"><input type="text" id="shDateEnd" name="shDateEnd" th:value="${vo.shDateEnd}" placeholder="종료일" class="form-control form-control-sm">
              <!-- th:value="${#strings.substring(vo.shDateEnd, 0, 10)}"  -->
                 </div>
             </div>
@@ -55,7 +55,9 @@
                       	<option value="3" th:selected="${vo.shOption == 3}">이메일</option>
                   	</select>
                 </div>
-                <div class = "col-2 fbele"><input type="text" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" class="form-control form-control-sm"></div>
+                <div class = "col-2 fbele">
+                	<input type="text" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" class="form-control form-control-sm">
+                </div>
                 <div class="col-2 fbele invalid-feedback" id="shValueFeedback"></div> <!--  화면에러 조심 --> 
                 <div class = "col-2 fbele bu">
                 	<button type="button" id="btnSearch" class="btn btn-outline-dark" title="Search"><i class="bi bi-search"></i></button>
@@ -79,7 +81,7 @@
                 <table class="table datatable" style=" text-align: center">   
                   <thead>              
                     <tr>
-                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" value="" id="selectAllCheckbox"></th>
+                     <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="selectAllCheckbox" id="selectAllCheckbox"></th>
                       <th style="text-align: center;">#</th>
                       <th style="text-align: center;">사용자 이름</th>
                       <th style="text-align: center;">성별</th>
@@ -91,6 +93,8 @@
                       <th style="text-align: center;">주소</th>
                       <th style="text-align: center;">패스워드</th>
                       <th style="text-align: center;">사용여부</th>
+                      <th style="text-align: center;">등록일</th>
+                      <th style="text-align: center;">수정일</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -100,7 +104,7 @@
                   		</td>
                   	</tr>
                   	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
-                      <td><input class="form-check-input" type="checkbox" id="itemCheckbox" name="itemCheckbox" th:value="${list.user_id}"></td>
+                      <td><input class="form-check-input itemCheckbox" type="checkbox" name="itemCheckbox" id="itemCheckbox" th:value="${list.user_id}"></td>
                       <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                       <td><a href="javascript:void(0);" th:text="${list.name}" th:attr="onclick=|goForm('${list.user_id}')|"></a></td>
                       <td th:text="${@codeService.selectOneCachedCode(list.gender)}"></td>  <!--" th:text ="${list.gender}" --> 
@@ -111,7 +115,9 @@
                       <td th:text ="${list.email}"></td>
                       <td th:text ="${list.address}"></td>
                       <td th:text ="${list.password}" ></td>
-                      <td th:text = "${list.user_delny} ? '사용': '미사용' "></td>
+                      <td th:text = "${list.user_delny ==1 } ? '사용': '미사용' "></td>
+                      <td th:text ="${list.user_regiDate}" ></td>
+                      <td th:text ="${list.user_modiDate}" ></td>
                     </tr>
                   </tbody>
                 </table> 
@@ -137,7 +143,7 @@
              
               <div class ="row wrapfin">
                 <div class = "col-3">
-                  <button type="button" class="btn btn-danger">x</button>
+                   <button type="button" id="btnUelete" class="btn btn-danger btn_custom"><i class="bi bi-file-earmark-x"></i></button>
                   <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                 </div>
                 <div class= "col-6"></div>
@@ -150,8 +156,42 @@
           </div> <!-- 중앙 부분  기본정보-->
 	</form>
   </main><!-- End #main -->
+  
+   <!-- 모달 -->
+  <div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="modalConfirmBody">
+				body
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal"><i class="bi bi-caret-left"></i></button>
+				<button type="button" class="btn btn-danger btn_custom" name="" id="btnModalDelete"><i class="bi bi-x-lg"></i></button>
+				<button type="button" class="btn btn-danger btn_custom" name="" id="btnModalUelete"><i class="bi bi-trash"></i></button>
+			</div>
+		</div>
+	</div>
+  </div>
+    <!-- 모달끝 -->
 
   <div th:replace = "~{xdm/include/footer :: footer}"></div>
+  
+  
+  <script type="text/javascript">
+jQuery('#shDateStart').datetimepicker({
+	format:'Y.m.d ',
+	lang:'ko'
+});
+jQuery('#shDateEnd').datetimepicker({
+	format:'Y.m.d',
+	  lang:'ko'
+});
+
+</script>
   
   <script type="text/javascript">
   let seq = document.querySelector("input[name=user_id]");	
@@ -184,6 +224,43 @@ document.getElementById("btnSearch").onclick = function () {
     form.submit();
 };
 </script>
+
+
+  	<!-- ======= uelete	 ======= -->
+
+<script type="text/javascript">
+  if(document.getElementById("btnUelete")){
+		document.getElementById("btnUelete").onclick = function () {
+			document.querySelector("#modalConfirmTitle").textContent = "확 인";
+			document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+			document.querySelector("#btnModalUelete").style.display = '';
+			document.querySelector("#btnModalDelete").style.display = 'none';
+			$("#modalConfirm").modal("show");      	
+		}
+	}
+
+	document.getElementById("btnModalUelete").onclick = function () {
+		
+		const query = 'input[name="itemCheckbox"]:checked';
+		const selectedElements = document.querySelectorAll(query);
+		//체크박스 체크된 항목의 개수
+		const selectedElementsCnt = selectedElements.length;
+		if(selectedElementsCnt == 0){
+		      alert("삭제할 항목을 선택해주세요.");
+		      return false;
+		}else{
+			const selectedValues = [];
+			selectedElements.forEach(element => {
+	            selectedValues.push(element.value);
+	        });
+			
+			seq.value = selectedValues.join(',');
+			form.action = "/xdm/member/MemberXdmUelete";
+			form.submit();
+		}
+	}
+  </script>
+  	<!-- ======= uelete끝 ======= -->
 
 </body>
 

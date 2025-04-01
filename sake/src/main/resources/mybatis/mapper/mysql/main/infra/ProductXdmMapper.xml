@@ -9,7 +9,19 @@
  		from product as a
  		left join discount b on b.dc_id = a.discount_dc_id
  		where 1=1
-										<!--검색기능 넣지않음-->
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.pd_use = #{shUseNy}</if>
+         <if test="shDelNy != null and !shDelNy.equals('')">AND 0 = #{shDelNy}</if>
+				
+				<choose>
+					<when test="shOptionDate == 1">AND a.pd_regiDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.pd_modiDate  BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				</choose>
+			
+        <choose>
+            <when test="shOption == 1">AND b.cg_id = #{shValue}</when>
+            <when test="shOption == 2">AND b.cg_name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND a.cd_name LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>								<!--검색기능 넣지않음-->
 	</sql>	
 	
 	<select id = "selectOneCount" resultType="Integer">   <!-- result 타입이여서 integer -->
@@ -36,7 +48,10 @@
 			b.discount_name,
 			b.discount_rate,
 			b.discount_dateS,
-			b.discount_dateF
+			b.discount_dateF,
+			a.pd_use,
+			a.pd_regiDate,
+			a.pd_modiDate
 		<include refid="selectCommon"></include>
 		ORDER BY a.pd_id desc
 		)aa
@@ -47,6 +62,7 @@
 	<select id="selectView" resultMap="resultMapObj">
 		select
 			a.pd_id,
+			a.pd_use,
 			a.name,
 			a.local,
 			a.local_detail,
@@ -62,7 +78,9 @@
 			b.discount_name,
 			b.discount_rate,
 			b.discount_dateS,
-			b.discount_dateF
+			b.discount_dateF,
+			a.pd_regiDate,
+			a.pd_modiDate
 		from product as a
  		left join discount b on b.dc_id = a.discount_dc_id
  		where 1=1
@@ -83,6 +101,7 @@
 	<insert id="insert">
 	insert into product(
 			pd_id,
+			pd_use,
 			name,
 			local,
 			local_detail,
@@ -93,10 +112,13 @@
 			fixed_price,
 			discountNY,
 			product_number,
+			pd_regiDate,
+			pd_modiDate,
 			discount_dc_id
 	)
 	values(
 		#{pd_id},
+		#{pd_use},
 	 	#{name},
 	 	#{local},
 	 	#{local_detail},
@@ -107,6 +129,8 @@
 	 	#{fixed_price},
 	 	#{discountNY},
 	 	#{product_number},
+	 	now(),
+	 	0
 	 	<if test="discount_dc_id== null">NULL</if>
         <if test="discount_dc_id != null">#{discount_dc_id}</if>
 	)
@@ -119,6 +143,7 @@
 	<update id="update">
 		update product set
 		name = #{name},
+		pd_use = #{pd_use},
 		local = #{local},
 		local_detail = #{local_detail},
 		brand = #{brand},
@@ -128,10 +153,22 @@
 		fixed_price = #{fixed_price},
 		discountNY = #{discountNY},
 		product_number = #{product_number},
+		pd_modiDate = now(),
 		discount_dc_id = <if test="discount_dc_id== null">1</if>
         				 <if test="discount_dc_id != null">#{discount_dc_id}</if>
 		WHERE 1=1
 		and pd_id = #{pd_id}
+	</update>
+	
+	<update id="uelete">
+		update product
+		set
+		pd_use = 0,
+		pd_modiDate = now() 
+		where pd_id in
+    <foreach collection="pdIds" item="pdId" open="(" separator="," close=")">
+        #{pdId}
+    </foreach>
 	</update>
 	
 </mapper>

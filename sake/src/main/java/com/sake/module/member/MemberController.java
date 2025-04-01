@@ -1,6 +1,7 @@
 package com.sake.module.member;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.sake.module.base.BaseController;
 
 import jakarta.servlet.http.HttpSession;
 
 
 @Controller
 @RequestMapping(value="/xdm/member/")
-public class MemberController {
+public class MemberController extends BaseController{
 	
 	@Autowired
 	MemberService memberService;
@@ -25,6 +29,8 @@ public class MemberController {
 	@RequestMapping(value ="MemberXdmList")
 	public String memberXdmList(@ModelAttribute("vo") MemberVo vo,HttpSession httpSession,Model model) {
 		
+		addEnd(vo);
+		model.addAttribute("vo", vo);
 		vo.setParamsPaging(memberService.selectOneCount(vo));		
 		model.addAttribute("list", memberService.selectList(vo));
 		
@@ -56,12 +62,21 @@ public class MemberController {
 		return "redirect:/xdm/member/MemberXdmList";
 	}
 	
+	@RequestMapping(value = "MemberXdmUelete")
+	public String MemberXdmUelete(@RequestParam("user_id")List<Integer> userIdList){
+		memberService.uelete(userIdList);
+		return "redirect:/xdm/member/MemberXdmList";
+	}
+		
+	
+	
 	@RequestMapping(value ="SigninXdmForm")
 	public String login() {
 		return "/xdm/member/SigninXdmForm";
 	}
 	
-
+	
+		
 	
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SigninXdmProc")

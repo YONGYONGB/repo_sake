@@ -38,10 +38,10 @@
                     <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
                   </select></div>
                 <div class = "col-2 fbele">
-                	<input type="text" id="shDateStart" name ="shDateStart" th:value="${vo.shDateStart}">
+                	<input type="text" id="shDateStart" name ="shDateStart" th:value="${vo.shDateStart}" placeholder="시작일" class="form-control form-control-sm">
                 </div>
                 <div class = "col-2 fbele">
-                	<input type="text" id="shDateEnd" name ="shDateEnd" th:value="${vo.shDateEnd}">
+                	<input type="text" id="shDateEnd" name ="shDateEnd" th:value="${vo.shDateEnd}" placeholder="종료일" class="form-control form-control-sm">
                 </div>
             </div>
             <div class = "row-1 firstbody">
@@ -76,12 +76,11 @@
                 <table class="table datatable" style=" text-align: center">   
                   <thead>              
                     <tr>
-                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="check" id="selectAllCheckbox"></th>
+                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="selectAllCheckbox" id="selectAllCheckbox"></th>
                       <th style="text-align: center;">#</th> 
                       <th style="text-align: center;">사용</th>
                       <th style="text-align: center;">코드그룹 코드</th> 
                       <th style="text-align: center;">코드그룹 이름</th>
-                      <th style="text-align: center;">코드그룹 이름(영문)</th>
                       <th style="text-align: center;">갯수</th>
                       <th style="text-align: center;">순서</th>
                       <th style="text-align: center;">등록일</th>
@@ -103,12 +102,10 @@
                       <td th:text = "${list.cg_use == 1} ? '사용': '미사용' "></td>
                       <td th:text = "${list.cg_id}"></td>
                       <td class ="cg_name"> <a th:href= "|javascript:void(0);|" th:text="${list.cg_name}" th:attr="onclick=|goForm('${list.cg_id}')|"></a></td>           
-                      <td></td>
                       <td th:text = "${list.xcd_count}"></td>
                       <td th:text = "${list.cg_order}"></td>           
                       <td th:text = "${list.cg_register}"></td>
-                      <td th:text = "${list.cg_modifDate}"></td>
-                      
+                      <td th:text = "${list.cg_modifDate}"></td>               
                     </tr>
                    </tbody>
                  </table> 
@@ -180,11 +177,11 @@
 <script type="text/javascript">
 jQuery('#shDateStart').datetimepicker({
 	format:'Y.m.d',
-	lang:'ru'
+	lang:'ko'
 });
 jQuery('#shDateEnd').datetimepicker({
 	format:'Y.m.d',
-	  lang:'ru'
+	  lang:'ko'
 });
 
 </script>
@@ -275,6 +272,8 @@ jQuery('#shDateEnd').datetimepicker({
 	    form.submit();
 	};
  </script>
+  
+  
   
 
 </html>

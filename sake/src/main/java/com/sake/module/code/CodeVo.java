@@ -1,8 +1,8 @@
 package com.sake.module.code;
 
-import com.sake.module.share.Menu;
+import com.sake.module.base.BaseVo;
 
-public class CodeVo extends Menu{
+public class CodeVo extends BaseVo{
 
 	private String cd_id;
 

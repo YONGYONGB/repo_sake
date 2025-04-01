@@ -37,11 +37,9 @@
                     <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
 					<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
                   </select></div>
-                <div class = "col-2 fbele"><input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
-                 <!-- th:value="${#strings.substring(vo.shDateStart, 0, 10)}" -->
+                <div class = "col-2 fbele"><input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" th:value="${vo.shDateStart}" class="form-control form-control-sm">
                 </div>
-                <div class = "col-2 fbele"><input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">
-                <!-- th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" -->
+                <div class = "col-2 fbele"><input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" th:value="${vo.shDateEnd}" class="form-control form-control-sm">
                 </div>
             </div>
             <div class = "row-1 firstbody">
@@ -76,9 +74,10 @@
                 <table class="table datatable" style=" text-align: center">   
                   <thead>              
                     <tr>
-                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></th>
+                      <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="selectAllCheckbox" id="selectAllCheckbox"></th>
                       <th style="text-align: center;">#</th>
                       <th style="text-align: center;">코드</th>
+                      <th style="text-align: center;">사용여부</th>
                       <th style="text-align: center;">제품이름</th>
                       <th style="text-align: center;">일본 지역</th>
                       <th style="text-align: center;">상세 지역</th>
@@ -92,6 +91,8 @@
                       <th style="text-align: center;">할인율</th>
                       <th style="text-align: center;">할인시작일</th>
                       <th style="text-align: center;">할인종료일</th>
+                      <th style="text-align: center;">코드등록일</th>
+                      <th style="text-align: center;">코드수정일</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -101,9 +102,10 @@
                   		</td>
                   	</tr>
                   	<tr th:if="${!#lists.isEmpty(list)}" th:each = "list:${list}">
-                      <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                      <td><input class="form-check-input itemCheckbox" type="checkbox" name="itemCheckbox" id="itemCheckbox" th:value="${list.pd_id}"></td>
                       <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> <!--디버깅 테스트를 위해서-->
                       <td th:text ="${list.pd_id}"></td>
+                      <td th:text ="${list.pd_use ==1 ? '사용' : '미사용'}"></td>
                       <td><a href="javascript:void(0);" th:text="${list.name}" th:attr="onclick=|goForm('${list.pd_id}')|"></a></td>
                       <td th:text = "${@codeService.selectOneCachedCode(list.local)}"></td>
                       <td th:text = "${list.local_detail}"></td>
@@ -112,11 +114,13 @@
                       <td th:text = "${list.capacity}"></td> <!-- th:text = ${list.cd_name} -->
                       <td th:text = "${list.liquor}"></td>
                       <td th:text = "${list.fixed_price}"></td>
-                      <td th:text ="${list.discountNY==1} ? '할인적용': '할인미적용'"></td>
-                      <td th:text ="${list.product_number}"></td>
-                      <td th:text ="${list.discount_rate}"></td>
-                      <td th:text ="${list.discount_dateS}"></td>
-                      <td th:text ="${list.discount_dateF}"></td>
+                      <td th:text = "${list.discountNY==1} ? '할인적용': '할인미적용'"></td>
+                      <td th:text = "${list.product_number}"></td>
+                      <td th:text = "${list.discount_rate}"></td>
+                      <td th:text = "${list.discount_dateS}"></td>
+                      <td th:text = "${list.discount_dateF}"></td>
+                      <td th:text = "${list.pd_regiDate}"></td>
+                      <td th:text = "${list.pd_modiDate}"></td>
                     </tr>
                   </tbody>
                 </table> 
@@ -143,7 +147,7 @@
               
               <div class ="row wrapfin">
                 <div class = "col-3">
-                  <button type="button" class="btn btn-danger">x</button>
+                  <button type="button" id="btnUelete" class="btn btn-danger btn_custom"><i class="bi bi-file-earmark-x"></i></button>
                   <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                 </div>
                 <div class= "col-6"></div>
@@ -157,9 +161,39 @@
    </form>
 
   </main><!-- End #main -->
+   <!-- 모달 -->
+  <div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="modalConfirmBody">
+				body
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal"><i class="bi bi-caret-left"></i></button>
+				<button type="button" class="btn btn-danger btn_custom" name="" id="btnModalDelete"><i class="bi bi-x-lg"></i></button>
+				<button type="button" class="btn btn-danger btn_custom" name="" id="btnModalUelete"><i class="bi bi-trash"></i></button>
+			</div>
+		</div>
+	</div>
+  </div>
+    <!-- 모달끝 -->
 
   <!-- ======= Footer ======= -->
  	<div th:replace = "~{xdm/include/footer :: footer}"></div>
+ 	<script type="text/javascript">
+		jQuery('#shDateStart').datetimepicker({
+			format:'Y.m.d ',
+			lang:'ko'
+		});
+		jQuery('#shDateEnd').datetimepicker({
+			format:'Y.m.d',
+	  		lang:'ko'
+		});
+	</script>
  	
  	<!-- =======공통 ======= -->
   	<script type="text/javascript">
@@ -201,5 +235,47 @@
     }
 	</script>
 	
+	<script type="text/javascript">
+	document.getElementById("btnSearch").onclick = function () {
+	    form.action = "/xdm/product/ProductXdmList";
+	    form.submit();
+	};
+	</script>
+	
+	  	<!-- ======= uelete	 ======= -->
+
+<script type="text/javascript">
+  if(document.getElementById("btnUelete")){
+		document.getElementById("btnUelete").onclick = function () {
+			document.querySelector("#modalConfirmTitle").textContent = "확 인";
+			document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+			document.querySelector("#btnModalUelete").style.display = '';
+			document.querySelector("#btnModalDelete").style.display = 'none';
+			$("#modalConfirm").modal("show");      	
+		}
+	}
+
+	document.getElementById("btnModalUelete").onclick = function () {
+		
+		const query = 'input[name="itemCheckbox"]:checked';
+		const selectedElements = document.querySelectorAll(query);
+		//체크박스 체크된 항목의 개수
+		const selectedElementsCnt = selectedElements.length;
+		if(selectedElementsCnt == 0){
+		      alert("삭제할 항목을 선택해주세요.");
+		      return false;
+		}else{
+			const selectedValues = [];
+			selectedElements.forEach(element => {
+	            selectedValues.push(element.value);
+	        });
+			
+			seq.value = selectedValues.join(',');
+			form.action = "/xdm/product/ProductXdmUelete";
+			form.submit();
+		}
+	}
+  </script>
+  	<!-- ======= uelete끝 ======= -->
 
 </html>

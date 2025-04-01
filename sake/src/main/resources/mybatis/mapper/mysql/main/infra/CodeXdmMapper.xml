@@ -9,7 +9,7 @@
  		left join codeGroup b on b.cg_id = a.codeGroup_cg_id
 		where 1=1
  		 <if test="shUseNy != null and !shUseNy.equals('')">AND a.cd_use = #{shUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND a.cd_delny = #{shDelNy}</if>
+         <if test="shDelNy != null and !shDelNy.equals('')">AND a.cd_delny = #{shDelNy}</if>
 				
 				<choose>
 					<when test="shOptionDate == 1">AND a.cd_register BETWEEN #{shDateStart} AND #{shDateEnd}</when>

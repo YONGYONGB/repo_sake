@@ -36,4 +36,8 @@ public class MemberService {
 		return memberDao.selectOneLogin(memberdto);
 	}
 	
+	public int uelete(List<Integer>userIds) {
+		return memberDao.uelete(userIds);
+	}
+	
 }

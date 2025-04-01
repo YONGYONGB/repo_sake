@@ -9,23 +9,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sake.module.base.BaseController;
+
 
 
 
 @Controller
 @RequestMapping(value="/xdm/code/")
-public class CodeController {
+public class CodeController extends BaseController{
 
 	
 	@Autowired
 	CodeService codeService;
 	
-	@RequestMapping( value = "/CodeXdmList")
+	@RequestMapping( value = "CodeXdmList")
 	public String codeXdmList( @ModelAttribute("vo") CodeVo vo,Model model) {
-		System.out.println(vo.getShDateStart());
-		System.out.println(vo.getShDateEnd());
-	
 		
+	
+		addEnd(vo);
 		model.addAttribute("vo", vo);
 		vo.setParamsPaging(codeService.selectOneCount(vo));
 		model.addAttribute("list", codeService.selectList(vo));
@@ -34,7 +35,7 @@ public class CodeController {
 	
 	
 	
-	@RequestMapping(value = "/CodeXdmForm")
+	@RequestMapping(value = "CodeXdmForm")
 	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, CodeDto codeDto, Model model)throws Exception{
 		model.addAttribute("lists", codeService.selectCg(codeDto));
 		
@@ -51,19 +52,19 @@ public class CodeController {
 	
 	
 	
-	@RequestMapping(value = "/CodeXdmInst")
+	@RequestMapping(value = "CodeXdmInst")
 	public String codeXdmInst(CodeDto codeDto) {
 		codeService.insert(codeDto);
 		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping(value = "/CodeXdmUpdate")
+	@RequestMapping(value = "CodeXdmUpdate")
 	public String codeXdm(CodeDto codeDto) {
 		codeService.update(codeDto);
 		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping(value = "/CodeXdmUelete")
+	@RequestMapping(value = "CodeXdmUelete")
 	public String codeXdmUelete(@RequestParam("cd_id") List<Integer> cdIdList) {
 		codeService.uelete(cdIdList);
 		return "redirect:/xdm/code/CodeXdmList";

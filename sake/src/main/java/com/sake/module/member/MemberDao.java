@@ -2,6 +2,7 @@ package com.sake.module.member;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -20,4 +21,7 @@ public interface MemberDao {
 	
 	
 	public MemberDto selectOneLogin(MemberDto memberdto);
+	
+	
+	public int uelete(@Param("userIds") List<Integer>userIds);
 }

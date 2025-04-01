@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sake.module.base.BaseController;
+import com.sake.module.base.BaseVo;
 import com.sake.module.code.CodeService;
 
 
 @Controller
 @RequestMapping(value="/xdm/codegroup/")
-public class CodeGroupController {
+public class CodeGroupController extends BaseController{
 	
 	@Autowired
 	CodeGroupService codeGroupService;
@@ -30,7 +32,7 @@ public class CodeGroupController {
 	@RequestMapping(value = "CodeGroupXdmList")
 	public String CodeGroupList(@ModelAttribute("vo") CodeGroupVo vo,Model model) throws Exception{
 		
-
+		addEnd(vo);
 		model.addAttribute("vo", vo);
 		vo.setParamsPaging(codeGroupService.selectOneCount(vo));
 		model.addAttribute("lists", codeGroupService.selectList(vo));

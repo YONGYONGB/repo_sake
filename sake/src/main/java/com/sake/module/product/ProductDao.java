@@ -2,6 +2,7 @@ package com.sake.module.product;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,4 +19,6 @@ public interface ProductDao {
 	public int insert(ProductDto dto);
 	
 	public int update(ProductDto dto);
+	
+	public int uelete(@Param("pdIds") List<Integer> pdIds);
 }

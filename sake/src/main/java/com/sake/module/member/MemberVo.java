@@ -1,8 +1,8 @@
 package com.sake.module.member;
 
-import com.sake.module.share.Menu;
+import com.sake.module.base.BaseVo;
 
-public class MemberVo extends Menu{
+public class MemberVo extends BaseVo{
 
 	private String user_id;
 

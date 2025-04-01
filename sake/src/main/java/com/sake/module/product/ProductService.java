@@ -34,4 +34,8 @@ public class ProductService {
 	public int update(ProductDto dto){
 		return productDao.update(dto);
 	}
+	
+	public int uelete(List<Integer> pdIds) {
+		return productDao.uelete(pdIds);
+	}
 }

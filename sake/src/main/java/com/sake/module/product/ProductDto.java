@@ -1,5 +1,8 @@
 package com.sake.module.product;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class ProductDto {
 
 	private String pd_id;
@@ -14,6 +17,9 @@ public class ProductDto {
 	private Integer discountNY;
 	private Integer product_number;
 	private String discount_dc_id;
+	private Integer pd_use;
+	private LocalDateTime pd_regiDate;
+	private LocalDateTime pd_modiDate;
 	
 	private String dc_id;
 	private String discount_name;
@@ -22,6 +28,7 @@ public class ProductDto {
 	private String discount_dateF;
 
 	
+	private List<Integer> pdIds;
 	//  - - - - -
 	
 	
@@ -127,6 +134,30 @@ public class ProductDto {
 	}
 	public void setProduct_number(Integer product_number) {
 		this.product_number = product_number;
+	}
+	public Integer getPd_use() {
+		return pd_use;
+	}
+	public void setPd_use(Integer pd_use) {
+		this.pd_use = pd_use;
+	}
+	public LocalDateTime getPd_regiDate() {
+		return pd_regiDate;
+	}
+	public void setPd_regiDate(LocalDateTime pd_regiDate) {
+		this.pd_regiDate = pd_regiDate;
+	}
+	public LocalDateTime getPd_modiDate() {
+		return pd_modiDate;
+	}
+	public void setPd_modiDate(LocalDateTime pd_modiDate) {
+		this.pd_modiDate = pd_modiDate;
+	}
+	public List<Integer> getPdIds() {
+		return pdIds;
+	}
+	public void setPdIds(List<Integer> pdIds) {
+		this.pdIds = pdIds;
 	}
 	
 	
