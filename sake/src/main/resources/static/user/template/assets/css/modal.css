@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+/* 기본 스타일 */
+
+
+/* 모달 창 스타일 */
+.modal {
+    /* display: none;  */ /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 15% auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 버튼 스타일 */
+.modal-content > button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.modal-content > button:hover {
+    background-color: #0056b3;
+}

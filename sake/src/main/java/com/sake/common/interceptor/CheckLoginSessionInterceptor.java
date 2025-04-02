@@ -13,11 +13,11 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 //		관리자용
 		if(request.getRequestURI().contains("Xdm")) {
 			if (request.getSession().getAttribute("sessNameXdm") != null) {
-				System.out.println("@@@@@@@@22");
+				
 				// by pass
 			} else {
 				response.sendRedirect("/xdm/member/SigninXdmForm");
-				System.out.println("#################");
+				
 		        return false;
 			}
 		} else {
