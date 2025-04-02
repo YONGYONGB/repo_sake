@@ -6,32 +6,40 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sake.module.code.CodeDto;
-import com.sake.module.code.CodeService;
 import com.sake.module.code.CodeVo;
+import com.sake.module.member.MemberDto;
+import com.sake.user.base.UserBaseController;
 
 
 @Controller
-public class AccountCodeController {
+@RequestMapping(value="/user/userAccountPage/")
+public class AccountCodeController extends UserBaseController{
 
 	@Autowired
 	AccountCodeService accountCodeService;
 	
-	@Autowired
-	CodeService codeService;
 	
-	@RequestMapping(value ="signupForm")
-	public String signupForm(Model model, CodeDto codeDto, CodeVo vo){
-		model.addAttribute("list", codeService.selectList(vo));
-		return "user/userAccountPage/signup";
+	
+	@RequestMapping(value ="signup")
+	public String signup(Model model, CodeDto codeDto, CodeVo vo){
+
+		return "/user/userAccountPage/signup";
 	}
 	
 	
 	
 	@RequestMapping(value = "signupInst" )
-	public String MemberXdmList(AccountCodeDto accountCodeDto){
-		accountCodeService.insert(accountCodeDto);
-		return "redirect:/signupForm";
+	public String MemberXdmList(MemberDto memberdto){
+		accountCodeService.insert(memberdto);
+		return "redirect:/user/userAccountPage/signin";
 	}
 
+	
+	
+	@RequestMapping(value ="signin")
+	public String signin(Model model, CodeDto codeDto, CodeVo vo){
+
+		return "/user/userAccountPage/signin";
+	}
 
 }

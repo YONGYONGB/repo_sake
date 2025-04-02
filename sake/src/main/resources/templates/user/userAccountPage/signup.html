@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+ 	
 
 <div th:replace ="~{user/include/accountHeader::header}"></div>
 
 
   <main>
     <!-- section -->
-    <form action="signupInst" method="post" id="form">
+    <div>
 
-    <section class="my-lg-14 my-8">
+    <section class="my-lg-14 my-8" >
       <!-- container -->
       <div class="container">
         <!-- row -->
@@ -24,99 +25,271 @@
               <p>Welcome to ST.Sake!</p>
             </div>
             <!-- form -->
-            <form class="needs-validation" novalidate>
+            <form action="/user/userAccountPage/signupInst" method="post" id="form" class="needs-validation" novalidate>
               <div class="row g-3">
-                <!-- col -->
+              
                 <div class="col-8">
-                  <!-- input -->
-                  <label for="formSignupfname" class="form-label visually">이름</label>
-                  <input type="text" class="form-control" id="formSignupfname" placeholder="이름" required name ="name"/>
-                  <div class="invalid-feedback">Please enter Name.</div>
+                  <input type="hidden" name="user_id" value="0">
+                  <input type="hidden" name="user_delny" value="1">
+                  <label for="name" class="form-label visually">이름</label>
+                  <input type="text" class="form-control" id="name" placeholder="이름" required name ="name"/>
+                  <div class="invalid-feedback" id ="nameError">Please select a valid state.</div>
                 </div>
-                <div class = "col-2" th:each = "list:${list}" style="align-content: end;">
-                  <input type="radio" class="btn-check" name="gender" id="option1" autocomplete="off" checked>
-                  <label class="btn" for="option1" th:value ="list.cd_id" th:text="${list.cd_name}" th:selected="${list.cd_id<='2'}"
-                  style="align-content: center; padding-left: 0px; padding-right: 0px; width: 49px;">남자</label>
-                </div>
+                <div class = "col-4">
+                	<label for="gender" class="form-label">성별</label>
+                  	<select class="form-select" aria-label="Default select example" name ="gender" id="gender" th:value="${item?.gender}">
+                  		<option value ="">선택하세요</option>
+                    	<option th:each="list : ${@codeService.selectListCachedCode(2)}" th:value="${list.cd_id}" th:text="${list.cd_name}" th:selected="${list.cd_id} == ${item?.gender}"></option>
+                  	</select><div class="invalid-feedback" id ="genderError">Please select a valid state.</div>
+              	</div>
                 
                 <div class="col-12">
-                  <!-- input -->
-                  <label for="formSignuplbirthday" class="form-label visually">생년월일</label>
-                  <input type="date" class="form-control" id="birthday" placeholder="생년월일" required name ="birthday"/>
-                  <div class="invalid-feedback">Please enter birthday.</div>
+                  	<label for="birthday" class="form-label">생일</label>
+                	<input type="text" class="form-control" id="birthday" name ="birthday" placeholder="생년월일" required>
+                	<div class="invalid-feedback" id ="birthdayError">Looks good!</div>
                 </div>
                 <div class="col-12">
-                  <!-- input -->
-                  <label for="formSignuplclearancenum" class="form-label visually">고유통관번호</label>
-                  <input type="text" class="form-control" id="formSignuplclearancenum" placeholder="고유통관번호" required name="clearance"/>
-                  <div class="invalid-feedback">Please enter ProperCustomsClearance.</div>
+                  <label for="clearance" class="form-label">고유통관번호</label>
+                	<input type="text" class="form-control" id="clearance" placeholder="고유통관번호" required name="clearance">
+                <div class="invalid-feedback" id="clearanceError">Looks good!</div>
                 </div>
                 <div class="col-12">
-                  <!-- input -->
-                  <label for="formSignuplname" class="form-label visually">아이디</label>
-                  <input type="text" class="form-control" id="formSignuplname" placeholder="아이디" required name="id"/>
-                  <div class="invalid-feedback">Please enter ID.</div>
+                 	 <label for="id" class="form-label" >아이디</label>
+                	 <input type="text" class="form-control" id="id" required name ="id"  placeholder="아이디">
+               		 <div class="invalid-feedback" id="idError">Looks good!</div>
                 </div>
-                <div class="col-12">
-                  <!-- input -->
-                  <label for="formSignupEmail" class="form-label visually">이메일</label>
-                  <input type="email" class="form-control" id="formSignupEmail" placeholder="Email" required name="email"/>
-                  <div class="invalid-feedback">Please enter email.</div>
+                <div class="col-12">        
+                  <label for="email" class="form-label">이메일</label>
+                	<input type="text" class="form-control" id="email" placeholder="이메일형식" required name="email">
+                	<div class="invalid-feedback" id="emailError">Looks good!</div>
                 </div>
                 <div class="col-12">
                   <div class="password-field position-relative">
-                    <label for="formSignupPassword" class="form-label visually">패스워드</label>
-                    <div class="password-field position-relative">
-                      <input type="password" class="form-control fakePassword" id="formSignupPassword"
-                        placeholder="*****" required  name="password"/>
-                      <span><i class="bi bi-eye-slash passwordToggler"></i></span>
-                      <div class="invalid-feedback">Please enter password.</div>
+                    <label for="password" class="form-label">패스워드</label>
+                	<input type="password" class="form-control" id="password" placeholder="특수문자, 영어대소문자, 숫자를 하나씩 입력" required name="password">
+                	
+                	<div class="invalid-feedback" id="passwordError">Looks good!</div>
                     </div>
                   </div>
-                </div>
+                
+       
                 <div class="col-12">
                   <div class="password-field position-relative">
                     <label for="formSignupPassword1" class="form-label visually">패스워드 확인</label>
                     <div class="password-field position-relative">
-                      <input type="password" class="form-control fakePassword" id="formSignupPassword1"
+                      <input type="password" class="form-control fakePassword" id="pwch"
                         placeholder="Password confirm" required />
                       <span><i class="bi bi-eye-slash passwordToggler"></i></span>
-                      <div class="invalid-feedback">password disagreement.</div>
+                      <div class="invalid-feedback" id="pwchError">password disagreement.</div>
                     </div>
                   </div>
                 </div>
-                <!-- btn -->
-                <button type="submit" class="btn btn-primary" id="user_submit">회원가입</button>
-                <!-- text -->
+                
+            	<div class="col-12" >
+                <button type="button" class="btn btn-primary" id="user_submit">회원가입</button>
+              	</div>
               </div>
             </form>
           </div>
         </div>
       </div>
     </section>
-    </form>
+    </div>
   </main>
 
   <!-- Footer -->
   <!-- footer -->
   <div th:replace = "~{user/include/accountFooter::footer}"></div>
-  
-  <script type="text/javascript">
-  	 document.getElementById("user_submit").onclick = function(){
-  		document.getElementById("form").submit;
-  	 }
-  </script>
-  
-  
-  <script src="user/template/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="user/template/assets/libs/simplebar/dist/simplebar.min.js"></script>
+   <script src="/user/template/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/user/template/assets/libs/simplebar/dist/simplebar.min.js"></script>
 
   <!-- Theme JS -->
-  <script src="user/template/assets/js/theme.min.js"></script>
+  <script src="/user/template/assets/js/theme.min.js"></script>
 
-  <script src="user/template/assets/js/vendors/password.js"></script>
+  <script src="/user/template/assets/js/vendors/password.js"></script>
 
-  <script src="user/template//assets/js/vendors/validation.js"></script>
+  <script src="/user/template//assets/js/vendors/validation.js"></script>
+  
+ 
+ <script src="/xdm/js/jquery.datetimepicker.full.min.js"></script>
+  <script src="/xdm/template/NiceAdmin/assets/js/main.js"></script>
+  
+  
+  
+  <script type="text/javascript">
+	jQuery('#birthday').datetimepicker({
+		format:'Y.m.d',
+		lang:'ko'
+	});
+  </script>
+  
+  <script type="text/javascript">
+  document.getElementById("user_submit").addEventListener("click",function(event){
+	  
+	  	let seq = document.querySelector("input[name=user_id]");
+		event.preventDefault();
+		
+		
+		document.getElementById("name").classList.remove("is-invalid");
+		document.getElementById("name").classList.remove("is-valid");
+		
+	    document.getElementById("gender").classList.remove("is-invalid");
+	    document.getElementById("gender").classList.remove("is-valid");
+	   
+	    document.getElementById("birthday").classList.remove("is-invalid");
+	    document.getElementById("birthday").classList.remove("is-valid");
+	   
+	    document.getElementById("clearance").classList.remove("is-invalid");
+	    document.getElementById("clearance").classList.remove("is-valid");
+	    
+	    document.getElementById("id").classList.remove("is-invalid");
+	    document.getElementById("id").classList.remove("is-valid");
+	    
+	    document.getElementById("email").classList.remove("is-invalid");
+	    document.getElementById("email").classList.remove("is-valid");
+	    
+	    document.getElementById("password").classList.remove("is-invalid");
+	    document.getElementById("password").classList.remove("is-valid");
+	    
+	    document.getElementById("pwch").classList.remove("is-invalid");
+	    document.getElementById("pwch").classList.remove("is-valid");
+	    
+	    
+	    
+	    
+		
+		document.getElementById("nameError").textContent = '';  		
+  		document.getElementById("genderError").textContent = '';
+  		document.getElementById("birthdayError").textContent = '';
+ 		document.getElementById("clearanceError").textContent = '';
+ 		document.getElementById("idError").textContent = '';
+ 		document.getElementById("emailError").textContent = '';
+ 		document.getElementById("passwordError").textContent = '';
+ 		document.getElementById("pwchError").textContent = '';
+ 	
+      	      
+		let isValid = true; 
+	    
+		
+		const name = document.getElementById("name").value;
+		let n = /^[가-힣]{2,5}$/;
+		if(name == null || name == ""){
+			document.getElementById("nameError").textContent = "이름을 넣어주세요.";
+			document.getElementById("name").classList.add("is-invalid");
+			isValid = false;
+		}else if(name.trim() != name){
+			document.getElementById("nameError").textContent = "띄어쓰기를 제거해주세요.";
+			document.getElementById("name").classList.add("is-invalid");
+			isValid = false;
+		}else if(!n.test(name)){
+			document.getElementById("nameError").textContent = "한글이름이 2~5글자 사이가 아닙니다.";
+			document.getElementById("name").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("name").classList.add("is-valid");
+		}
+	    
+		const gender = document.getElementById("gender").value;
+		if(gender == null || gender == ""){
+			document.getElementById("genderError").textContent = "성별을 선택해주세요";
+			document.getElementById("gender").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("gender").classList.add("is-valid");
+		}
+		
+		const birthday = document.getElementById("birthday").value; 
+		if(birthday == null || birthday == ""){
+			document.getElementById("birthdayError").textContent = "생년월일을 선택해주세요";
+			document.getElementById("birthday").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("birthday").classList.add("is-valid");
+		}
+		
+ 	    const clearance = document.getElementById("clearance").value;
+ 	   	let iciNoRule = /^(p|P)[1-6]{1}[0-9]{11}$/;
+ 		 if(!iciNoRule.test(clearance)){
+			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입려해주세요.(p와 12자리의 값을 입력해주세요)";
+			document.getElementById("clearance").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("clearance").classList.add("is-valid");
+		}
+ 		 
+ 		const id = document.getElementById("id").value;
+ 		let expIdText = /^[A-Za-z]{4,20}$/;
+		if(id == null || id == ""){
+			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			isValid = false;
+		}else if(id.trim() != id){
+			document.getElementById("idError").textContent = "띄어쓰기를 제거해주세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			isValid = false;
+		}else if(!expIdText.test(id)){
+			document.getElementById("idError").textContent = "영어로 구성된 4~10자리의 아이디를 만드세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("id").classList.add("is-valid");
+		} 
+ 		 
+ 		 
+		const email = document.getElementById("email").value;
+		let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+ 		 if(!regEmail.test(email)){
+			document.getElementById("emailError").textContent = " 올바른 이메일 형식을 입력해주세요.";
+			document.getElementById("email").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("email").classList.add("is-valid");
+		}
+		
+		
+		const password = document.getElementById("password").value;
+		var reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,15}$/
+	 	if(!reg.test(password)){
+			document.getElementById("passwordError").textContent = "적어도 하나의 영문자, 숫자,특수문자(!@#$%^*+=-)를 포함한 5~15자리 패스워드를 입력하세요.";
+			document.getElementById("password").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("password").classList.add("is-valid");
+		}
+		
+		const pwch = document.getElementById("pwch").value;
+		if(pwch == null || pwch == ""){
+			document.getElementById("pwchError").textContent = "패스워드 확인에 대한 값을 넣어주세요";
+			document.getElementById("pwch").classList.add("is-invalid");
+			isValid = false;
+		}
+		else if(pwch.length<5 || pwch.length>15){
+			document.getElementById("pwchError").textContent = "패스워드 확인의 값이 5자리 미만 혹은 15자리 초과입니다.";
+			document.getElementById("pwch").classList.add("is-invalid");
+			isValid = false;
+		}else if(password != pwch){
+			document.getElementById("pwchError").textContent = "패스워드랑 일치하지않습니다.";
+			document.getElementById("pwch").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("pwch").classList.add("is-valid");
+		}
+ 		 
+ 		 
+ 		 
+		if(isValid){
+			document.getElementById("form").submit();
+		}else {
+          console.log("유효성 검사 실패: 폼 제출 안 함");
+      }
+	});
+  </script>
+  
+ 
+  
+  
+  
+
 </body>
 
 </html>

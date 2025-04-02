@@ -82,9 +82,9 @@
 	 		cd_name,
 	 		cd_order,
 	 		cd_register,
-	 		cd_modifDate
+	 		cd_modifDate,
 	 		codeGroup_cg_id
-	 	)values(
+	 	)values(c
 	 		#{cd_id},
 	 		#{cd_use},
 	 		#{cd_name},

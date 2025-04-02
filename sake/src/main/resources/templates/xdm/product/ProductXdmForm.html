@@ -155,6 +155,7 @@
 	    let discountNY = document.getElementById("discountNY");
 	    
 	    // 할인 여부 변경 시 실행
+	    let initialValue = discount_dc_id.value;
 	    discountNY.addEventListener("change", toggleDiscountSelection);
 
 	    function toggleDiscountSelection() {
@@ -171,8 +172,8 @@
     			// '' (빈 값) 옵션도 비활성화
     			let optionEmpty = discount_dc_id.querySelector("option[value='']");
     			if (optionEmpty) optionEmpty.disabled = true;
-	             if (discount_dc_id.value === "1") {
-	                 discount_dc_id.value = "";  // 기본값으로 변경
+	            if (discount_dc_id.value === "1") {
+	                 discount_dc_id.value = initialValue;  // 기본값으로 변경
 	             }
 	             
 	        }else{

@@ -90,7 +90,7 @@
 			#{address},		
 			#{user_delny},
 			now(),
-			0	
+			null	
 		)
 		<selectKey resultType="String" keyProperty="user_id" order="AFTER">
 			Select last_insert_id()

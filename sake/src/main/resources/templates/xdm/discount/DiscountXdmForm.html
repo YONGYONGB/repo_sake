@@ -187,9 +187,13 @@ jQuery('#discount_dateF').datetimepicker({
 			document.getElementById("discount_rate").classList.add("is-invalid");
 			isValid = false;
 		}else if(!regex.test(order)){
-			document.getElementById("discount_rateError").textContent = " 0 이상의 숫자를 입력해주세요";
+			document.getElementById("discount_rateError").textContent = " 정수를 입력해주세요";
 			document.getElementById("discount_rate").classList.add("is-invalid");
 			isValid = false;
+		}else if(order == 0 || order == 0.0){
+			document.getElementById("discount_rateError").textContent = " 0 이상의 숫자를 입력해주세요";
+			document.getElementById("discount_rate").classList.add("is-invalid");
+			isValid = false;		
 		}else{
 			document.getElementById("discount_rate").classList.add("is-valid");
 		}
