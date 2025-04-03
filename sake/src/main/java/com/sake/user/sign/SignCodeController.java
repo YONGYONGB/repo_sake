@@ -1,4 +1,4 @@
-package com.sake.user.accountcode;
+package com.sake.user.sign;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,11 +19,11 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-@RequestMapping(value="/user/userAccountPage/")
-public class AccountCodeController extends UserBaseController{
+@RequestMapping(value="/user/sign/")
+public class SignCodeController extends UserBaseController{
 
 	@Autowired
-	AccountCodeService accountCodeService;
+	SignCodeService signCodeService;
 	
 	@Autowired
 	MemberService memberService;
@@ -31,15 +31,15 @@ public class AccountCodeController extends UserBaseController{
 	@RequestMapping(value ="signup")
 	public String signup(Model model, CodeDto codeDto, CodeVo vo){
 
-		return "/user/userAccountPage/signup";
+		return "/user/sign/signup";
 	}
 	
 	
 	
 	@RequestMapping(value = "signupInst" )
 	public String MemberXdmList(MemberDto memberdto){
-		accountCodeService.insert(memberdto);
-		return "redirect:/user/userAccountPage/signin";
+		signCodeService.insert(memberdto);
+		return "redirect:/user/sign/signin";
 	}
 
 	
@@ -47,7 +47,7 @@ public class AccountCodeController extends UserBaseController{
 	@RequestMapping(value ="signin")
 	public String signin(Model model, CodeDto codeDto, CodeVo vo){
 
-		return "/user/userAccountPage/signin";
+		return "/user/sign/signin";
 	}
 
 	
@@ -83,6 +83,4 @@ public class AccountCodeController extends UserBaseController{
 			returnMap.put("rt", "success");
 			return returnMap;
 		}
-		
-	
 }

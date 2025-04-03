@@ -1,15 +1,12 @@
-package com.sake.user.accountcode;
+package com.sake.user.sign;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sake.module.member.MemberDao;
 import com.sake.module.member.MemberDto;
-
 @Service
-public class AccountCodeService {
-
-	
+public class SignCodeService {
 	@Autowired
 	MemberDao memberdao;
 	

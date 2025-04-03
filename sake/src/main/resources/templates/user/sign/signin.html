@@ -57,7 +57,7 @@
                 <!-- link -->
                 <div style="text-align: center;">
                   계정이 없으십니까?
-                  <a href="/user/userAccountPage/signup">회원가입</a>
+                  <a href="/user/sign/signup">회원가입</a>
                 </div>
               </div>
             </form>
@@ -160,7 +160,7 @@
 			async: true 
 			,cache: false
 			,type: "post"
-			,url: "/user/userAccountPage/SigninUserProc"
+			,url: "/user/sign/SigninUserProc"
 			,data : { "id" : $("#id").val(), "password" : $("#password").val()}
 			,success: function(response) {
 				
