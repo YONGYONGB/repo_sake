@@ -1,7 +1,6 @@
 package com.sake.module.base;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.sake.module.product.ProductVo;
 import com.sake.module.util.UtilDateTime;
 
 public class BaseController {

@@ -8,6 +8,8 @@
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 		<input type="hidden" name="pd_id">
+		<input type="hidden" name="cd_id">
+		<!-- <input type="hidden" name="shlocal"> -->
           <div id="divSearch" class = "col cen">  <!-- 중앙 부분  기본정보-->
             <div class = "a">
               <div>
@@ -42,6 +44,27 @@
                 <div class = "col-2 fbele"><input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" th:value="${vo.shDateEnd}" class="form-control form-control-sm">
                 </div>
             </div>
+            <div class = "row-1 firstbody">
+            <!-- 일본지역 브랜드 타입 -->
+            	 <div class = "col-2 fbele">
+             	  	<select id="shlocal" name="shlocal" class="form-select" aria-label="Default select example">
+                    	<option value="">지역</option>
+                    	<option th:each ="list:${@codeService.selectListCachedCode(3)}" th:value="${list.cd_id}" th:text="${list.cd_name}" th:selected="${vo.shlocal == list.cd_id}">지역</option>
+                  	</select>
+            	 </div>
+            	 <div class = "col-2 fbele">
+             	  	<select id="shtype" name="shtype" class="form-select" aria-label="Default select example">
+                    	<option value="">타입</option>
+                    	<option th:each ="list:${@codeService.selectListCachedCode(4)}" th:value="${list.cd_id}" th:text="${list.cd_name}" th:selected="${vo.shtype == list.cd_id}">타입</option>
+                  	</select>
+            	 </div>
+            	 <div class = "col-2 fbele">
+             	  	<select id="shbrand" name="shbrand" class="form-select" aria-label="Default select example">
+                    	<option value="">브랜드</option>
+                    	<option th:each ="list:${@codeService.selectListCachedCode(5)}" th:value="${list.cd_id}" th:text="${list.cd_name}" th:selected="${vo.shbrand == list.cd_id}">브랜드</option>
+                  	</select>
+            	 </div> 
+            </div>        
             <div class = "row-1 firstbody">
                 <div class = "col-2  fbele ">
                 	<select id="shOption" name="shOption" class="form-select" aria-label="Default select example">
@@ -109,8 +132,8 @@
                       <td><a href="javascript:void(0);" th:text="${list.name}" th:attr="onclick=|goForm('${list.pd_id}')|"></a></td>
                       <td th:text = "${@codeService.selectOneCachedCode(list.local)}"></td>
                       <td th:text = "${list.local_detail}"></td>
-                      <td th:text = "${list.brand}"></td>
-                      <td th:text = "${list.type}"></td>
+                      <td th:text = "${@codeService.selectOneCachedCode(list.brand)}"></td>
+                      <td th:text = "${@codeService.selectOneCachedCode(list.type)}"></td>
                       <td th:text = "${list.capacity}"></td> <!-- th:text = ${list.cd_name} -->
                       <td th:text = "${list.liquor}"></td>
                       <td th:text = "${list.fixed_price}"></td>
@@ -237,7 +260,36 @@
 	
 	<script type="text/javascript">
 	document.getElementById("btnSearch").onclick = function () {
+		
+		
 	    form.action = "/xdm/product/ProductXdmList";
+	    form.submit();
+	};
+	
+	document.getElementById("btnReset").onclick = function () {
+		let shD = document.getElementById("shDelNy");  
+		let shU = document.getElementById("shUseNy");  
+		let shOD = document.getElementById("shOptionDate");  
+		let shO = document.getElementById("shOption");  
+		let shDS = document.getElementById("shDateStart");  
+		let shE = document.getElementById("shDateEnd");  
+		let shV = document.getElementById("shValue");  
+		let shL = document.getElementById("shlocal");  
+		let shB = document.getElementById("shbrand");  
+		let shT = document.getElementById("shtype");  
+		
+		shD.value ="0";
+		shU.value ="1";
+		shOD.value ="";
+		shO.value ="";
+		shDS.value ="";
+		shE.value ="";
+		shV.value ="";
+		shL.value ="";
+		shB.value ="";
+		shT.value ="";
+		
+		form.action = "/xdm/product/ProductXdmList";
 	    form.submit();
 	};
 	</script>

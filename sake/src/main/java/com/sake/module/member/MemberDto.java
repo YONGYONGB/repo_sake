@@ -15,8 +15,8 @@ public class MemberDto {
 	private String password;
 	private String address;
 	private Integer user_delny;
-	private LocalDateTime user_regiDate;
-	private LocalDateTime user_modiDate;
+	private String user_regiDate;
+	private String user_modiDate;
 	
 	private List<Integer> userIds;
 	//------
@@ -30,16 +30,16 @@ public class MemberDto {
 	public String getUser_id() {
 		return user_id;
 	}
-	public LocalDateTime getUser_regiDate() {
+	public String getUser_regiDate() {
 		return user_regiDate;
 	}
-	public void setUser_regiDate(LocalDateTime user_regiDate) {
+	public void setUser_regiDate(String user_regiDate) {
 		this.user_regiDate = user_regiDate;
 	}
-	public LocalDateTime getUser_modiDate() {
+	public String getUser_modiDate() {
 		return user_modiDate;
 	}
-	public void setUser_modiDate(LocalDateTime user_modiDate) {
+	public void setUser_modiDate(String user_modiDate) {
 		this.user_modiDate = user_modiDate;
 	}
 	public List<Integer> getUserIds() {

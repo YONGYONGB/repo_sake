@@ -8,6 +8,10 @@ public class ProductVo extends BaseVo{
 	private String discount_dc_id;
 	
 	
+	private String shlocal;
+	private String shbrand;
+	private String shtype;
+	
 
 	public String getDiscount_dc_id() {
 		return discount_dc_id;
@@ -24,6 +28,34 @@ public class ProductVo extends BaseVo{
 	public void setPd_id(String pd_id) {
 		this.pd_id = pd_id;
 	}
+
+	public String getShlocal() {
+		return shlocal;
+	}
+
+	public void setShlocal(String shlocal) {
+		this.shlocal = shlocal;
+	}
+
+	public String getShbrand() {
+		return shbrand;
+	}
+
+	public void setShbrand(String shbrand) {
+		this.shbrand = shbrand;
+	}
+
+	public String getShtype() {
+		return shtype;
+	}
+
+	public void setShtype(String shtype) {
+		this.shtype = shtype;
+	}
+
+	
+	
+	
 	
 	
 }

@@ -18,8 +18,8 @@ public class ProductDto {
 	private Integer product_number;
 	private String discount_dc_id;
 	private Integer pd_use;
-	private LocalDateTime pd_regiDate;
-	private LocalDateTime pd_modiDate;
+	private String pd_regiDate;
+	private String pd_modiDate;
 	
 	private String dc_id;
 	private String discount_name;
@@ -141,16 +141,16 @@ public class ProductDto {
 	public void setPd_use(Integer pd_use) {
 		this.pd_use = pd_use;
 	}
-	public LocalDateTime getPd_regiDate() {
+	public String getPd_regiDate() {
 		return pd_regiDate;
 	}
-	public void setPd_regiDate(LocalDateTime pd_regiDate) {
+	public void setPd_regiDate(String pd_regiDate) {
 		this.pd_regiDate = pd_regiDate;
 	}
-	public LocalDateTime getPd_modiDate() {
+	public String getPd_modiDate() {
 		return pd_modiDate;
 	}
-	public void setPd_modiDate(LocalDateTime pd_modiDate) {
+	public void setPd_modiDate(String pd_modiDate) {
 		this.pd_modiDate = pd_modiDate;
 	}
 	public List<Integer> getPdIds() {
@@ -159,6 +159,7 @@ public class ProductDto {
 	public void setPdIds(List<Integer> pdIds) {
 		this.pdIds = pdIds;
 	}
+	
 	
 	
 

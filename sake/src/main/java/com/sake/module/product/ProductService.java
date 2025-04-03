@@ -38,4 +38,8 @@ public class ProductService {
 	public int uelete(List<Integer> pdIds) {
 		return productDao.uelete(pdIds);
 	}
+	
+	public ProductDto menu(ProductDto dto){
+		return productDao.menu(dto);
+	}
 }

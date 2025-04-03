@@ -21,4 +21,9 @@ public interface ProductDao {
 	public int update(ProductDto dto);
 	
 	public int uelete(@Param("pdIds") List<Integer> pdIds);
+	
+	
+	public ProductDto menu(ProductDto dto);
 }
+
+

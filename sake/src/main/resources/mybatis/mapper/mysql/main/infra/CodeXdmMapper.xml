@@ -17,9 +17,9 @@
 				</choose>
 			
         <choose>
-            <when test="shOption == 1">AND b.cg_id = #{shValue}</when>
-            <when test="shOption == 2">AND b.cg_name LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 3">AND a.cd_name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 1 and shValue != null and shValue != ''">AND b.cg_id = #{shValue}</when>
+            <when test="shOption == 2 and shValue != null and shValue != ''">AND b.cg_name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3 and shValue != null and shValue != ''">AND a.cd_name LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
 	</sql>
 	
@@ -84,7 +84,7 @@
 	 		cd_register,
 	 		cd_modifDate,
 	 		codeGroup_cg_id
-	 	)values(c
+	 	)values(
 	 		#{cd_id},
 	 		#{cd_use},
 	 		#{cd_name},

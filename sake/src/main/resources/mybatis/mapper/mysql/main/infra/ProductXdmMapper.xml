@@ -11,11 +11,14 @@
  		where 1=1
 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.pd_use = #{shUseNy}</if>
          <if test="shDelNy != null and !shDelNy.equals('')">AND 0 = #{shDelNy}</if>
+         <if test="shlocal != null and !shlocal.equals('')">AND a.local = #{shlocal}</if>
+         <if test="shtype != null and !shtype.equals('')">AND a.type = #{shtype}</if>
+         <if test="shbrand != null and !shbrand.equals('')">AND a.brand = #{shbrand}</if>
 				
-				<choose>
-					<when test="shOptionDate == 1">AND a.pd_regiDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.pd_modiDate  BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-				</choose>
+		<choose>
+			<when test="shOptionDate == 1">AND a.pd_regiDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND a.pd_modiDate  BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose>
 			
         <choose>
             <when test="shOption == 1">AND b.cg_id = #{shValue}</when>
@@ -170,5 +173,16 @@
         #{pdId}
     </foreach>
 	</update>
+	
+	<select id="menu" resultMap="resultMapObj">
+		select
+			a.cd_id,
+			a.cd_name
+		from
+		 	code as a
+		 	where 1=1
+		 	and cd_id = #{cd_id}
+	</select>
+	
 	
 </mapper>

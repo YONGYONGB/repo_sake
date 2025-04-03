@@ -26,9 +26,11 @@ public class ProductController extends BaseController{
 	public String productXdmList(@ModelAttribute("vo") ProductVo vo,Model model) {
 		
 		addEnd(vo);
-		model.addAttribute("vo", vo);
+		
 		vo.setParamsPaging(productservice.selectOneCount(vo));
 		model.addAttribute("list", productservice.selectList(vo));
+		System.out.println("@@@@@@@@@@@@@@@@@");
+		System.out.println(vo.getShlocal());
 		return "/xdm/product/ProductXdmList";
 	}
 	

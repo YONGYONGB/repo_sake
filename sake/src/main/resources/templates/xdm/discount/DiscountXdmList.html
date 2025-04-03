@@ -162,6 +162,27 @@
 	    form.action = "/xdm/discount/DiscountXdmList";
 	    form.submit();
 	};
+	
+	document.getElementById("btnReset").onclick = function () {
+		let shD = document.getElementById("shDelNy");  
+		let shU = document.getElementById("shUseNy");  
+		let shOD = document.getElementById("shOptionDate");  
+		let shO = document.getElementById("shOption");  
+		let shDS = document.getElementById("shDateStart");  
+		let shE = document.getElementById("shDateEnd");  
+		let shV = document.getElementById("shValue");  
+		
+		shD.value ="0";
+		shU.value ="1";
+		shOD.value ="";
+		shO.value ="";
+		shDS.value ="";
+		shE.value ="";
+		shV.value ="";
+		
+		form.action = "/xdm/discount/DiscountXdmList";
+	    form.submit();
+	};
 	</script>
  	
  	<!-- =======공통 ======= -->
