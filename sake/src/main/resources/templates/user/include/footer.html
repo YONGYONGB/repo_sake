@@ -149,5 +149,33 @@
 	<script src="/user/template/assets/js/vendors/zoom.js"></script>
 	<script src="/user/template/assets/js/vendors/discount_page.js"></script>
 	
+	<script type="text/javascript">
+    const URL_SIGNIN_FORM_XDM = "/user/userAccountPage/signin"
+	const URL_SIGNOUT_PROC_XDM = "/user/userAccountPage/SignoutUserProc"
+	const URL_INDEX_VIEW_XDM = "/user/index/UserIndex"
+	
+		/* httpSession.getAttribute("sessSeqUsr"); */
+	
+		document.getElementById("btnSignout").onclick = function(){
+			$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: URL_SIGNOUT_PROC_XDM
+				,data: {}
+				,success: function(response) {
+					if(response.rt == "success") {
+						location.href = URL_SIGNIN_FORM_XDM;
+					} else {
+						// by pass
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+		};
+  </script>
+	
 </th:block>
 </html>

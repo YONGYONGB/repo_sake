@@ -37,7 +37,6 @@
                   <div class="password-field position-relative">
                     <label for="password" class="form-label">패스워드</label>
                       <input type="password" name="password" class="form-control" id="password" required>
-                      <span><i class="bi bi-eye-slash passwordToggler"></i></span>
                       <div class="invalid-feedback" id="passwordError">패스워드를 입력하세요
                     </div>
                   </div>
@@ -95,14 +94,14 @@
   <!-- Javascript-->
   <!-- Libs JS -->
   <!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script> -->
-  <script src="user/template/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="user/template/assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="/user/template/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/user/template/assets/libs/simplebar/dist/simplebar.min.js"></script>
 
   <!-- Theme JS -->
-  <script src="user/template/assets/js/theme.min.js"></script>
+  <script src="/user/template/assets/js/theme.min.js"></script>
 
-  <script src="user/template/assets/js/vendors/password.js"></script>
-  <script src="user/template/assets/js/vendors/validation.js"></script>
+  <script src="/user/template/assets/js/vendors/password.js"></script>
+  <script src="/user/template/assets/js/vendors/validation.js"></script>
   
   <script type="text/javascript">
   document.getElementById("buttonSignIn").addEventListener("click",function(event){
@@ -143,9 +142,9 @@
 			} 
 	 		
 			const password = document.getElementById("password").value;
-			let reg = /* /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{1,15}$/ *//^[0-9]{1,3}$/;
+			let reg = /* /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{1,15}$/ *//^[0-9]{1,10}$/;
 		 	if(!reg.test(password)){
-				document.getElementById("passwordError").textContent =/*  "적어도 하나의 영문자, 숫자,특수문자(!@#$%^*+=-)를 포함한 패스워드를 입력하세요."; */ "최대 3자리 숫자패스워드를 입력하세요.";
+				document.getElementById("passwordError").textContent =/*  "적어도 하나의 영문자, 숫자,특수문자(!@#$%^*+=-)를 포함한 패스워드를 입력하세요."; */ "숫자패스워드를 입력하세요.";
 				document.getElementById("password").classList.add("is-invalid");
 				isValid = false;
 			}else{
@@ -161,15 +160,13 @@
 			async: true 
 			,cache: false
 			,type: "post"
-			,url: "/user/userAccount/SigninUserProc"
+			,url: "/user/userAccountPage/SigninUserProc"
 			,data : { "id" : $("#id").val(), "password" : $("#password").val()}
 			,success: function(response) {
 				
 				if(response.rt == "success") {
 					location.href = "/user/index/UserIndex";
-					
-				} else {
-					
+				} else {			
 			 		document.getElementById("modalAlertTitle").innerText = "확 인";
 			 		document.getElementById("modalAlertBody").innerText = "일치하는 회원이 존재 하지 않습니다!"; 
 			 		$("#modalAlert").modal("show"); 

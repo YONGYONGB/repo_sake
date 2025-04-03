@@ -72,5 +72,17 @@ public class AccountCodeController extends UserBaseController{
 		return returnMap;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "SignoutUserProc")
+	public Map<String, Object> SignoutUserProc(MemberDto dto, HttpSession httpSession) throws Exception {
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+			httpSession.setAttribute("sessSeqUser", null);
+			httpSession.setAttribute("sessIdUser", null);
+			httpSession.setAttribute("sessNameUser", null);
+			returnMap.put("rt", "success");
+			return returnMap;
+		}
+		
 	
 }
