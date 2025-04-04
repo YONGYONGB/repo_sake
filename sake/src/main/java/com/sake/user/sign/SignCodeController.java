@@ -54,7 +54,7 @@ public class SignCodeController extends UserBaseController{
 	
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SigninUserProc")
-	public Map<String, Object> SigninUserProc(MemberDto dto, HttpSession httpSession) throws Exception {
+	public Map<String, Object> SigninUserProc(MemberDto dto, HttpSession httpSession,Model model) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		MemberDto member = memberService.selectOneLogin(dto);

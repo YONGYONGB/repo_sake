@@ -13,7 +13,6 @@
 
         <choose>
             <when test="shOption == 1">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>  <!-- AND a.user_name = #{shValue} -->
-            <when test="shOption == 2">AND a.gender LIKE CONCAT('%',#{shValue},'%')</when>
             <when test="shOption == 3">AND a.email LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
 	</sql>	
@@ -118,10 +117,10 @@
 	
 	<select id="selectOneLogin" resultMap="resultMapObj">
 		select
-			a.user_id,
-			a.id,
-			a.name,
-			a.password
+				a.user_id,
+				a.id,
+				a.name,
+				a.password
 		from
 			user a 
 		where 1=1		

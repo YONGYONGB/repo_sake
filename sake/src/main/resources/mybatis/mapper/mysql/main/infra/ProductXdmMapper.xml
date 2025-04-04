@@ -21,9 +21,8 @@
 		</choose>
 			
         <choose>
-            <when test="shOption == 1">AND b.cg_id = #{shValue}</when>
-            <when test="shOption == 2">AND b.cg_name LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 3">AND a.cd_name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 1">AND a.pd_id = #{shValue}</when>
+            <when test="shOption == 2">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>								<!--검색기능 넣지않음-->
 	</sql>	
 	

@@ -69,9 +69,8 @@
                 <div class = "col-2  fbele ">
                 	<select id="shOption" name="shOption" class="form-select" aria-label="Default select example">
                     	<option value="" th:selected="${vo.shOption == null}">검색구분</option>
-						<option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
-						<option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
-						<option value="3" th:selected="${vo.shOption == 3}">코드 이름</option>
+						<option value="1" th:selected="${vo.shOption == 1}">코드</option>
+						<option value="2" th:selected="${vo.shOption == 2}">제품 이름</option>
                  	</select>
                  </div>
                 <div class = "col-2 fbele"><input type="text" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" class="form-control form-control-sm"></div>
@@ -100,7 +99,6 @@
                       <th style="text-align: center;"><input class="form-check-input" type="checkbox" name ="selectAllCheckbox" id="selectAllCheckbox"></th>
                       <th style="text-align: center;">#</th>
                       <th style="text-align: center;">코드</th>
-                      <th style="text-align: center;">사용여부</th>
                       <th style="text-align: center;">제품이름</th>
                       <th style="text-align: center;">일본 지역</th>
                       <th style="text-align: center;">상세 지역</th>
@@ -128,7 +126,6 @@
                       <td><input class="form-check-input itemCheckbox" type="checkbox" name="itemCheckbox" id="itemCheckbox" th:value="${list.pd_id}"></td>
                       <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> <!--디버깅 테스트를 위해서-->
                       <td th:text ="${list.pd_id}"></td>
-                      <td th:text ="${list.pd_use ==1 ? '사용' : '미사용'}"></td>
                       <td><a href="javascript:void(0);" th:text="${list.name}" th:attr="onclick=|goForm('${list.pd_id}')|"></a></td>
                       <td th:text = "${@codeService.selectOneCachedCode(list.local)}"></td>
                       <td th:text = "${list.local_detail}"></td>

@@ -19,7 +19,7 @@
         <choose>
             <when test="shOption == 1 and shValue != null and shValue != ''">AND b.cg_id = #{shValue}</when>
             <when test="shOption == 2 and shValue != null and shValue != ''">AND b.cg_name LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 3 and shValue != null and shValue != ''">AND a.cd_name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3 and shValue != null and shValue != ''">AND a.cd_name LIKE CONCAT('%', #{shValue}, '%')</when>
         </choose>
 	</sql>
 	

@@ -1,5 +1,6 @@
 package com.sake.module.code;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,6 @@ public class CodeService {
 	CodeDao codeDao;
 	
 	public List<CodeDto> selectList(CodeVo vo) {		
-		
-//	list이기에 반복문을 쓸수있다.
 		
 		return codeDao.selectList(vo);
 	}
@@ -35,10 +34,19 @@ public class CodeService {
 	}
 	
 	public int insert(CodeDto codeDto) {
+		 if (codeDto.getCd_name() != null) {
+	            // 유니코드 정규화 (NFC 형태로)
+	            String normalizedName = Normalizer.normalize(codeDto.getCd_name(), Normalizer.Form.NFC);
+	            codeDto.setCd_name(normalizedName);
+	        }
 		return codeDao.insert(codeDto);
 	}
 	
 	public int update(CodeDto codeDto) {
+		 if (codeDto.getCd_name() != null) {
+	            String normalizedName = Normalizer.normalize(codeDto.getCd_name(), Normalizer.Form.NFC);
+	            codeDto.setCd_name(normalizedName);
+	        }
 		return codeDao.update(codeDto);
 	}
 	

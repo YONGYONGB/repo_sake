@@ -62,6 +62,7 @@ public class CodeController extends BaseController{
 	@RequestMapping(value = "CodeXdmUpdate")
 	public String codeXdm(CodeDto codeDto) {
 		codeService.update(codeDto);
+		System.out.println(codeDto.getCd_name());
 		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
