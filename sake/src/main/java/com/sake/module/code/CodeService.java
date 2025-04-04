@@ -69,10 +69,10 @@ public class CodeService {
 	}
 	
 	
-	public static List<CodeDto> selectListCachedCode(String codeGroup_cg_id) throws Exception {
+	public static List<CodeDto> selectListCachedCode(String cg_id) throws Exception {
 		List<CodeDto> rt = new ArrayList<CodeDto>();
 		for(CodeDto codeRow : CodeDto.cachedCodeArrayList) {
-			if (codeRow.getCodeGroup_cg_id().equals(codeGroup_cg_id)) {
+			if (codeRow.getCodeGroup_cg_id().equals(cg_id)) {
 				rt.add(codeRow);
 			} else {
 				// by pass

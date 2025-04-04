@@ -85,5 +85,33 @@
 		};
   </script>
   
+ <script type="text/javascript">
+ document.addEventListener("DOMContentLoaded", function () { //페이지가 로드될때마다.
+	
+	  let pathName = window.location.pathname;
+	  if(pathName.startsWith("/xdm/member")){
+		  document.getElementById("charts-nav").className="nav-content collapse show menu-btn";
+		  document.getElementById("membController").className="active";
+	  }else{
+		  alert("s");
+	  }
+	 /* if(pathName.startsWith("/code")){
+		 document.getElementById("tables-nav").className="nav-content collapse show"
+		 if(pathName.includes("group")){
+			 document.getElementById("btnCodegroup").className="active"			
+		 }else{
+		 document.getElementById("btnCode").className="active"
+		 }
+	 } else if(pathName.startsWith("/member")){
+		 document.getElementById("user-nav").className="nav-content collapse show"
+			 document.getElementById("btnMember").className="active"
+	 } else if(pathName.startsWith("/company")){
+		 document.getElementById("mc-nav").className="nav-content collapse show"
+			 document.getElementById("btnCompany").className="active"
+	 }  */
+	  });
+  </script>
+
+  
  
 </th:block>
