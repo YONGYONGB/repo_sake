@@ -36,6 +36,13 @@ public class MemberService {
 		return memberDao.selectOneLogin(memberdto);
 	}
 	
+	public MemberDto checkid(MemberDto dto){
+		return memberDao.checkid(dto);
+	}
+	public MemberDto checkclearance(MemberDto dto){
+		return memberDao.checkclearance(dto);
+	}
+	
 	public int uelete(List<Integer>userIds) {
 		return memberDao.uelete(userIds);
 	}

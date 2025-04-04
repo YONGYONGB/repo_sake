@@ -22,6 +22,8 @@ public interface MemberDao {
 	
 	public MemberDto selectOneLogin(MemberDto memberdto);
 	
+	public MemberDto checkid(MemberDto memberdto);
+	public MemberDto checkclearance(MemberDto memberdto);
 	
 	public int uelete(@Param("userIds") List<Integer>userIds);
 }

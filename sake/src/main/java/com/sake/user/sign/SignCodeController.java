@@ -53,6 +53,39 @@ public class SignCodeController extends UserBaseController{
 	
 	
 	@ResponseBody   //	json정보를  매핑시켜줌.
+	@RequestMapping(value = "SignupIdProc")
+	public Map<String, Object> SignupUserProc(MemberDto dto,Model model) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		MemberDto id =  memberService.checkid(dto);
+
+		if(id == null) {                             //혹시라도 데이터가 넘어오지않으면 null이 리턴됨. 그러면 만들어지지 않은 객체하고 != null 의 상황오류가 발생함.
+			returnMap.put("rt", "success");	
+		}else{
+			returnMap.put("rt", "fail");	
+		}		
+			
+		return returnMap;
+	}
+	@ResponseBody   //	json정보를  매핑시켜줌.
+	@RequestMapping(value = "SignupClProc")
+	public Map<String, Object> SignupClProc(MemberDto dto,Model model) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+	
+		MemberDto clearance = memberService.checkclearance(dto);
+		
+		if(clearance == null) {                          
+			returnMap.put("rt", "success");	
+		}else{
+			returnMap.put("rt", "fail");	
+		}		
+		
+		return returnMap;
+	}
+	
+	
+	
+	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SigninUserProc")
 	public Map<String, Object> SigninUserProc(MemberDto dto, HttpSession httpSession,Model model) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();

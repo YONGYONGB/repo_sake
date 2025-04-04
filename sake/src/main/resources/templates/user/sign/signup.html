@@ -25,7 +25,7 @@
               <p>Welcome to ST.Sake!</p>
             </div>
             <!-- form -->
-            <form action="/user/userAccountPage/signupInst" method="post" id="form" class="needs-validation" novalidate>
+            <form action="/user/sign/signupInst" method="post" id="form" class="needs-validation" novalidate>
               <div class="row g-3">
               
                 <div class="col-8">
@@ -149,6 +149,100 @@
   });
   </script>
   
+  
+  <script type="text/javascript">
+  document.getElementById("id").addEventListener("blur", function() {
+	  	document.getElementById("id").classList.remove("is-invalid");
+	    document.getElementById("id").classList.remove("is-valid");
+	    document.getElementById("idError").textContent = '';
+	    
+	    const id = document.getElementById("id").value;
+ 		let expIdText = /^[가-힣A-Za-z]{4,20}$/;
+		if(id == null || id == ""){
+			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			return;
+		}else if(id.trim() != id){
+			document.getElementById("idError").textContent = "띄어쓰기를 제거해주세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			return;
+		}else if(!expIdText.test(id)){
+			document.getElementById("idError").textContent = "영/한 4~10자리의 아이디를 만드세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			return;
+		}else{
+			document.getElementById("id").classList.add("is-valid");
+		} 
+ 		 
+		$.ajax({
+		      async: true,
+		      cache: false,
+		      type: "post",
+		      url: "/user/sign/SignupIdProc",  // 서버에서 중복 확인을 처리해주는 곳
+		      data: {"id" : $("#id").val()},
+		      success: function(response) {
+		        if(response.rt === "success") {
+		        	document.getElementById("id").classList.remove("is-invalid");
+		    	  	document.getElementById("id").classList.remove("is-valid");	
+		    	  	document.getElementById("id").classList.add("is-valid");
+		        }else if (response.rt === "fail") {
+		        	document.getElementById("id").classList.remove("is-invalid");
+		    	  	document.getElementById("id").classList.remove("is-valid");	
+		    	  	document.getElementById("idError").textContent = '';
+		    	  	document.getElementById("idError").textContent = "이미 아이디가 존재합니다.";
+					document.getElementById("id").classList.add("is-invalid");
+		        }
+		      },
+		      error: function(jqXHR, textStatus, errorThrown) {
+		        alert("서버 오류 발생: " + textStatus + " / " + errorThrown);
+		      }
+		    });
+		  });	    
+  </script>
+  
+  <script type="text/javascript">
+  document.getElementById("clearance").addEventListener("blur", function() {
+	  	document.getElementById("clearance").classList.remove("is-invalid");
+	    document.getElementById("clearance").classList.remove("is-valid");
+	    document.getElementById("clearanceError").textContent = '';
+	    
+	    const clearance1 = document.getElementById("clearance").value;
+ 	   	let iciNoRule = /^(p|P)[1-6]{1}[0-9]{11}$/;
+ 		 if(!iciNoRule.test(clearance1)){
+			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입려해주세요.(p와 12자리의 값을 입력해주세요)";
+			document.getElementById("clearance").classList.add("is-invalid");
+			return;
+		}else{
+			document.getElementById("clearance").classList.add("is-valid");
+		}
+ 		 
+		$.ajax({
+		      async: true,
+		      cache: false,
+		      type: "post",
+		      url: "/user/sign/SignupClProc",  // 서버에서 중복 확인을 처리해주는 곳
+		      data: {"clearance" : $("#clearance").val()},
+		      success: function(response) {
+		        if(response.rt === "success") {
+		        	document.getElementById("clearance").classList.remove("is-invalid");
+		    	  	document.getElementById("clearance").classList.remove("is-valid");	
+		    	  	document.getElementById("clearance").classList.add("is-valid");
+		        }else if (response.rt === "fail") {
+		        	document.getElementById("clearance").classList.remove("is-invalid");
+		    	  	document.getElementById("clearance").classList.remove("is-valid");	
+		    	  	document.getElementById("clearance").textContent = '';
+		    	  	document.getElementById("clearanceError").textContent = "이미 아이디가 존재합니다.";
+					document.getElementById("clearance").classList.add("is-invalid");
+		        }
+		      },
+		      error: function(jqXHR, textStatus, errorThrown) {
+		        alert("서버 오류 발생: " + textStatus + " / " + errorThrown);
+		      }
+		    });
+		  });	    
+  </script>
+  
+  
   <script type="text/javascript">
   document.getElementById("user_submit").addEventListener("click",function(event){
 	  
@@ -165,11 +259,11 @@
 	    document.getElementById("birthday").classList.remove("is-invalid");
 	    document.getElementById("birthday").classList.remove("is-valid");
 	   
-	    document.getElementById("clearance").classList.remove("is-invalid");
-	    document.getElementById("clearance").classList.remove("is-valid");
+	    /* document.getElementById("clearance").classList.remove("is-invalid");
+	    document.getElementById("clearance").classList.remove("is-valid"); */
 	    
-	    document.getElementById("id").classList.remove("is-invalid");
-	    document.getElementById("id").classList.remove("is-valid");
+	    /* document.getElementById("id").classList.remove("is-invalid");
+	    document.getElementById("id").classList.remove("is-valid"); */
 	    
 	    document.getElementById("email").classList.remove("is-invalid");
 	    document.getElementById("email").classList.remove("is-valid");
@@ -187,8 +281,8 @@
 		document.getElementById("nameError").textContent = '';  		
   		document.getElementById("genderError").textContent = '';
   		document.getElementById("birthdayError").textContent = '';
- 		document.getElementById("clearanceError").textContent = '';
- 		document.getElementById("idError").textContent = '';
+ 		/* document.getElementById("clearanceError").textContent = ''; */
+ 		/* document.getElementById("idError").textContent = ''; */
  		document.getElementById("emailError").textContent = '';
  		document.getElementById("passwordError").textContent = '';
  		document.getElementById("pwchError").textContent = '';
@@ -234,33 +328,21 @@
 		}
 		
  	    const clearance = document.getElementById("clearance").value;
- 	   	let iciNoRule = /^(p|P)[1-6]{1}[0-9]{11}$/;
- 		 if(!iciNoRule.test(clearance)){
-			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입려해주세요.(p와 12자리의 값을 입력해주세요)";
+ 		 if(clearance == null || clearance == ""){
+			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입려해주세요.";
 			document.getElementById("clearance").classList.add("is-invalid");
 			isValid = false;
 		}else{
 			document.getElementById("clearance").classList.add("is-valid");
 		}
  		 
- 		const id = document.getElementById("id").value;
+ 		 const id = document.getElementById("id").value;
  		let expIdText = /^[A-Za-z]{4,20}$/;
 		if(id == null || id == ""){
 			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
 			document.getElementById("id").classList.add("is-invalid");
 			isValid = false;
-		}else if(id.trim() != id){
-			document.getElementById("idError").textContent = "띄어쓰기를 제거해주세요.";
-			document.getElementById("id").classList.add("is-invalid");
-			isValid = false;
-		}else if(!expIdText.test(id)){
-			document.getElementById("idError").textContent = "영어로 구성된 4~10자리의 아이디를 만드세요.";
-			document.getElementById("id").classList.add("is-invalid");
-			isValid = false;
-		}else{
-			document.getElementById("id").classList.add("is-valid");
-		} 
- 		 
+		}
  		 
 		const email = document.getElementById("email").value;
 		let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -308,15 +390,15 @@
 			const successModal = document.getElementById("successModal");
 	        successModal.style.display = "block"; // 모달 표시
 
-	        // 2초 후에 폼 제출
+	        // 1.5초 후에 폼 제출
 	        setTimeout(() => {
 	            document.getElementById("form").submit();
-	        }, 2000);		
+	        }, 1500);		
 		}else {
           console.log("유효성 검사 실패: 폼 제출 안 함");
-      }
+		}
+      
 	});
-  
 //모달 닫기 버튼 이벤트
   document.getElementById("closeModal").addEventListener("click", function () {
       document.getElementById("successModal").style.display = "none";
@@ -325,9 +407,7 @@
   
   </script>
   
- 
-  
-  
+
   
 
 </body>
