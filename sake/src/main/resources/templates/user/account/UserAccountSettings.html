@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="kor" xmlns:th="http://www.thymeleaf.org">
-<div th:replace = "~{user/include/header :: header}"></div>
+ <div th:replace = "~{user/include/header :: header}"></div> 
 	<main>
 		<!-- section -->
 		<section>
@@ -34,14 +35,14 @@
 								</li>
 								<!-- nav item -->
 								<li class="nav-item">
-									<a class="nav-link" href="account-settings.html">
+									<a class="nav-link active" href="account-settings.html">
 										<i class="feather-icon icon-settings me-2"></i>
 										계정 설정
 									</a>
 								</li>
 								<!-- nav item -->
 								<li class="nav-item">
-									<a class="nav-link active" href="account-setting-password.html">
+									<a class="nav-link" href="account-setting-password.html">
 										<i class="feather-icon icon-settings me-2"></i>
 										비밀번호 변경
 									</a>
@@ -94,31 +95,57 @@
 								<!-- heading -->
 								<h2 class="mb-0">내 계정</h2>
 							</div>
-							<div class="pe-lg-14">
+							<div>
 								<!-- heading -->
-								<h5 class="mb-4">비밀번호</h5>
-								<form class="row row-cols-1 row-cols-lg-2 needs-validation" novalidate>
-									<!-- input -->
-									<div class="mb-3 col">
-										<label class="form-label">새 비밀번호</label>
-										<input type="password" class="form-control" placeholder="**********" required/>
-										<div class="invalid-feedback">Please enter new password.</div>
+								<h5 class="mb-4">계정 설정</h5>
+								<div class="row">
+									<div class="col-lg-5">
+										<!-- form -->
+										<form class="needs-validation" novalidate>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label" for="a">이름</label>
+												<input type="text" class="form-control" placeholder="이름" id ="a" disabled>
+												<div class="invalid-feedback">Please enter correct name.</div>
+											</div>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label" for="b">고유통관번호</label>
+												<input type="text" class="form-control" placeholder="고유통관번호" id="b" required/>
+												<div class="invalid-feedback">Please enter correct ProperCustomsClearance.</div>
+											</div>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label" for="f">아이디</label>
+												<input type="text" class="form-control" placeholder="아이디" id="f" required/>
+												<div class="invalid-feedback">Please enter correct ID.</div>
+											</div>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label" for="e">성별</label>
+												<select class="form-control" id="e" disabled>
+													<option value="1">남성</option>
+													<option value="2">여성</option>
+												</select>
+											</div>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label" for="c">이메일</label>
+												<input type="email" class="form-control" placeholder="example@gmail.com" id="c" required/>
+												<div class="invalid-feedback">Please enter correct email.</div>
+											</div>
+											<!-- input -->
+											<div class="mb-5">
+												<label class="form-label" for="d">전화번호</label>
+												<input type="text" class="form-control" placeholder="전화번호" id="d" disabled/>
+											</div>
+											<!-- button -->
+											<div class="mb-3">
+												<button type="submit" class="btn btn-primary">저장</button>
+											</div>
+										</form>
 									</div>
-									<!-- input -->
-									<div class="mb-3 col">
-										<label class="form-label">현재 비밀번호</label>
-										<input type="password" class="form-control" placeholder="**********" required/>
-										<div class="invalid-feedback">Please enter correct password.</div>
-									</div>
-									<!-- input -->
-									<div class="col-12">
-										<p class="mb-4">
-											현재 비밀번호가 생각나지 않으신가요?
-											<a href="#">비밀번호 초기화</a>
-										</p>
-										<button type="button" class="btn btn-primary">비밀번호 저장</button>
-									</div>
-								</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -126,7 +153,7 @@
 			</div>
 		</section>
 	</main>
-	
+
 	<div th:replace ="~{user/include/footer :: footer}"></div>
 </body>
 
