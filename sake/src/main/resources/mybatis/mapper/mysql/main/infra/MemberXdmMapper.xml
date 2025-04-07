@@ -170,7 +170,7 @@
 	
 	
 	
-	<!--유저 계정 변겅  -->
+	<!--유저 계정 변경 값 가져오기 -->
 	<select id="accountSetting" resultMap="resultMapObj">
 		select
 			a.name,
@@ -181,8 +181,18 @@
 		from
 			user a 
 		where 1=1
-		<if test ="num != null and !num.equals('')">AND a.user_id = #{user_id}</if>
+		<if test ="user_id != null and !user_id.equals('')">AND a.user_id = #{user_id}</if>
 	</select> 
+	
+	<!--유저 계정 변겅  -->
+	<update id="accountUpdate">
+		update user set
+		id = #{id},
+		clearance = #{clearance},
+		email = #{email}
+		where
+		user_id = #{user_id}
+	</update>
 	
 	
 	

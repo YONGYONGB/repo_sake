@@ -1,11 +1,16 @@
 package com.sake.user.account;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sake.module.member.MemberDto;
+import com.sake.module.member.MemberService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -16,7 +21,8 @@ public class AccountCodeController {
 	
 	@Autowired
 	AccountCodeService accountCodeService;
-	
+	@Autowired
+	MemberService memberService;
 	
 	@RequestMapping(value="ChangeUserPassword")
 	public String ChangeUserPassword() {
@@ -27,14 +33,82 @@ public class AccountCodeController {
 	public String UserAccountPassword() {
 		return "/user/account/UserAccountPassword";
 	}
+	
 	// 계정설정
 	@RequestMapping(value="UserAccountSettings")
 	public String UserAccountSettings(HttpSession httpSession,MemberDto dto,Model model) {
-		String user_id = (String) httpSession.getAttribute("sessSeqUser");
-		accountCodeService.accountSetting(user_id);
-		model.addAttribute("item", accountCodeService.accountSetting(user_id));
+//		String user_id = (String) httpSession.getAttribute("sessSeqUser");
+		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
+		accountCodeService.accountSetting(dto.getUser_id());
+		model.addAttribute("item", accountCodeService.accountSetting(dto.getUser_id()));
 		return "/user/account/UserAccountSettings";
+//		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString()); dto로 한번에 넘겨서 푸는 방식
+		
 	}
+	// 계정설정
+	@RequestMapping(value="UserAccountUpdate")
+	public String UserAccountUpdate(HttpSession httpSession, MemberDto dto) {
+		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
+		accountCodeService.accountUpdate(dto);
+		return "redirect:/user/account/UserAccountSettings";
+	}
+	
+	@ResponseBody   //	json정보를  매핑시켜줌.
+	@RequestMapping(value = "SignupIdProc")
+	public Map<String, Object> SignupUserProc(MemberDto dto,Model model) throws Exception {
+		Map<String, Object> returnm = new HashMap<String, Object>();
+		
+		MemberDto id =  memberService.checkid(dto);
+
+		if(id == null) {                             //혹시라도 데이터가 넘어오지않으면 null이 리턴됨. 그러면 만들어지지 않은 객체하고 != null 의 상황오류가 발생함.
+			returnm.put("id", "success");	
+		}else if(dto.getId().equals(id.getId())){
+			returnm.put("id", "same");
+		}else{
+			returnm.put("id", "fail");	
+		}		
+			
+		return returnm;
+	}
+	@ResponseBody   //	json정보를  매핑시켜줌.
+	@RequestMapping(value = "SignupClProc")
+	public Map<String, Object> SignupClProc(MemberDto dto,Model model) throws Exception {
+		Map<String, Object> returncl = new HashMap<String, Object>();
+		MemberDto clearance = memberService.checkclearance(dto);
+		if(clearance == null) {                          
+			returncl.put("cl", "success");	
+		}else if(dto.getClearance().equals(clearance.getClearance())){
+			returncl.put("cl", "same");
+		}else{
+			returncl.put("cl", "fail");	
+		}		
+		
+		return returncl;
+	}
+	
+	@ResponseBody   //	json정보를  매핑시켜줌.
+	@RequestMapping(value = "SignupEmProc")
+	public Map<String, Object> SignupEmProc(MemberDto dto,Model model) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		MemberDto email = memberService.checkem(dto);
+		
+		if(email == null) {                          
+			returnMap.put("rt", "success");	
+		}else if(dto.getEmail().equals(email.getEmail())){
+			returnMap.put("rt", "same");
+		}else{
+			returnMap.put("rt", "fail");	
+		}		
+		
+		return returnMap;
+	}
+	
+	
+	
+	
+	///////////////////////////////
+	
 	//계정탈퇴
 	@RequestMapping(value="UserAccountWithdraw")
 	public String UserAccountWithdraw() {

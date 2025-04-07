@@ -19,16 +19,18 @@ public interface MemberDao {
 	public int update(MemberDto memberdto);
 	
 	
-	
+	// user 로그인
 	public MemberDto selectOneLogin(MemberDto memberdto);
-	
+	// user 벨리데이션
 	public MemberDto checkid(MemberDto memberdto);
 	public MemberDto checkclearance(MemberDto memberdto);
 	public MemberDto checkem(MemberDto memberdto);
 	
-	
+	// user 계정관리
 	public MemberDto accountSetting(String num);
+	public int accountUpdate(MemberDto memberdto);
 	
 	
+	// admin select 여러개 삭제
 	public int uelete(@Param("userIds") List<Integer>userIds);
 }

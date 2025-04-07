@@ -16,4 +16,8 @@ public class AccountCodeService {
 	public MemberDto accountSetting(String num){
 		return memberDao.accountSetting(num);
 	}
+	
+	public int accountUpdate(MemberDto memberdto) {
+		return memberDao.accountUpdate(memberdto);
+	}
 }

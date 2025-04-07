@@ -41,7 +41,7 @@
 								<div class="row">
 									<div class="col-lg-5">
 										<!-- form -->
-										<form  method="post" id="form" class="needs-validation" novalidate>
+										<form action="/user/account/UserAccountUpdate" method="post" id="form" class="needs-validation" novalidate>
 											<!-- input -->
 											<div class="mb-3">
 												<label class="form-label" for="a">이름</label>
@@ -51,14 +51,14 @@
 											<!-- input -->
 											<div class="mb-3">
 												<label class="form-label" for="b">고유통관번호</label>
-												<input type="text" class="form-control" placeholder="고유통관번호" name ="clearance" th:value ="${item?.clearance}" required/>
-												<div class="invalid-feedback">Please enter correct ProperCustomsClearance.</div>
+												<input type="text" class="form-control" placeholder="고유통관번호" id="clearance"  name ="clearance" th:value ="${item?.clearance}" required/>
+												<div class="invalid-feedback" id="clearanceError">Looks good!</div>
 											</div>
 											<!-- input -->
 											<div class="mb-3">
 												<label class="form-label" for="f">아이디</label>
-												<input type="text" class="form-control" placeholder="아이디" name ="id" th:value ="${item?.id}"  required/>
-												<div class="invalid-feedback">Please enter correct ID.</div>
+												<input type="text" class="form-control" placeholder="아이디" id="id" name ="id" th:value ="${item?.id}"  required/>
+												<div class="invalid-feedback" id="idError">Looks good!</div>
 											</div>
 											<!-- input -->
 											<div class="mb-3">
@@ -71,8 +71,8 @@
 											<!-- input -->
 											<div class="mb-3">
 												<label class="form-label" for="c">이메일</label>
-												<input type="email" class="form-control" placeholder="example@gmail.com" name ="email" th:value ="${item?.email}" required/>
-												<div class="invalid-feedback">Please enter correct email.</div>
+												<input type="email" class="form-control" placeholder="example@gmail.com" id="email" name ="email" th:value ="${item?.email}" required/>
+												<div class="invalid-feedback" id="emailError">Looks good!</div>
 											</div>
 											<!-- input -->
 											<div class="mb-5">
@@ -95,6 +95,192 @@
 	</main>
 
 	<div th:replace ="~{user/include/footer :: footer}"></div>
+	
+	
+	<script type="text/javascript">
+  document.getElementById("id").addEventListener("blur", function() {
+	  	document.getElementById("id").classList.remove("is-invalid");
+	    document.getElementById("id").classList.remove("is-valid");
+	    document.getElementById("idError").textContent = '';
+	    
+	    const id = document.getElementById("id").value;
+ 		let expIdText = /^[가-힣A-Za-z]{4,20}$/;
+		if(id == null || id == ""){
+			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			return;
+		}else if(id.trim() != id){
+			document.getElementById("idError").textContent = "띄어쓰기를 제거해주세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			return;
+		}else if(!expIdText.test(id)){
+			document.getElementById("idError").textContent = "영/한 4~10자리의 아이디를 만드세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			return;
+		}else{
+			document.getElementById("id").classList.add("is-valid");
+		} 
+ 		 
+		$.ajax({
+		      async: true,
+		      cache: false,
+		      type: "post",
+		      url: "/user/account/SignupIdProc",  // 서버에서 중복 확인을 처리해주는 곳
+		      data: {"id" : $("#id").val()},
+		      success: function(response) {
+		        if(response.id === "success") {
+		        	document.getElementById("id").classList.remove("is-invalid");
+		    	  	document.getElementById("id").classList.remove("is-valid");	
+		    	  	document.getElementById("id").classList.add("is-valid");
+		        }else if (response.id === "fail") {
+		        	document.getElementById("id").classList.remove("is-invalid");
+		    	  	document.getElementById("id").classList.remove("is-valid");	
+		    	  	document.getElementById("idError").textContent = '';
+		    	  	document.getElementById("idError").textContent = "이미 아이디가 존재합니다.";
+					document.getElementById("id").classList.add("is-invalid");
+		        }else if(response.id === "same") {  	
+					document.getElementById("id").classList.add("is-valid");
+		        }
+		      },
+		      error: function(jqXHR, textStatus, errorThrown) {
+		        alert("서버 오류 발생: " + textStatus + " / " + errorThrown);
+		      }
+		    });
+		  });	    
+  </script>
+  
+  <script type="text/javascript">
+  document.getElementById("clearance").addEventListener("blur", function() {
+	  	document.getElementById("clearance").classList.remove("is-invalid");
+	    document.getElementById("clearance").classList.remove("is-valid");
+	    document.getElementById("clearanceError").textContent = '';
+	    
+	    const clearance = document.getElementById("clearance").value;
+ 	   	let iciNoRule = /^(p|P)[1-6]{1}[0-9]{11}$/;
+ 		 if(!iciNoRule.test(clearance)){
+			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입력해주세요.(p와 12자리의 값을 입력해주세요)";
+			document.getElementById("clearance").classList.add("is-invalid");
+			return;
+		}else{
+			document.getElementById("clearance").classList.add("is-valid");
+		}
+ 		 
+		$.ajax({
+		      async: true,
+		      cache: false,
+		      type: "post",
+		      url: "/user/account/SignupClProc",  // 서버에서 중복 확인을 처리해주는 곳
+		      data: {"clearance" : $("#clearance").val()},
+		      success: function(response) {
+		        if(response.cl === "success") {
+		        	document.getElementById("clearance").classList.remove("is-invalid");
+		    	  	document.getElementById("clearance").classList.remove("is-valid");	
+		    	  	document.getElementById("clearance").classList.add("is-valid");
+		        }else if(response.cl === "fail") {
+		        	document.getElementById("clearance").classList.remove("is-invalid");
+		    	  	document.getElementById("clearance").classList.remove("is-valid");	
+		    	  	document.getElementById("clearanceError").textContent = '';
+		    	  	document.getElementById("clearanceError").textContent = "사용중인 통관번호가 존재합니다.";
+					document.getElementById("clearance").classList.add("is-invalid");
+		        }else if(response.cl === "same") {  	
+					document.getElementById("clearance").classList.add("is-valid");
+		        }
+		      },
+		      error: function(jqXHR, textStatus, errorThrown) {
+		        alert("서버 오류 발생: " + textStatus + " / " + errorThrown);
+		      }
+		    });
+		  });	    
+  </script>
+  
+  <script type="text/javascript">
+  document.getElementById("email").addEventListener("blur", function() {
+	  document.getElementById("email").classList.remove("is-invalid");
+	  document.getElementById("email").classList.remove("is-valid");
+	  document.getElementById("emailError").textContent = '';
+	  const ema = document.getElementById("email").value;
+	  var regexp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		 if(!regexp.test(ema)){
+			document.getElementById("emailError").textContent = " 올바른 이메일 형식을 입력해주세요.";
+			document.getElementById("email").classList.add("is-invalid");
+			return;
+		}else{
+			document.getElementById("email").classList.add("is-valid");
+		}
+ 		 
+		$.ajax({
+		      async: true,
+		      cache: false,
+		      type: "post",
+		      url: "/user/account/SignupEmProc",  // 서버에서 중복 확인을 처리해주는 곳
+		      data: {"email" : $("#email").val()},
+		      success: function(response) {
+		        if(response.rt === "success") {
+		        	document.getElementById("email").classList.remove("is-invalid");
+		    	  	document.getElementById("email").classList.remove("is-valid");	
+		    	  	document.getElementById("email").classList.add("is-valid");
+		        }else if (response.rt === "fail") {
+		        	document.getElementById("email").classList.remove("is-invalid");
+		    	  	document.getElementById("email").classList.remove("is-valid");	
+		    	  	document.getElementById("emailError").textContent = '';
+		    	  	document.getElementById("emailError").textContent = "사용중인 이메일이 존재합니다.";
+					document.getElementById("email").classList.add("is-invalid");
+		        }else if(response.rt === "same") {  	
+					document.getElementById("email").classList.add("is-valid");
+		        }
+		      },
+		      error: function(jqXHR, textStatus, errorThrown) {
+		        alert("서버 오류 발생: " + textStatus + " / " + errorThrown);
+		      }
+		    });
+		  });	    
+  </script>
+  
+  <script type="text/javascript">
+	document.getElementById("setting").onclick = function(){
+		
+		let isValid = true; 
+		
+		 const clearance = document.getElementById("clearance").value;
+ 	   		let iciNoRule = /^(p|P)[1-6]{1}[0-9]{11}$/;
+ 		 if(!iciNoRule.test(clearance)){
+			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입력해주세요.(p와 12자리의 값을 입력해주세요)";
+			document.getElementById("clearance").classList.add("is-invalid");
+			isValid = false;
+ 		 }else if(clearance == null || clearance == ""){
+			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입력해주세요.";
+			document.getElementById("clearance").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("clearance").classList.add("is-valid");
+		}
+		 
+ 		 const id = document.getElementById("id").value;
+		let expIdText = /^[A-Za-z]{4,20}$/;
+		if(id == null || id == ""){
+			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("id").classList.add("is-valid");
+		}
+		 
+		const ema = document.getElementById("email").value;
+		 var regexp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		 if(!regexp.test(ema)){
+			document.getElementById("emailError").textContent = " 올바른 이메일 형식을 입력해주세요.";
+			document.getElementById("email").classList.add("is-invalid");
+			isValid = false;
+		}else{
+			document.getElementById("email").classList.add("is-valid");
+		}
+		 
+		if(isValid){
+			document.getElementById("form").submit();
+		}
+	}
+</script>
+	
 </body>
 
 </html>
