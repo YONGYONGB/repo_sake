@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta content="Codescandy" name="author">
-	<title>Homepage v1 - eCommerce HTML Template - ST.Sake</title>
+	<title>Homepage v1 - ST.Sake</title>
 
 	<link href="/user/template/assets/libs/slick-carousel/slick/slick.css" rel="stylesheet" />
 	<link href="/user/template/assets/libs/slick-carousel/slick/slick-theme.css" rel="stylesheet" />
@@ -42,8 +42,8 @@
 </head>
 
 <body>
-	<!-- navbar -->
 	<div class="border-bottom">
+	<input type="hidden" th:name="${session.sessSeqUser}">
 		<div class="py-5">
 			<div class="container">
 				<div class="row w-100 align-items-center gx-lg-2 gx-0" style="display: flex; text-align: end; align-content: center;">
@@ -237,7 +237,7 @@
 															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
 																<li><a class="dropdown-item" href="/user/sign/signin">로그인</a></li>						
 																<li><a class="dropdown-item" href="/user/sign/signup">회원가입</a></li>
-																<li><a class="dropdown-item" href="./pages/forgot-password.html">비밀번호 재설정</a></li>
+																<li><a class="dropdown-item" href="/user/account/ChangeUserPassword">비밀번호 재설정</a></li>
 															</div>
 															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
 																<li><a class="dropdown-item"
@@ -247,16 +247,13 @@
 																<li><a class="dropdown-item"
 																		href="/user/account/UserAccountPassword">비밀번호 변경</a></li>
 																<li><a class="dropdown-item"
-																		href="./pages/account-setting-withdraw.html">계정 탈퇴</a></li>
+																		href="/user/account/UserAccountWithdraw">계정 탈퇴</a></li>
 															</div>
 															<div class="col-lg-3 col-12 mb-4 mb-lg-0">
 																<li><a class="dropdown-item"
-																		href="./pages/account-address.html">주소</a></li>
+																		href="/user/account/UserAccountAddress">주소</a></li>
 																<li><a class="dropdown-item"
 																		href="./pages/account-payment-method.html">결제방법</a>
-																</li>
-																<li><a class="dropdown-item"
-																		href="./pages/account-notification.html">알람</a>
 																</li>
 															</div>
 														</div>

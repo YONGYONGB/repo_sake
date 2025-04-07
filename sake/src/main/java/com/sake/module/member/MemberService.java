@@ -42,6 +42,9 @@ public class MemberService {
 	public MemberDto checkclearance(MemberDto dto){
 		return memberDao.checkclearance(dto);
 	}
+	public MemberDto checkem(MemberDto dto){
+		return memberDao.checkem(dto);
+	}
 	
 	public int uelete(List<Integer>userIds) {
 		return memberDao.uelete(userIds);

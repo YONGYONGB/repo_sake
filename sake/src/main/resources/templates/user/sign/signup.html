@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+   
     <!-- 모달끝 -->
 
   <!-- Footer -->
@@ -181,11 +181,11 @@
 		      url: "/user/sign/SignupIdProc",  // 서버에서 중복 확인을 처리해주는 곳
 		      data: {"id" : $("#id").val()},
 		      success: function(response) {
-		        if(response.rt === "success") {
+		        if(response.id === "success") {
 		        	document.getElementById("id").classList.remove("is-invalid");
 		    	  	document.getElementById("id").classList.remove("is-valid");	
 		    	  	document.getElementById("id").classList.add("is-valid");
-		        }else if (response.rt === "fail") {
+		        }else if (response.id === "fail") {
 		        	document.getElementById("id").classList.remove("is-invalid");
 		    	  	document.getElementById("id").classList.remove("is-valid");	
 		    	  	document.getElementById("idError").textContent = '';
@@ -209,7 +209,7 @@
 	    const clearance1 = document.getElementById("clearance").value;
  	   	let iciNoRule = /^(p|P)[1-6]{1}[0-9]{11}$/;
  		 if(!iciNoRule.test(clearance1)){
-			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입려해주세요.(p와 12자리의 값을 입력해주세요)";
+			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입력해주세요.(p와 12자리의 값을 입력해주세요)";
 			document.getElementById("clearance").classList.add("is-invalid");
 			return;
 		}else{
@@ -223,16 +223,57 @@
 		      url: "/user/sign/SignupClProc",  // 서버에서 중복 확인을 처리해주는 곳
 		      data: {"clearance" : $("#clearance").val()},
 		      success: function(response) {
-		        if(response.rt === "success") {
+		        if(response.cl === "success") {
 		        	document.getElementById("clearance").classList.remove("is-invalid");
 		    	  	document.getElementById("clearance").classList.remove("is-valid");	
 		    	  	document.getElementById("clearance").classList.add("is-valid");
-		        }else if (response.rt === "fail") {
+		        }else if (response.cl === "fail") {
 		        	document.getElementById("clearance").classList.remove("is-invalid");
 		    	  	document.getElementById("clearance").classList.remove("is-valid");	
-		    	  	document.getElementById("clearance").textContent = '';
+		    	  	document.getElementById("clearanceError").textContent = '';
 		    	  	document.getElementById("clearanceError").textContent = "사용중인 통관번호가 존재합니다.";
 					document.getElementById("clearance").classList.add("is-invalid");
+		        }
+		      },
+		      error: function(jqXHR, textStatus, errorThrown) {
+		        alert("서버 오류 발생: " + textStatus + " / " + errorThrown);
+		      }
+		    });
+		  });	    
+  </script>
+  
+  <script type="text/javascript">
+  document.getElementById("email").addEventListener("blur", function() {
+	  document.getElementById("email").classList.remove("is-invalid");
+	  document.getElementById("email").classList.remove("is-valid");
+	  document.getElementById("emailError").textContent = '';
+	  const ema = document.getElementById("email").value;
+	  var regexp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		 if(!regexp.test(ema)){
+			document.getElementById("emailError").textContent = " 올바른 이메일 형식을 입력해주세요.";
+			document.getElementById("email").classList.add("is-invalid");
+			return;
+		}else{
+			document.getElementById("email").classList.add("is-valid");
+		}
+ 		 
+		$.ajax({
+		      async: true,
+		      cache: false,
+		      type: "post",
+		      url: "/user/sign/SignupEmProc",  // 서버에서 중복 확인을 처리해주는 곳
+		      data: {"email" : $("#email").val()},
+		      success: function(response) {
+		        if(response.rt === "success") {
+		        	document.getElementById("email").classList.remove("is-invalid");
+		    	  	document.getElementById("email").classList.remove("is-valid");	
+		    	  	document.getElementById("email").classList.add("is-valid");
+		        }else if (response.rt === "fail") {
+		        	document.getElementById("email").classList.remove("is-invalid");
+		    	  	document.getElementById("email").classList.remove("is-valid");	
+		    	  	document.getElementById("emailError").textContent = '';
+		    	  	document.getElementById("emailError").textContent = "사용중인 이메일이 존재합니다.";
+					document.getElementById("email").classList.add("is-invalid");
 		        }
 		      },
 		      error: function(jqXHR, textStatus, errorThrown) {
@@ -265,8 +306,8 @@
 	    /* document.getElementById("id").classList.remove("is-invalid");
 	    document.getElementById("id").classList.remove("is-valid"); */
 	    
-	    document.getElementById("email").classList.remove("is-invalid");
-	    document.getElementById("email").classList.remove("is-valid");
+	    /* document.getElementById("email").classList.remove("is-invalid");
+	    document.getElementById("email").classList.remove("is-valid"); */
 	    
 	    document.getElementById("password").classList.remove("is-invalid");
 	    document.getElementById("password").classList.remove("is-valid");
@@ -283,7 +324,7 @@
   		document.getElementById("birthdayError").textContent = '';
  		/* document.getElementById("clearanceError").textContent = ''; */
  		/* document.getElementById("idError").textContent = ''; */
- 		document.getElementById("emailError").textContent = '';
+ 		/* document.getElementById("emailError").textContent = ''; */
  		document.getElementById("passwordError").textContent = '';
  		document.getElementById("pwchError").textContent = '';
  	
@@ -342,11 +383,13 @@
 			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
 			document.getElementById("id").classList.add("is-invalid");
 			isValid = false;
+		}else{
+			document.getElementById("id").classList.add("is-valid");
 		}
  		 
-		const email = document.getElementById("email").value;
-		let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
- 		 if(!regEmail.test(email)){
+		const ema = document.getElementById("email").value;
+		 var regexp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+ 		 if(!regexp.test(ema)){
 			document.getElementById("emailError").textContent = " 올바른 이메일 형식을 입력해주세요.";
 			document.getElementById("email").classList.add("is-invalid");
 			isValid = false;
@@ -356,7 +399,7 @@
 		
 		
 		const password = document.getElementById("password").value;
-		var reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,15}$/
+		var reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,15}$/;
 	 	if(!reg.test(password)){
 			document.getElementById("passwordError").textContent = "적어도 하나의 영문자, 숫자,특수문자(!@#$%^*+=-)를 포함한 5~15자리 패스워드를 입력하세요.";
 			document.getElementById("password").classList.add("is-invalid");

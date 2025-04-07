@@ -55,26 +55,40 @@ public class SignCodeController extends UserBaseController{
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupIdProc")
 	public Map<String, Object> SignupUserProc(MemberDto dto,Model model) throws Exception {
-		Map<String, Object> returnMap = new HashMap<String, Object>();
+		Map<String, Object> returnm = new HashMap<String, Object>();
 		
 		MemberDto id =  memberService.checkid(dto);
 
 		if(id == null) {                             //혹시라도 데이터가 넘어오지않으면 null이 리턴됨. 그러면 만들어지지 않은 객체하고 != null 의 상황오류가 발생함.
-			returnMap.put("rt", "success");	
+			returnm.put("id", "success");	
 		}else{
-			returnMap.put("rt", "fail");	
+			returnm.put("id", "fail");	
 		}		
 			
-		return returnMap;
+		return returnm;
 	}
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupClProc")
 	public Map<String, Object> SignupClProc(MemberDto dto,Model model) throws Exception {
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-	
+		Map<String, Object> returncl = new HashMap<String, Object>();
 		MemberDto clearance = memberService.checkclearance(dto);
-		
 		if(clearance == null) {                          
+			returncl.put("cl", "success");	
+		}else{
+			returncl.put("cl", "fail");	
+		}		
+		
+		return returncl;
+	}
+	
+	@ResponseBody   //	json정보를  매핑시켜줌.
+	@RequestMapping(value = "SignupEmProc")
+	public Map<String, Object> SignupEmProc(MemberDto dto,Model model) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		MemberDto email = memberService.checkem(dto);
+		
+		if(email == null) {                          
 			returnMap.put("rt", "success");	
 		}else{
 			returnMap.put("rt", "fail");	

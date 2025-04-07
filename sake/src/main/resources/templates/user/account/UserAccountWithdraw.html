@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="kor" xmlns:th="http://www.thymeleaf.org">
  <div th:replace = "~{user/include/header :: header}"></div> 
-	<main>
+<main>
 		<!-- section -->
 		<section>
 			<!-- container -->
@@ -35,31 +35,14 @@
 								<!-- heading -->
 								<h2 class="mb-0">내 계정</h2>
 							</div>
-							<div class="pe-lg-14">
+							<div>
 								<!-- heading -->
-								<h5 class="mb-4">비밀번호</h5>
-								<form class="row row-cols-1 row-cols-lg-2 needs-validation" novalidate>
-									<!-- input -->
-									<div class="mb-3 col">
-										<label class="form-label">새 비밀번호</label>
-										<input type="password" class="form-control" placeholder="**********" required/>
-										<div class="invalid-feedback">Please enter new password.</div>
-									</div>
-									<!-- input -->
-									<div class="mb-3 col">
-										<label class="form-label">현재 비밀번호</label>
-										<input type="password" class="form-control" placeholder="**********" required/>
-										<div class="invalid-feedback">Please enter correct password.</div>
-									</div>
-									<!-- input -->
-									<div class="col-12">
-										<p class="mb-4">
-											현재 비밀번호가 생각나지 않으신가요?
-											<a href="#">비밀번호 초기화</a>
-										</p>
-										<button type="submit" class="btn btn-primary">비밀번호 저장</button>
-									</div>
-								</form>
+								<h5 class="mb-4">계정 삭제</h5>
+								<p class="mb-2">계정을 삭제하기 원하신가요?</p>
+								<p class="mb-5">This account contain 12 orders, Deleting your account will remove all
+									the order details associated with it.</p>
+								<!-- btn -->
+								<a href="#" class="btn btn-outline-danger">계정 삭제</a>
 							</div>
 						</div>
 					</div>

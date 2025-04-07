@@ -24,6 +24,11 @@ public interface MemberDao {
 	
 	public MemberDto checkid(MemberDto memberdto);
 	public MemberDto checkclearance(MemberDto memberdto);
+	public MemberDto checkem(MemberDto memberdto);
+	
+	
+	public MemberDto accountSetting(String num);
+	
 	
 	public int uelete(@Param("userIds") List<Integer>userIds);
 }

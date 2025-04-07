@@ -140,7 +140,7 @@
     </foreach>
 	</update>
 	
-	
+	<!-- user id 로그인 아이디  -->
 	<select id="checkid" resultMap="resultMapObj">
 		select
 			a.id		
@@ -149,7 +149,7 @@
 		where 1=1
 		<if test ="id != null and !id.equals('')">AND a.id = #{id}</if>
 	</select>
-	
+	<!-- user id 로그인 고유통관번호  -->
 	<select id="checkclearance" resultMap="resultMapObj">
 		select
 			a.clearance		
@@ -158,5 +158,32 @@
 		where 1=1
 		<if test ="clearance != null and !clearance.equals('')">AND a.clearance = #{clearance}</if>
 	</select>
+	<!-- user id 로그인 email  -->
+	<select id="checkem" resultMap="resultMapObj">
+		select
+			a.email		
+		from
+			user a 
+		where 1=1
+		<if test ="email != null and !email.equals('')">AND a.email = #{email}</if>
+	</select>
+	
+	
+	
+	<!--유저 계정 변겅  -->
+	<select id="accountSetting" resultMap="resultMapObj">
+		select
+			a.name,
+			a.clearance,
+			a.id,
+			a.gender,
+			a.email	
+		from
+			user a 
+		where 1=1
+		<if test ="num != null and !num.equals('')">AND a.user_id = #{user_id}</if>
+	</select> 
+	
+	
 	
 </mapper>

@@ -136,7 +136,7 @@
 			const id = document.getElementById("id").value;
 	 		let expIdText = /^[A-Za-z]{4,20}$/;
 	 		const password = document.getElementById("password").value;
-			let reg = /* /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{1,15}$/ *//^[0-9]{1,10}$/; 
+			let reg = /* /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{1,15}$/ *//^[0-9a-zA-Z]{1,10}$/; 
 	 		
 			if(id == null || id == ""){
 				document.getElementById("idError").textContent = "아이디를 입력해주세요.";
