@@ -45,6 +45,11 @@ public class MemberService {
 	public MemberDto checkem(MemberDto dto){
 		return memberDao.checkem(dto);
 	}
+	public MemberDto checkpw(MemberDto dto){
+		return memberDao.checkpw(dto);
+	}
+	
+	
 	
 	public int uelete(List<Integer>userIds) {
 		return memberDao.uelete(userIds);

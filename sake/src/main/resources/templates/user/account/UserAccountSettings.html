@@ -44,25 +44,25 @@
 										<form action="/user/account/UserAccountUpdate" method="post" id="form" class="needs-validation" novalidate>
 											<!-- input -->
 											<div class="mb-3">
-												<label class="form-label" for="a">이름</label>
+												<label class="form-label" for="name">이름</label>
 												<input type="text" class="form-control" placeholder="이름" name ="name" th:value ="${item?.name}" disabled>
 												<div class="invalid-feedback">Please enter correct name.</div>
 											</div>
 											<!-- input -->
 											<div class="mb-3">
-												<label class="form-label" for="b">고유통관번호</label>
+												<label class="form-label" for="clearance">고유통관번호</label>
 												<input type="text" class="form-control" placeholder="고유통관번호" id="clearance"  name ="clearance" th:value ="${item?.clearance}" required/>
 												<div class="invalid-feedback" id="clearanceError">Looks good!</div>
 											</div>
 											<!-- input -->
 											<div class="mb-3">
-												<label class="form-label" for="f">아이디</label>
+												<label class="form-label" for="id">아이디</label>
 												<input type="text" class="form-control" placeholder="아이디" id="id" name ="id" th:value ="${item?.id}"  required/>
 												<div class="invalid-feedback" id="idError">Looks good!</div>
 											</div>
 											<!-- input -->
 											<div class="mb-3">
-												<label class="form-label" for="e">성별</label>
+												<label class="form-label" for="gender">성별</label>
 												<select class="form-control" name ="gender" th:value ="item.gender" disabled>
 													<option value="1" th:selected ="item.gender == 1">남성</option>
 													<option value="2" th:selected ="item.gender == 2">여성</option>
@@ -70,7 +70,7 @@
 											</div>
 											<!-- input -->
 											<div class="mb-3">
-												<label class="form-label" for="c">이메일</label>
+												<label class="form-label" for="email">이메일</label>
 												<input type="email" class="form-control" placeholder="example@gmail.com" id="email" name ="email" th:value ="${item?.email}" required/>
 												<div class="invalid-feedback" id="emailError">Looks good!</div>
 											</div>

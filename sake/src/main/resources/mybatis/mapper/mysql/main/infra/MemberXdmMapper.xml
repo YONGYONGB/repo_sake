@@ -147,7 +147,8 @@
 		from
 			user a 
 		where 1=1
-		<if test ="id != null and !id.equals('')">AND a.id = #{id}</if>
+		AND a.id = #{id}
+		<!--<if test ="id != null and !id.equals('')"> 쓰지말아라. 혹시라도 아이디가 안들어오면 전체 다 조회하기 때문에 -->
 	</select>
 	<!-- user id 로그인 고유통관번호  -->
 	<select id="checkclearance" resultMap="resultMapObj">
@@ -156,7 +157,7 @@
 		from
 			user a 
 		where 1=1
-		<if test ="clearance != null and !clearance.equals('')">AND a.clearance = #{clearance}</if>
+		AND a.clearance = #{clearance}
 	</select>
 	<!-- user id 로그인 email  -->
 	<select id="checkem" resultMap="resultMapObj">
@@ -166,6 +167,16 @@
 			user a 
 		where 1=1
 		<if test ="email != null and !email.equals('')">AND a.email = #{email}</if>
+	</select>
+	
+	<select id="checkpw" resultMap="resultMapObj">
+		select
+			a.password		
+		from
+			user a 
+		where 1=1
+		AND a.user_id = #{user_id}
+		AND a.password = #{password}
 	</select>
 	
 	

@@ -25,6 +25,7 @@ public interface MemberDao {
 	public MemberDto checkid(MemberDto memberdto);
 	public MemberDto checkclearance(MemberDto memberdto);
 	public MemberDto checkem(MemberDto memberdto);
+	public MemberDto checkpw(MemberDto memberdto);
 	
 	// user 계정관리
 	public MemberDto accountSetting(String num);

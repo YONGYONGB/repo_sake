@@ -28,21 +28,43 @@ public class AccountCodeController {
 	public String ChangeUserPassword() {
 		return "/user/account/ChangeUserPassword";
 	}
+	//////////////////////////////////////////////
 	// 비밀번호 변경
 	@RequestMapping(value="UserAccountPassword")
-	public String UserAccountPassword() {
+	public String UserAccountPassword(HttpSession httpSession,MemberDto dto,Model model) {
+		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
 		return "/user/account/UserAccountPassword";
 	}
 	
+	@ResponseBody   //	json정보를  매핑시켜줌.
+	@RequestMapping(value = "CheckPwProc")
+	public Map<String, Object> CheckPwProc(MemberDto dto,Model model,HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
+		System.out.println("@@@@@@@@@@@@@@");
+		System.out.println(dto.getUser_id());
+		System.out.println(dto.getPassword());
+		MemberDto pw =  memberService.checkpw(dto);
+		
+		if(pw != null) {                             
+			returnMap.put("pw", "success");	
+		}else{
+			returnMap.put("pw", "fail");	
+		}		
+			
+		return returnMap;
+	}
+	
+	
+	//////////////////////////////////////////////
 	// 계정설정
 	@RequestMapping(value="UserAccountSettings")
 	public String UserAccountSettings(HttpSession httpSession,MemberDto dto,Model model) {
-//		String user_id = (String) httpSession.getAttribute("sessSeqUser");
+
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
 		accountCodeService.accountSetting(dto.getUser_id());
 		model.addAttribute("item", accountCodeService.accountSetting(dto.getUser_id()));
 		return "/user/account/UserAccountSettings";
-//		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString()); dto로 한번에 넘겨서 푸는 방식
 		
 	}
 	// 계정설정
@@ -103,10 +125,6 @@ public class AccountCodeController {
 		
 		return returnMap;
 	}
-	
-	
-	
-	
 	///////////////////////////////
 	
 	//계정탈퇴
