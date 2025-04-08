@@ -1,7 +1,5 @@
 package com.sake.user.account;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +17,9 @@ public class AccountCodeService {
 	
 	public int accountUpdate(MemberDto memberdto) {
 		return memberDao.accountUpdate(memberdto);
+	}
+	
+	public int changepw(MemberDto dto){
+		return memberDao.changepw(dto);
 	}
 }

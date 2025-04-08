@@ -30,7 +30,8 @@ public interface MemberDao {
 	// user 계정관리
 	public MemberDto accountSetting(String num);
 	public int accountUpdate(MemberDto memberdto);
-	
+	// 비밀번호 변경
+	public int changepw(MemberDto memberdto);
 	
 	// admin select 여러개 삭제
 	public int uelete(@Param("userIds") List<Integer>userIds);

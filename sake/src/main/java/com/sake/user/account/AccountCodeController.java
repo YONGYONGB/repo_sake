@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sake.module.member.MemberDto;
 import com.sake.module.member.MemberService;
@@ -41,9 +43,6 @@ public class AccountCodeController {
 	public Map<String, Object> CheckPwProc(MemberDto dto,Model model,HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
-		System.out.println("@@@@@@@@@@@@@@");
-		System.out.println(dto.getUser_id());
-		System.out.println(dto.getPassword());
 		MemberDto pw =  memberService.checkpw(dto);
 		
 		if(pw != null) {                             
@@ -55,7 +54,19 @@ public class AccountCodeController {
 		return returnMap;
 	}
 	
-	
+	@RequestMapping(value = "ChangePwProc")
+	public String ChangePwProc(@RequestParam("nwpw") String password,MemberDto dto,HttpSession httpSession,RedirectAttributes redirectAttributes ){
+		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
+		
+		System.out.println(dto.getPassword());
+		if (dto.getPassword().equals(password)) {
+	        return "redirect:/user/account/UserAccountPassword";
+	    }else {
+	    	dto.setPassword(password);
+	    	accountCodeService.changepw(dto);
+	    	return "redirect:/user/account/UserAccountPassword";
+	    }
+	}
 	//////////////////////////////////////////////
 	// 계정설정
 	@RequestMapping(value="UserAccountSettings")

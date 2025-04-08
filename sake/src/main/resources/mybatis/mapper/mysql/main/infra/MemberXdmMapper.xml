@@ -205,6 +205,12 @@
 		user_id = #{user_id}
 	</update>
 	
-	
+	<!-- 비밀번호 변경  -->
+	<update id="changepw">
+		update user set
+		password = #{password}
+		where
+		user_id = #{user_id}
+	</update>
 	
 </mapper>
