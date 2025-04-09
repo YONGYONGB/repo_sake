@@ -32,9 +32,10 @@ public class MemberService {
 		return memberDao.update(memberdto);
 	}
 	
-	public MemberDto selectOneLogin(MemberDto memberdto){
-		return memberDao.selectOneLogin(memberdto);
+	public MemberDto selectOneLogin(MemberDto dto){
+		return memberDao.selectOneLogin(dto);
 	}
+	
 	
 	public MemberDto checkid(MemberDto dto){
 		return memberDao.checkid(dto);

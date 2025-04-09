@@ -36,12 +36,6 @@ public class SignCodeController extends UserBaseController{
 	
 	
 	
-	@RequestMapping(value = "signupInst" )
-	public String MemberXdmList(MemberDto memberdto){
-		signCodeService.insert(memberdto);
-		return "redirect:/user/sign/signin";
-	}
-
 	
 	
 	@RequestMapping(value ="signin")
@@ -51,7 +45,7 @@ public class SignCodeController extends UserBaseController{
 	}
 
 	
-	
+	//계정설정 파트
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupIdProc")
 	public Map<String, Object> SignupUserProc(MemberDto dto,Model model) throws Exception {
@@ -96,29 +90,40 @@ public class SignCodeController extends UserBaseController{
 		
 		return returnMap;
 	}
+	//회원가입 및 암호화 하는법
+	@RequestMapping(value = "signupInst" )
+	public String MemberXdmList(MemberDto memberdto){
+		memberdto.setPassword(encodeBcrypt(memberdto.getPassword(),10));
+		
+		signCodeService.insert(memberdto);
+		return "redirect:/user/sign/signin";
+	}
+
 	
-	
-	
+	//로그인 파트
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SigninUserProc")
 	public Map<String, Object> SigninUserProc(MemberDto dto, HttpSession httpSession,Model model) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
+		
 		MemberDto member = memberService.selectOneLogin(dto);
-
-		if(member != null) {                             //혹시라도 데이터가 넘어오지않으면 null이 리턴됨. 그러면 만들어지지 않은 객체하고 != null 의 상황오류가 발생함.
+				
+		if(member != null && matchesBcrypt(dto.getPassword(),member.getPassword(),10)){                             //혹시라도 데이터가 넘어오지않으면 null이 리턴됨. 그러면 만들어지지 않은 객체하고 != null 의 상황오류가 발생함.
+//			dto.setPassword(encodeBcrypt(member.getPassword(),10));
 			returnMap.put("rt", "success");	
-			System.out.println(member);
-			httpSession.setAttribute("sessSeqUser", member.getUser_id());
-			httpSession.setAttribute("sessIdUser", member.getId());
-			httpSession.setAttribute("sessNameUser", member.getName());
-		}else{
-			returnMap.put("rt", "fail");	
-		}		
-			
+				System.out.println(member);
+				httpSession.setAttribute("sessSeqUser", member.getUser_id());
+				httpSession.setAttribute("sessIdUser", member.getId());
+				httpSession.setAttribute("sessNameUser", member.getName());
+			} else {
+				returnMap.put("rt", "fail");
+			}
+					
 		return returnMap;
 	}
 	
+	//로그아웃 파트
 	@ResponseBody
 	@RequestMapping(value = "SignoutUserProc")
 	public Map<String, Object> SignoutUserProc(MemberDto dto, HttpSession httpSession) throws Exception {

@@ -13,13 +13,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sake.module.member.MemberDto;
 import com.sake.module.member.MemberService;
+import com.sake.user.base.UserBaseController;
 
 import jakarta.servlet.http.HttpSession;
 
 
 @Controller
 @RequestMapping(value="/user/account/")
-public class AccountCodeController {
+public class AccountCodeController extends UserBaseController{
 	
 	@Autowired
 	AccountCodeService accountCodeService;
@@ -43,9 +44,10 @@ public class AccountCodeController {
 	public Map<String, Object> CheckPwProc(MemberDto dto,Model model,HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
+		
 		MemberDto pw =  memberService.checkpw(dto);
 		
-		if(pw != null) {                             
+		if(pw != null && matchesBcrypt(dto.getPassword(), pw.getPassword(),10)) {                             
 			returnMap.put("pw", "success");	
 		}else{
 			returnMap.put("pw", "fail");	
@@ -55,17 +57,12 @@ public class AccountCodeController {
 	}
 	
 	@RequestMapping(value = "ChangePwProc")
-	public String ChangePwProc(@RequestParam("nwpw") String password,MemberDto dto,HttpSession httpSession,RedirectAttributes redirectAttributes ){
+	public String ChangePwProc(@RequestParam("nwpw") String password,MemberDto dto,HttpSession httpSession){
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
 		
-		System.out.println(dto.getPassword());
-		if (dto.getPassword().equals(password)) {
-	        return "redirect:/user/account/UserAccountPassword";
-	    }else {
-	    	dto.setPassword(password);
-	    	accountCodeService.changepw(dto);
-	    	return "redirect:/user/account/UserAccountPassword";
-	    }
+	    dto.setPassword(encodeBcrypt(password,10));
+	    accountCodeService.changepw(dto);
+	    return "redirect:/user/account/UserAccountPassword";
 	}
 	//////////////////////////////////////////////
 	// 계정설정

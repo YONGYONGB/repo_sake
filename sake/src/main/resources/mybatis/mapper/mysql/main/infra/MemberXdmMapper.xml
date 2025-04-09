@@ -124,8 +124,7 @@
 		from
 			user a 
 		where 1=1		
-			<if test ="id != null and !id.equals('')">AND a.id = #{id}</if>
-			<if test ="password != null and !password.equals('')">AND a.password = #{password}</if>
+			AND a.id = #{id}
 	</select>
 	
 	
@@ -176,7 +175,6 @@
 			user a 
 		where 1=1
 		AND a.user_id = #{user_id}
-		AND a.password = #{password}
 	</select>
 	
 	

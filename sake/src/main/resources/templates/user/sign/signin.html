@@ -28,7 +28,7 @@
                 <div class="col-12">
                   <label for="id" class="form-label">아이디</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="id" class="form-control" id="id"  th:value ="${list?.id}" required>
+                        <input type="text" name="id" class="form-control" id="id"  value ="test" required>
                         <div class="invalid-feedback"  id="idError">아이디를 입력하세요</div>
                       </div>
                 </div>
@@ -36,7 +36,7 @@
                   <!-- input -->
                   <div class="password-field position-relative">
                     <label for="password" class="form-label">패스워드</label>
-                      <input type="password" name="password" class="form-control" id="password" required>
+                      <input type="password" name="password" class="form-control" id="password" value="123!q" required>
                       <div class="invalid-feedback" id="passwordError">패스워드를 입력하세요
                     </div>
                   </div>
@@ -136,7 +136,7 @@
 			const id = document.getElementById("id").value;
 	 		let expIdText = /^[A-Za-z]{4,20}$/;
 	 		const password = document.getElementById("password").value;
-			let reg = /* /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{1,15}$/ *//^[0-9a-zA-Z]{1,10}$/; 
+	 		var reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,15}$/;
 	 		
 			if(id == null || id == ""){
 				document.getElementById("idError").textContent = "아이디를 입력해주세요.";
