@@ -156,7 +156,8 @@
 	
 		/* httpSession.getAttribute("sessSeqUsr"); */
 	
-		document.getElementById("btnSignout").onclick = function(){
+		$(".logout").on("click", function(e) {
+ 		 e.preventDefault(); // a 태그 기본 이동 막기
 			$.ajax({
 				async: true 
 				,cache: false
@@ -174,7 +175,7 @@
 					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
 				}
 			});
-		};
+		});
   </script>
 	
 </th:block>

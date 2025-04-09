@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sake.module.base.BaseController;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 
@@ -67,6 +69,9 @@ public class ProductController extends BaseController{
 		productservice.uelete(pdIdList);
 		return "redirect:/xdm/product/ProductXdmList";
 	}
+	
+	
+	
 	
 	
 }

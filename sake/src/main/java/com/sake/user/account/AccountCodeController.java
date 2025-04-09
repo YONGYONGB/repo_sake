@@ -82,7 +82,7 @@ public class AccountCodeController extends UserBaseController{
 		accountCodeService.accountUpdate(dto);
 		return "redirect:/user/account/UserAccountSettings";
 	}
-	
+	//아이디
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupIdProc")
 	public Map<String, Object> SignupUserProc(MemberDto dto,Model model) throws Exception {
@@ -100,6 +100,7 @@ public class AccountCodeController extends UserBaseController{
 			
 		return returnm;
 	}
+	//통관번호
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupClProc")
 	public Map<String, Object> SignupClProc(MemberDto dto,Model model) throws Exception {
@@ -112,10 +113,9 @@ public class AccountCodeController extends UserBaseController{
 		}else{
 			returncl.put("cl", "fail");	
 		}		
-		
 		return returncl;
 	}
-	
+	//이메일
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupEmProc")
 	public Map<String, Object> SignupEmProc(MemberDto dto,Model model) throws Exception {
@@ -149,6 +149,11 @@ public class AccountCodeController extends UserBaseController{
 	@RequestMapping(value="UserAccountAddress")
 	public String UserAccountAddress() {
 		return "/user/account/UserAccountAddress";
+	}
+	
+	@RequestMapping(value="UserAccountPayment")
+	public String UserAccountPayment() {
+		return "/user/account/UserAccountPayment";
 	}
 	
 }

@@ -6,6 +6,7 @@ public class ProductVo extends BaseVo{
 
 	private String pd_id;
 	private String discount_dc_id;
+	private Integer seq;
 	
 	
 	private String shlocal;
@@ -51,6 +52,14 @@ public class ProductVo extends BaseVo{
 
 	public void setShtype(String shtype) {
 		this.shtype = shtype;
+	}
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
 	}
 
 	
