@@ -28,6 +28,9 @@ public class ProductDto {
 	private String discount_dateF;
 
 	
+	private String cd_id;
+    private String cd_name;
+	
 	private List<Integer> pdIds;
 	//  - - - - -
 	
@@ -159,6 +162,20 @@ public class ProductDto {
 	public void setPdIds(List<Integer> pdIds) {
 		this.pdIds = pdIds;
 	}
+	public String getCd_id() {
+		return cd_id;
+	}
+	public void setCd_id(String cd_id) {
+		this.cd_id = cd_id;
+	}
+	public String getCd_name() {
+		return cd_name;
+	}
+	public void setCd_name(String cd_name) {
+		this.cd_name = cd_name;
+	}
+	
+
 	
 	
 	

@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sake.module.base.BaseController;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
@@ -31,8 +30,6 @@ public class ProductController extends BaseController{
 		
 		vo.setParamsPaging(productservice.selectOneCount(vo));
 		model.addAttribute("list", productservice.selectList(vo));
-		System.out.println("@@@@@@@@@@@@@@@@@");
-		System.out.println(vo.getShlocal());
 		return "/xdm/product/ProductXdmList";
 	}
 	
@@ -71,6 +68,12 @@ public class ProductController extends BaseController{
 	}
 	
 	
+	// 자바스크립트 local_detail을 위한
+	@ResponseBody
+	@RequestMapping(value="Productlocaldetail")
+    public List<ProductDto> getChildCodes(@RequestParam("cd_id") String cd_id) {
+        return productservice.localcheck(cd_id);
+    }
 	
 	
 	

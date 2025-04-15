@@ -184,4 +184,17 @@
 	</select>
 	
 	
+	
+	
+	<select id="localcheck" resultMap="resultMapObj">
+		select
+			a.cd_id,
+			a.cd_name
+		from
+			code_inclusion ci
+		left join code a on ci.child_code_id = a.cd_id
+		where ci.parent_code_id = #{cd_id}
+	</select>
+	
+	
 </mapper>

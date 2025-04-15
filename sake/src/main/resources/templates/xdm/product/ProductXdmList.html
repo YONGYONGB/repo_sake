@@ -128,7 +128,7 @@
                       <td th:text ="${list.pd_id}"></td>
                       <td><a href="javascript:void(0);" th:text="${list.name}" th:attr="onclick=|goForm('${list.pd_id}')|"></a></td>
                       <td th:text = "${@codeService.selectOneCachedCode(list.local)}"></td>
-                      <td th:text = "${list.local_detail}"></td>
+                      <td th:text = "${@codeService.selectOneCachedCode(list.local_detail)}"></td>
                       <td th:text = "${@codeService.selectOneCachedCode(list.brand)}"></td>
                       <td th:text = "${@codeService.selectOneCachedCode(list.type)}"></td>
                       <td th:text = "${list.capacity}"></td> <!-- th:text = ${list.cd_name} -->

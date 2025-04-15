@@ -117,10 +117,10 @@
 	
 	<select id="selectOneLogin" resultMap="resultMapObj">
 		select
-				a.user_id,
-				a.id,
-				a.name,
-				a.password
+			a.user_id,
+			a.id,
+			a.name,
+			a.password
 		from
 			user a 
 		where 1=1		

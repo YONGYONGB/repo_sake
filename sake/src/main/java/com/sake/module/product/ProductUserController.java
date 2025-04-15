@@ -17,5 +17,12 @@ public class ProductUserController extends UserBaseController{
 		return "/user/product/sakeType";
 	}
 	
+	@RequestMapping(value="sakeLocal")
+	public String sakeLocal(ProductVo vo, Model model){
+		Integer seq = vo.getSeq();
+		model.addAttribute("list", seq);
+		return "/user/product/sakeLocal";
+	}
+	
 	
 }

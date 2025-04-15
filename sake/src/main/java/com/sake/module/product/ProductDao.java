@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductDao {
 
 	public List<ProductDto> selectList(ProductVo vo);
+	public List<ProductDto> localcheck(String cd_id);
 	
 	public List<ProductDto> dcView();
 	
@@ -23,7 +24,17 @@ public interface ProductDao {
 	public int uelete(@Param("pdIds") List<Integer> pdIds);
 	
 	
+	
 	public ProductDto menu(ProductDto dto);
+	
+	
+	
+	
+	///  유저
+	
+	public List<ProductDto> localcheck(ProductDto dto);
+	
+	
 }
 
 

@@ -17,7 +17,9 @@ public class ProductService {
 	public List<ProductDto> dcView(){
 		return productDao.dcView();
 	}
-	
+	public List<ProductDto> localcheck(String cd_id) {
+	    return productDao.localcheck(cd_id);
+	}
 	
 	public int selectOneCount(ProductVo vo) {
 		return productDao.selectOneCount(vo);

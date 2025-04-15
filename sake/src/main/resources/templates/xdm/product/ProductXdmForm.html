@@ -42,8 +42,10 @@
                   	</select><div class="invalid-feedback" id ="localError">Please select a valid state.</div>
               	</div>
               	<div class="col-3"><label for="local_detail" class="form-label">일본상세지역</label><span style="color: crimson;">*</span> 
-                	<input type="text" class="form-control" id="local_detail" name ="local_detail" required>
-                <div class="invalid-feedback" id ="local_detailError">Looks good!</div></div>
+                	<select class="form-select" name ="local_detail" id="local_detail" required>
+                  		<option value ="">선택하세요</option>
+                    	<option th:each="list : ${@codeService.selectListCachedCode(6)}" th:value="${list.cd_id}" th:text="${list.cd_name}" th:selected="${list.cd_id} == ${item?.local_detail}" ></option>
+                  	</select><div class="invalid-feedback" id ="local_detailError">Please select a valid state.</div></div>
                 <div class="col-3"><label for="brand" class="form-label">브랜드</label><span style="color: crimson;">*</span>
                 	<select class="form-select" aria-label="Default select example" name ="brand" id="brand" required>
                 	<option value ="">선택하세요</option>
@@ -184,7 +186,47 @@
 
 	    // 페이지 로드 시 초기 상태 설정
 	    toggleDiscountSelection();
-	});</script>
+	});
+  </script>
+  
+  <script type="text/javascript">
+  $(document).ready(function() {
+	  let local = document.getElementById("local");
+		
+	  $('#local_detail').prop('disabled', true);	// local이 선택되면 local_detail 비활성화
+	  
+      $('#local').on('change', function() {
+    	
+        const parentCodeId = $(this).val();  // 지역 선택 시 값 가져옴
+
+        $('#local_detail').empty(); // 상세지역 초기화
+        $('#local_detail').append('<option value="">선택하세요</option>');
+
+        if (parentCodeId) {
+        	$('#local_detail').prop('disabled', false);	 // local이 선택되면 local_detail 활성화
+          $.ajax({
+            url: '/xdm/product/Productlocaldetail?cd_id=' + parentCodeId,  // 이걸로 요청 보내기
+            method: 'GET',
+            success: function(data) {
+              data.forEach(function(item) {
+                $('#local_detail').append(
+                  $('<option></option>').val(item.cd_id).text(item.cd_name)
+                );
+              });
+            },
+            error: function(err) {
+              alert("상세지역 정보를 불러오는 데 실패했습니다.");
+              console.error(err);
+            }
+          });
+        }else{
+            // 지역 선택 안 하면 다시 비활성화
+            $('#local_detail').prop('disabled', true);
+         }
+      });
+    });
+  
+  </script>
   
   <script type="text/javascript">
   document.getElementById("product_submit").onclick = function () {
@@ -274,23 +316,23 @@
 			document.getElementById("local").classList.add("is-valid");
 		}
 		
-		/* const local_detail = document.getElementById("local_detail").value;
+		const local_detail = document.getElementById("local_detail").value;
 		if(local_detail == null || local_detail == ""){
-			document.getElementById("local_detail").textContent = "상세지역을 선택해주세요";
+			document.getElementById("local_detailError").textContent = "상세지역을 선택해주세요";
 			document.getElementById("local_detail").classList.add("is-invalid");
 			isValid = false;
 		}else{
 			document.getElementById("local_detail").classList.add("is-valid");
-		} */
+		} 
 		
-		/* const brand = document.getElementById("brand").value;
+		const brand = document.getElementById("brand").value;
 		if(brand == null || brand == ""){
 			document.getElementById("brandError").textContent = "브랜드를 선택해주세요";
 			document.getElementById("brand").classList.add("is-invalid");
 			isValid = false;
 		}else{
 			document.getElementById("brand").classList.add("is-valid");
-		} */
+		} 
 		
 		const type = document.getElementById("type").value;
 		if(type == null || type == ""){

@@ -427,8 +427,8 @@
                   <!-- card -->
                   <div class="card mb-4 bg-light border-0">
                      <!-- card body -->
-                     <div class="card-body p-9">
-                        <h2 class="mb-0 fs-1">지역/ 상세지역</h2>
+                     <div class="card-body p-9" th:each = "li: ${list}">
+                        <h2 class="mb-0 fs-1" th:text="${@codeService.selectOneCachedCode(li)}"></h2>
                      </div>
                   </div>
                   <!-- list icon -->
