@@ -166,15 +166,17 @@ public class AccountCodeController extends UserBaseController{
 	// 주소
 	///////////////////////////////
 	@RequestMapping(value="UserAccountAddress")
-	public String UserAccountAddress() {
+	public String UserAccountAddress(HttpSession httpSession,MemberDto dto, Model model) {
+		dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
+		model.addAttribute("lists",accountCodeService.addressList(dto));
 		return "/user/account/UserAccountAddress";
 	}
-	
+	// 추가하는 주소
 	@RequestMapping(value="UserAccountAddAddress")
 	public String UserAccountAddAddress() {
 		return "/user/account/UserAccountAddAddress";
 	}
-	
+	// 추가행위
 	@RequestMapping(value="AddressInsert")
 	public String AddressInsert(HttpSession httpSession,MemberDto dto) {
 		dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());

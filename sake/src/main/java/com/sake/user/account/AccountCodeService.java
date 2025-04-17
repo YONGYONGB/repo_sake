@@ -1,5 +1,7 @@
 package com.sake.user.account;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,10 @@ public class AccountCodeService {
 	}
 	
 	// 주소
+	public List<MemberDto> addressList(MemberDto dto){
+		return memberDao.addressList(dto);
+	}
+
 	public int addressInsert(MemberDto dto){
 		return memberDao.addressInsert(dto);
 	}

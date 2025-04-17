@@ -39,6 +39,9 @@ public interface MemberDao {
 	//계정 삭제
 	public int withdrawAction(String user_id);
 	
+	
+	//주소보기
+	public List<MemberDto> addressList(MemberDto dto);
 	//주소 추가
 	public int addressInsert(MemberDto dto);
 }

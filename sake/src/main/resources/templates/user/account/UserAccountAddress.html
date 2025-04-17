@@ -39,7 +39,7 @@
 							</div>
 							<div class="row">
 								<!-- col -->
-								<div class="col-xl-5 col-lg-6 col-xxl-4 col-12 mb-4">
+								<div class="col-xl-5 col-lg-6 col-xxl-4 col-12 mb-4" th:each ="list:${lists}"> 
 									<!-- form -->
 									<div class="card">
 										<div class="card-body p-6">
@@ -51,49 +51,17 @@
 											</div>
 											<!-- address -->
 											<p class="mb-6">
-												서울
-												<br>
-												노원구
-												<br>
-												한글비석로480
-												<br>
-												1111
+												<input type="text" id="zipCode" name="zipCode" th:value="${list.zipCode}" />
+												<input type="text" id="ua_address" name="ua_address" th:value="${list.ua_address}" />
+												<input type="text" id="detailAd" name="detailAd" th:value="${list.detailAd}" />
+												<input type="text" id="reference" name="reference" th:value="${list.reference}" />
+												<input type="text" id="latitude" name="latitude" th:value="${list.latitude}" />
+												<input type="text" id="longitude" name="longitude" th:value="${list.longitude}" />
 											</p>
 											<!-- btn -->
 											<a href="#" class="btn btn-info btn-sm">기본 주소</a>
 											<div class="mt-4">
 												<a href="#" class="text-inherit">편집</a>
-												<a href="#" class="text-danger ms-3" data-bs-toggle="modal"
-													data-bs-target="#deleteModal">삭제</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-xk-5 col-lg-6 col-xxl-4 col-12 mb-4">
-									<!-- input -->
-									<div class="card">
-										<div class="card-body p-6">
-											<div class="form-check mb-4">
-												<input class="form-check-input" type="radio" name="flexRadioDefault"
-													id="officeRadio" />
-												<label class="form-check-label text-dark fw-semibold"
-													for="officeRadio">사무실</label>
-											</div>
-											<!-- nav item -->
-											<p class="mb-6">
-												경기도
-												<br />
-												고양시
-												<br />
-												여기저기
-												<br />
-												402-776-1106
-											</p>
-											<!-- link -->
-											<a href="#" class="btn btn-info btn-sm">기본 주소</a>
-											<div class="mt-4">
-												<a href="#" class="text-inherit">편집</a>
-												<!-- btn -->
 												<a href="#" class="text-danger ms-3" data-bs-toggle="modal"
 													data-bs-target="#deleteModal">삭제</a>
 											</div>

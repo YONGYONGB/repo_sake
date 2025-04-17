@@ -216,6 +216,22 @@
 		user_id = #{user_id}
 	</update>
 	
+	<!-- 주소보기 -->
+	<select id="addressList" resultMap="resultMapObj">
+		select
+			zipCode
+			,ua_address
+			,detailAd
+			,reference
+			,latitude
+			,longitude
+		from
+			userAddress
+		where 1=1
+		and user_user_id = #{user_user_id}
+	</select>
+	
+	
 	<!-- 주소추가 -->
 	<insert id="addressInsert">
 		insert into useraddress(
