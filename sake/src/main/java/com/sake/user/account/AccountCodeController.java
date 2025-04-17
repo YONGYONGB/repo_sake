@@ -75,14 +75,18 @@ public class AccountCodeController extends UserBaseController{
 		return "/user/account/UserAccountSettings";
 		
 	}
+	///////////////////////////////
 	// 계정설정 하기
+	///////////////////////////////
 	@RequestMapping(value="UserAccountUpdate")
 	public String UserAccountUpdate(HttpSession httpSession, MemberDto dto) {
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
 		accountCodeService.accountUpdate(dto);
 		return "redirect:/user/account/UserAccountSettings";
 	}
+	///////////////////////////////
 	//아이디
+	///////////////////////////////
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupIdProc")
 	public Map<String, Object> SignupUserProc(MemberDto dto,Model model) throws Exception {
@@ -100,7 +104,9 @@ public class AccountCodeController extends UserBaseController{
 			
 		return returnm;
 	}
+	///////////////////////////////
 	//통관번호
+	///////////////////////////////
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupClProc")
 	public Map<String, Object> SignupClProc(MemberDto dto,Model model) throws Exception {
@@ -115,7 +121,9 @@ public class AccountCodeController extends UserBaseController{
 		}		
 		return returncl;
 	}
+	///////////////////////////////
 	//이메일
+	///////////////////////////////
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupEmProc")
 	public Map<String, Object> SignupEmProc(MemberDto dto,Model model) throws Exception {
@@ -154,12 +162,32 @@ public class AccountCodeController extends UserBaseController{
 	public String UserOrderDetails() {
 		return "/user/account/UserOrderDetails";
 	}
-	
+	///////////////////////////////
+	// 주소
+	///////////////////////////////
 	@RequestMapping(value="UserAccountAddress")
 	public String UserAccountAddress() {
 		return "/user/account/UserAccountAddress";
 	}
 	
+	@RequestMapping(value="UserAccountAddAddress")
+	public String UserAccountAddAddress() {
+		return "/user/account/UserAccountAddAddress";
+	}
+	
+	@RequestMapping(value="AddressInsert")
+	public String AddressInsert(HttpSession httpSession,MemberDto dto) {
+		dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
+		accountCodeService.addressInsert(dto);
+		return"/user/account/UserAccountAddress";
+	}
+	
+	
+	
+	
+	
+	
+	///////////////////////////////
 	@RequestMapping(value="UserAccountPayment")
 	public String UserAccountPayment() {
 		return "/user/account/UserAccountPayment";

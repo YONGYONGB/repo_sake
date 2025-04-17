@@ -216,5 +216,29 @@
 		user_id = #{user_id}
 	</update>
 	
+	<!-- 주소추가 -->
+	<insert id="addressInsert">
+		insert into useraddress(
+			zipCode
+			,ua_address
+			,detailAd
+			,reference
+			,latitude
+			,longitude
+			,user_user_id
+		)values(
+			#{zipCode}
+			,#{ua_address}
+			,#{detailAd}
+			,#{reference}
+			,#{latitude}
+			,#{longitude}
+			,#{user_user_id}
+		)
+		<selectKey resultType="String" keyProperty="ua_id" order="AFTER">
+			Select last_insert_id()
+		</selectKey>
+	</insert>
+	
 	
 </mapper>

@@ -11,6 +11,7 @@ public class AccountCodeService {
 	@Autowired
 	MemberDao memberDao;
 
+	// 계정등록
 	public MemberDto accountSetting(String num){
 		return memberDao.accountSetting(num);
 	}
@@ -26,4 +27,11 @@ public class AccountCodeService {
 	public int withdrawAction(String user_id) {
 		return memberDao.withdrawAction(user_id);
 	}
+	
+	// 주소
+	public int addressInsert(MemberDto dto){
+		return memberDao.addressInsert(dto);
+	}
+	
+	
 }
