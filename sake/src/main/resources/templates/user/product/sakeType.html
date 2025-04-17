@@ -2,7 +2,8 @@
 <html lang="kor" xmlns:th="http://www.thymeleaf.org">
 
 	<div th:replace = "~{user/include/header :: header}"></div>
-	<!-- section-->
+
+
    <main>
       <!-- section-->
       <div class="mt-4">
@@ -15,8 +16,8 @@
                   <nav aria-label="breadcrumb">
                      <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="../sake_homepage.html">홈페이지</a></li>
-                        <li class="breadcrumb-item"><a href="../pages/shop-grid-3-column.html">사케</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">준마이다이긴죠슈</li>
+                        <li class="breadcrumb-item"><a href="../pages/shop-area.html">지역</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">상세지역</li>
                      </ol>
                   </nav>
                </div>
@@ -112,7 +113,8 @@
                                  <label class="form-check-label" for="onlineGrocery">기타</label>
                               </div>
                            </div>
-                           <!-- title -->
+                        </div>
+                        <div>
                            <h5 class="mb-3">일본 지역</h5>
                            <!-- nav -->
                            <ul class="nav nav-category" id="categoryCollapseMenu">
@@ -338,9 +340,8 @@
                                     </div>
                                  </div>
                               </li>
-                              
                            </ul>
-                        </div>
+                        </div>   
 
                         <div class="mb-8">
                            <!-- price -->
@@ -418,7 +419,7 @@
                               </div>
                            </div>
                         </div>
-                       
+                        
                      </div>
                   </div>
                </aside>
@@ -426,8 +427,8 @@
                   <!-- card -->
                   <div class="card mb-4 bg-light border-0">
                      <!-- card body -->
-                     <div class="card-body p-9" th:each="li:${list}">
-                        <h2 class="mb-0 fs-1" th:text ="${@codeService.selectOneCachedCode(li)}"></h2>
+                     <div class="card-body p-9" th:each = "li: ${list}">
+                        <h2 class="mb-0 fs-1" th:text="${@codeService.selectOneCachedCode(li)}"></h2>
                      </div>
                   </div>
                   <!-- list icon -->
@@ -474,11 +475,14 @@
                      </div>
                   </div>
                   <!-- row -->
-                  <div class="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
+                 <div class="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2"> <!--상품 목록 위 -->
                      <!-- col -->
-                     <div class="col">
+                     <div th:if="${#lists.isEmpty(items)}" class="hover-actions-trigger btn-reveal-trigger position-static">    		
+                  			<p class="fs-3 text-center my-4">사케가 없습니다!</p>        		
+                  	</div>
+                     <div th:if="${!#lists.isEmpty(items)}" class="col" th:each="item: ${items}">
                         <!-- card -->
-                        <div class="card card-product">
+                        <div class="card card-product">								<!-- 상품 시작점 -->
                            <div class="card-body">
                               <!-- badge -->
                               <div class="text-center position-relative">
@@ -495,15 +499,15 @@
                               </div>
                               <!-- heading -->
                               <div class="text-small mb-1">
-                                 <a href="#!" class="text-decoration-none text-muted"><small>준마이다이긴죠슈</small></a>
+                                 <a href="#!" class="text-decoration-none text-muted" th:text ="${item.type}"><small>준마이다이긴죠슈</small></a>
                               </div>
                               <div class="text-small mb-1">
-                                 <a href="#!" class="text-decoration-none text-muted"><small>주고쿠</small></a>
-                                 <a href="#!" class="text-decoration-none text-muted"><small>야마구치현</small></a>
-                                 <a href="#!" class="text-decoration-none text-muted"><small>닷사이</small></a>
+                                 <a href="#!" class="text-decoration-none text-muted" th:text ="${item.local}" ><small>주고쿠</small></a>
+                                 <a href="#!" class="text-decoration-none text-muted" th:text ="${item.local_detail}"><small>야마구치현</small></a>
+                                 <a href="#!" class="text-decoration-none text-muted" th:text ="${item.brand}"><small>닷사이</small></a>
                               </div>
                               <h2 class="fs-6"><a href="shop-single.html"
-                                    class="text-inherit text-decoration-none">닷사이23</a></h2>
+                                    class="text-inherit text-decoration-none" th:text ="${item.name}">닷사이23</a></h2>
                               <div>
                                  <!-- rating -->
                                  <small class="text-warning">
@@ -519,7 +523,7 @@
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
                                     <span class="text-dark">¥9,100</span>
-                                    <span class="text-decoration-line-through text-muted">¥9,500</span>
+                                    <span class="text-decoration-line-through text-muted"  th:text ="${item.fixed_price}">¥9,500</span>
                                  </div>
                                  <!-- btn -->
                                  <div>
@@ -542,65 +546,6 @@
                      <!-- col -->
                     
                      <!-- col -->
-                     <div class="col">
-                        <!-- card -->
-                        <div class="card card-product">
-                           <div class="card-body">
-                              <div class="text-center position-relative">
-                                 <a href="shop-single.html"><img src="../assets/images/products/product-img-10.jpg"
-                                       alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-                                 <!-- action btn -->
-                                 <div class="card-product-action">
-                                    <a href="#!" class="btn-action" data-bs-toggle="modal"
-                                       data-bs-target="#quickViewModal">
-                                       <i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-                                          title="Quick View"></i>
-                                    </a>
-                                    <a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
-                                       data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
-                                    <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-                                 </div>
-                              </div>
-                              <!-- heading -->
-                              <div class="text-small mb-1">
-                                 <a href="#!" class="text-decoration-none text-muted"><small>Dairy, Bread &
-                                       Eggs</small></a>
-                              </div>
-                              <h2 class="fs-6"><a href="shop-single.html" class="text-inherit text-decoration-none">Amul
-                                    Butter - 500 g</a></h2>
-                              <div class="text-warning">
-                                 <!-- rating -->
-                                 <small>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-half"></i>
-                                    <i class="bi bi-star"></i>
-                                 </small>
-                                 <span class="text-muted small">3.5 (89)</span>
-                              </div>
-                              <div class="d-flex justify-content-between mt-4">
-                                 <div>
-                                    <span class="text-dark">$13</span>
-                                    <span class="text-decoration-line-through text-muted">$18</span>
-                                 </div>
-                                 <!-- btn -->
-                                 <div>
-                                    <a href="#!" class="btn btn-primary btn-sm">
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                          stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                                          <line x1="12" y1="5" x2="12" y2="19"></line>
-                                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                                       </svg>
-                                       Add
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
                   </div>
                   <!-- row -->
                   <div class="row mt-8">
@@ -633,6 +578,14 @@
       </div>
    </main>
 
-	<div th:replace = "~{user/include/footer :: footer}"></div>
- </body>
+   <!-- modal -->
+   <!-- Modal -->
+   
+
+
+   <!-- Footer -->
+   <!-- footer -->
+   <div th:replace = "~{user/include/footer :: footer}"></div>
+</body>
+
 </html>

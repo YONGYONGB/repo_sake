@@ -131,7 +131,7 @@
                       <td th:text = "${@codeService.selectOneCachedCode(list.local_detail)}"></td>
                       <td th:text = "${@codeService.selectOneCachedCode(list.brand)}"></td>
                       <td th:text = "${@codeService.selectOneCachedCode(list.type)}"></td>
-                      <td th:text = "${list.capacity}"></td> <!-- th:text = ${list.cd_name} -->
+                      <td th:text = "${list.capacity==0} ? '720ml' : '1800ml' "></td> <!-- th:text = ${list.cd_name} -->
                       <td th:text = "${list.liquor}"></td>
                       <td th:text = "${list.fixed_price}"></td>
                       <td th:text = "${list.discountNY==1} ? '할인적용': '할인미적용'"></td>
@@ -150,7 +150,7 @@
               	<ul class ="datatable-pagination-list">
               		<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
 						<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">    
-					<i class="fa-solid fa-angle-left"></i>
+					<i class="bi bi-caret-left-fill"></i>
 					</a>
 					</li>
 					<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item" style="cursor: pointer;">
@@ -158,7 +158,7 @@
 					</li>
 					<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" style="cursor: pointer;">
 					<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
-						<i class="fa-solid fa-angle-right"></i>
+						<i class="bi bi-caret-right-fill"></i>
 					</a>
 					</li>
               	</ul>

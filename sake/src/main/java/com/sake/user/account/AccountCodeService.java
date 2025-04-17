@@ -22,4 +22,8 @@ public class AccountCodeService {
 	public int changepw(MemberDto dto){
 		return memberDao.changepw(dto);
 	}
+	
+	public int withdrawAction(String user_id) {
+		return memberDao.withdrawAction(user_id);
+	}
 }

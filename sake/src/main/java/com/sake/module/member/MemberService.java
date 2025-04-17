@@ -37,6 +37,7 @@ public class MemberService {
 	}
 	
 	
+	
 	public MemberDto checkid(MemberDto dto){
 		return memberDao.checkid(dto);
 	}

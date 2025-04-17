@@ -60,18 +60,15 @@
               <div class="col-3"><label for="email" class="form-label">이메일</label><span style="color: crimson;">*</span> 
                 <input type="text" class="form-control" id="email" placeholder="이메일형식" required name="email" th:value="${item?.email}">
                 <div class="invalid-feedback" id="emailError">Looks good!</div></div>
-              <div class="col-3"><label for="password" class="form-label">패스워드</label><span style="color: crimson;">*</span>
-                <input type="text" class="form-control" id="password" placeholder="특수문자, 영어대소문자, 숫자를 하나씩 입력" required name="password" th:value="${item?.password}">
-                <div class="invalid-feedback" id="passwordError">Looks good!</div></div>
             </div>
           
           
             <div class = "row">
-              <div class = "col-3"><label for="user_delny" class="form-label">사용여부</label><span style="color: crimson;">*</span> 
+              <div class = "col-3"><label for="user_delny" class="form-label">삭제여부</label><span style="color: crimson;">*</span> 
                 <select class="form-select" aria-label="Default select example" id="user_delny" required name ="user_delny" th:value="${item?.user_delny}">
                   <option selected value="">선택하세요</option>
-                  <option value="1" th:selected="${item?.user_delny == 1}">사용</option>
-                  <option value="0" th:selected="${item?.user_delny == 0}">미사용</option>
+                  <option value="1" th:selected="${item?.user_delny == 1}">삭제</option>
+                  <option value="0" th:selected="${item?.user_delny == 0}">미삭제</option>
                 </select><div class="invalid-feedback" id="user_delnyError">
                     Please select a valid state.
                   </div></div>

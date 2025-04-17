@@ -65,7 +65,7 @@ public class AccountCodeController extends UserBaseController{
 	    return "redirect:/user/account/UserAccountPassword";
 	}
 	//////////////////////////////////////////////
-	// 계정설정
+	// 계정설정 화면
 	@RequestMapping(value="UserAccountSettings")
 	public String UserAccountSettings(HttpSession httpSession,MemberDto dto,Model model) {
 
@@ -75,7 +75,7 @@ public class AccountCodeController extends UserBaseController{
 		return "/user/account/UserAccountSettings";
 		
 	}
-	// 계정설정
+	// 계정설정 하기
 	@RequestMapping(value="UserAccountUpdate")
 	public String UserAccountUpdate(HttpSession httpSession, MemberDto dto) {
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
@@ -140,6 +140,15 @@ public class AccountCodeController extends UserBaseController{
 	public String UserAccountWithdraw() {
 		return "/user/account/UserAccountWithdraw";
 	}
+	
+	@RequestMapping(value="WithdrawAction")
+	public String withdrawAction(HttpSession httpSession,MemberDto dto){
+		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
+		accountCodeService.withdrawAction(dto.getUser_id());
+		return"/user/index/UserIndex";
+	}
+	
+	
 	//주문내역
 	@RequestMapping(value="UserOrderDetails")
 	public String UserOrderDetails() {

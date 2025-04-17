@@ -11,7 +11,18 @@ public class ProductUserService {
 	@Autowired
 	ProductDao dao;
 	
-	public List<ProductDto> localcheck(ProductDto dto){
-		return dao.localcheck(dto);
+	
+	public  List<ProductDto> localDetailList(String local_detail){
+		return dao.localDetailList(local_detail);
 	}
+	
+	public  List<ProductDto> localList(String local){
+		return dao.localList(local);
+	}
+	
+	public  List<ProductDto> typeList(String type){
+		return dao.typeList(type);
+	}
+	
+	
 }

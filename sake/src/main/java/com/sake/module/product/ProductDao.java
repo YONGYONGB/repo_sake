@@ -27,12 +27,16 @@ public interface ProductDao {
 	
 	public ProductDto menu(ProductDto dto);
 	
-	
+	public List<ProductDto> localcheck(ProductDto dto);
 	
 	
 	///  유저
 	
-	public List<ProductDto> localcheck(ProductDto dto);
+	public  List<ProductDto> localDetailList(String local_detail);
+	
+	public  List<ProductDto> localList(String local);
+	
+	public  List<ProductDto> typeList(String type);
 	
 	
 }

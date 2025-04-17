@@ -115,7 +115,6 @@
 			discountNY,
 			product_number,
 			pd_regiDate,
-			pd_modiDate,
 			discount_dc_id
 	)
 	values(
@@ -132,8 +131,7 @@
 	 	#{discountNY},
 	 	#{product_number},
 	 	now(),
-	 	0
-	 	<if test="discount_dc_id== null">NULL</if>
+	 	<if test="discount_dc_id== null">1</if>
         <if test="discount_dc_id != null">#{discount_dc_id}</if>
 	)
 	<selectKey resultType="String" keyProperty="pd_id" order="AFTER">
@@ -194,6 +192,84 @@
 			code_inclusion ci
 		left join code a on ci.child_code_id = a.cd_id
 		where ci.parent_code_id = #{cd_id}
+	</select>
+	
+	
+	
+	<!-- ################################### 유저   ############################################# -->
+	<!--지역  -->
+	<select id="localList" resultMap="resultMapObj">
+		select
+			a.pd_id,
+			a.name,
+			a.local,
+			a.local_detail,
+			a.brand,
+			a.type,
+			a.capacity,
+			a.liquor,
+			a.fixed_price,
+			a.discountNY,
+			a.product_number,
+			a.discount_dc_id,
+			b.dc_id,
+			b.discount_name,
+			b.discount_rate
+		from
+			product a
+			join discount b on b.dc_id = a.discount_dc_id
+			where 1=1
+			and local = #{local}
+	</select>
+	
+	<!--상세지역  -->
+	<select id="localDetailList" resultMap="resultMapObj">
+		select
+			a.pd_id,
+			a.name,
+			a.local,
+			a.local_detail,
+			a.brand,
+			a.type,
+			a.capacity,
+			a.liquor,
+			a.fixed_price,
+			a.discountNY,
+			a.product_number,
+			a.discount_dc_id,
+			b.dc_id,
+			b.discount_name,
+			b.discount_rate
+		from
+			product a
+			join discount b on b.dc_id = a.discount_dc_id
+			where 1=1
+			and local_detail = #{local_detail}
+	</select>
+	
+	<!--상세지역  -->
+	<select id="typeList" resultMap="resultMapObj">
+		select
+			a.pd_id,
+			a.name,
+			a.local,
+			a.local_detail,
+			a.brand,
+			a.type,
+			a.capacity,
+			a.liquor,
+			a.fixed_price,
+			a.discountNY,
+			a.product_number,
+			a.discount_dc_id,
+			b.dc_id,
+			b.discount_name,
+			b.discount_rate
+		from
+			product a
+			join discount b on b.dc_id = a.discount_dc_id
+			where 1=1
+			and type = #{type}
 	</select>
 	
 	

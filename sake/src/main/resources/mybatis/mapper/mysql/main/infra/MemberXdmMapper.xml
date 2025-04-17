@@ -8,8 +8,8 @@
 	<sql id = "selectCommon">
  		from user as a
  		where 1=1
- 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.user_delny = #{shUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND 0 = #{shDelNy}</if>
+ 		<!-- <if test="shUseNy != null and !shUseNy.equals('')">AND a.user_delny = #{shUseNy}</if> -->
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.user_delny = #{shDelNy}</if>
 
         <choose>
             <when test="shOption == 1">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>  <!-- AND a.user_name = #{shValue} -->
@@ -72,7 +72,6 @@
 			clearance,
 			id,
 			email,
-			password,
 			address,
 			user_delny,
 			user_regiDate,
@@ -84,8 +83,7 @@
 			#{birthday},
 			#{clearance},	
 			#{id},
-			#{email},
-			#{password},		
+			#{email},		
 			#{address},		
 			#{user_delny},
 			now(),
@@ -106,7 +104,6 @@
 		birthday = #{birthday},
 		clearance = #{clearance},
 		email = #{email},
-		password = #{password},
 		address = #{address},
 		user_delny = #{user_delny},
 		user_modiDate = now()
@@ -210,5 +207,14 @@
 		where
 		user_id = #{user_id}
 	</update>
+	
+	<!--계정 탈퇴  -->
+	<update id="withdrawAction">
+		update user set
+			user_delny = 1
+		where
+		user_id = #{user_id}
+	</update>
+	
 	
 </mapper>

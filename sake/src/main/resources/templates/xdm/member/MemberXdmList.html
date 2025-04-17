@@ -27,11 +27,11 @@
                     <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
                     <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
                   </select></div>
-                <div class = "col-2 fbele"><select name="shUseNy" id="shUseNy" class="form-select" aria-label="Default select example">
+                <!-- <div class = "col-2 fbele"><select name="shUseNy" id="shUseNy" class="form-select" aria-label="Default select example">
                     <option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
                     <option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
                     <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
-                  </select></div>
+                  </select></div> -->
                 <div class = "col-2 fbele">
                 	<select id="shOptionDate" name="shOptionDate" class="form-select" aria-label="Default select example">
                     	<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
@@ -90,7 +90,7 @@
                       <th style="text-align: center;">아이디</th>
                       <th style="text-align: center;">이메일</th>
                       <th style="text-align: center;">주소</th>                
-                      <th style="text-align: center;">사용여부</th>
+                      <th style="text-align: center;">삭제여부</th>
                       <th style="text-align: center;">등록일</th>
                       <th style="text-align: center;">수정일</th>
                     </tr>
@@ -112,7 +112,7 @@
                       <td th:text ="${list.id}"></td>
                       <td th:text ="${list.email}"></td>
                       <td th:text ="${list.address}"></td>
-                      <td th:text = "${list.user_delny ==1 } ? '사용': '미사용' "></td>
+                      <td th:text = "${list.user_delny ==0 } ? '미삭제': '삭제' "></td>
                       <td th:text ="${list.user_regiDate}" ></td>
                       <td th:text ="${list.user_modiDate}" ></td>
                     </tr>
@@ -176,6 +176,9 @@
     <!-- 모달끝 -->
 
   <div th:replace = "~{xdm/include/footer :: footer}"></div>
+  
+   
+ 
   
   
   <script type="text/javascript">

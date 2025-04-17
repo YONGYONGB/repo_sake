@@ -2,6 +2,7 @@ package com.sake.module.product;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +57,12 @@ public class ProductController extends BaseController{
 	}
 	
 	@RequestMapping(value="ProductXdmUpdate")
-	public String productXdmUpdate(ProductDto dto) {
+	public String productXdmUpdate(@RequestParam("ld") Integer ld,ProductDto dto) {
+		if(dto.getLocal_detail()== null){
+			dto.setLocal_detail(ld);
+			System.out.println(dto.getLocal_detail()); 
+			System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		}
 		productservice.update(dto);
 		return "redirect:/xdm/product/ProductXdmList";
 	}

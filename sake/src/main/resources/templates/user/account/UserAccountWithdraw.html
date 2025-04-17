@@ -35,13 +35,13 @@
 								<!-- heading -->
 								<h2 class="mb-0">내 계정</h2>
 							</div>
-							<form name="form" id="form" method="post">
+							<form name="form" action="" id="form" method="post">
 								<!-- heading -->
 								<h5 class="mb-4">계정 삭제</h5>
 								<p class="mb-2">계정을 삭제하기 원하신가요?</p>
 								<p class="mb-5">This account contain 12 orders, Deleting your account will remove all
 									the order details associated with it.</p>
-								<button class="btn btn-outline-danger" id="withdraw">계정 삭제</button>
+								<button class="btn btn-outline-danger" type="button" id="withdraw">계정 삭제</button>
 							</form>
 						</div>
 					</div>
@@ -49,7 +49,45 @@
 			</div>
 		</section>
 	</main>
+	<!-- 알림 모달 -->
+	<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+				<button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close" style="background:none;border:none;">
+    <i class="fas fa-times fa-lg"></i></button>
+			</div>
+			<div class="modal-body" id="modalConfirmBody">
+				body
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-google" id="btnModalDeli" name="">배송</button>
+				<button type="button" class="btn btn-danger btn_custom" name="" id="btnModalDelete">삭제</button>
+				<button type="button" class="btn btn-danger btn_custom" name="" id="btnModalUelete">삭제</button>
+				<button type="button" class="btn btn-outline-secondary btn_custom" data-bs-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+  </div>
+	
+	
+	<script type="text/javascript">
+		document.getElementById("withdraw").onclick= function(){
+			document.querySelector("#modalConfirmTitle").textContent = "확 인";
+			document.querySelector("#modalConfirmBody").textContent = "계정을 삭제하시겠습니까?";
+			document.querySelector("#btnModalDeli").style.display = 'none';
+			document.querySelector("#btnModalUelete").style.display = 'none';
+			document.querySelector("#btnModalDelete").style.display = '';
+			$("#modalConfirm").modal("show");      	
+		}
+		document.getElementById("btnModalDelete").onclick = function () {
+			form.action ="/user/account/WithdrawAction";
+			form.submit();
+		}
+	</script>
 	<div th:replace ="~{user/include/footer :: footer}"></div>
 </body>
+
 
 </html>

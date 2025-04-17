@@ -35,4 +35,7 @@ public interface MemberDao {
 	
 	// admin select 여러개 삭제
 	public int uelete(@Param("userIds") List<Integer>userIds);
+	
+	//계정 삭제
+	public int withdrawAction(String user_id);
 }
