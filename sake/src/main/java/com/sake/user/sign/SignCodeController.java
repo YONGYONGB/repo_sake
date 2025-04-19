@@ -14,6 +14,8 @@ import com.sake.module.code.CodeVo;
 import com.sake.module.member.MemberDto;
 import com.sake.module.member.MemberService;
 import com.sake.user.base.UserBaseController;
+import com.sake.user.email.EmailService;
+import com.sake.user.email.TemplateVo;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +29,9 @@ public class SignCodeController extends UserBaseController{
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	EmailService emailService;
 	
 	@RequestMapping(value ="signup")
 	public String signup(Model model, CodeDto codeDto, CodeVo vo){
@@ -46,6 +51,8 @@ public class SignCodeController extends UserBaseController{
 
 	
 	//계정설정 파트
+	
+	
 	@ResponseBody   //	json정보를  매핑시켜줌.
 	@RequestMapping(value = "SignupIdProc")
 	public Map<String, Object> SignupUserProc(MemberDto dto,Model model) throws Exception {
@@ -92,11 +99,33 @@ public class SignCodeController extends UserBaseController{
 	}
 	
 	//회원가입 및 암호화 하는법
+	// 회원가입
 	@RequestMapping(value = "signupInst" )
-	public String MemberXdmList(MemberDto memberdto){
-		memberdto.setPassword(encodeBcrypt(memberdto.getPassword(),10));
+	public String MemberXdmList(MemberDto memberDto, TemplateVo templateVo) throws Exception{
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		System.out.println(memberDto.getPassword());
+		memberDto.setPassword(encodeBcrypt(memberDto.getPassword(),10));
 		
-		signCodeService.insert(memberdto);
+		signCodeService.insert(memberDto);
+		
+		Thread thread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+				// TODO Auto-generated method stub
+					emailService.sendMailWelcome(memberDto, templateVo);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+			
+		thread.start();
+		
+		
+		
+		
 		return "redirect:/user/sign/signin";
 	}
 

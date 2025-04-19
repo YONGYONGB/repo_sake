@@ -489,7 +489,7 @@
                                  <div class="position-absolute top-0 start-0">
                                     <!-- <span class="badge bg-danger">Sale</span> -->
                                  </div>
-                                 <a href="shop-single.html">
+                                 <a th:href="@{/user/product/sakeProduct(pd_id=${item.pd_id})}">
                                     <!-- img -->
                                     <img src="../assets/images/sake/chugoku_2/yamaguchi/dassi/dassai.jpg"
                                        alt="Grocery Ecommerce Template" class="mb-3 img-fluid item-img" />
@@ -499,14 +499,14 @@
                               </div>
                               <!-- heading -->
                               <div class="text-small mb-1">
-                                 <a href="#!" class="text-decoration-none text-muted" th:text ="${item.type}"><small>준마이다이긴죠슈</small></a>
+                                 <a th:href="@{/user/product/sakeMenu(seq=${item.type})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.type)}"><small>준마이다이긴죠슈</small></a>
                               </div>
                               <div class="text-small mb-1">
-                                 <a href="#!" class="text-decoration-none text-muted" th:text ="${item.local}" ><small>주고쿠</small></a>
-                                 <a href="#!" class="text-decoration-none text-muted" th:text ="${item.local_detail}"><small>야마구치현</small></a>
-                                 <a href="#!" class="text-decoration-none text-muted" th:text ="${item.brand}"><small>닷사이</small></a>
+                                 <a th:href="@{/user/product/sakeMenu(seq=${item.local})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.local)}"><small>주고쿠</small></a>
+                                 <a th:href="@{/user/product/sakeMenu(seq=${item.local_detail})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.local_detail)}"><small>야마구치현</small></a>
+                                 <a  class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.brand)}"><small>닷사이</small></a>
                               </div>
-                              <h2 class="fs-6"><a href="shop-single.html"
+                              <h2 class="fs-6"><a th:href="@{/user/product/sakeProduct(pd_id=${item.pd_id})}"
                                     class="text-inherit text-decoration-none" th:text ="${item.name}">닷사이23</a></h2>
                               <div>
                                  <!-- rating -->
@@ -522,7 +522,7 @@
                               <!-- price -->
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
-                                    <span class="text-dark">¥9,100</span>
+                                    <span class="text-dark" th:text ="${item.fixed_price}">¥9,100</span>
                                     <span class="text-decoration-line-through text-muted"  th:text ="${item.fixed_price}">¥9,500</span>
                                  </div>
                                  <!-- btn -->

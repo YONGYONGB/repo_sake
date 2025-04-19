@@ -14,35 +14,34 @@ public class ProductUserController extends UserBaseController{
 	@Autowired
 	ProductUserService service;
 	
-	@RequestMapping(value="sakeType")
-	public String sakeType(ProductVo vo, Model model){
+	@Autowired
+	ProductService productservice;
+	
+	///////
+	// 메뉴
+	///////
+	@RequestMapping(value="sakeMenu")
+	public String sakeMenu(ProductVo vo, Model model){
 		Integer seq = vo.getSeq();
 		model.addAttribute("list", seq);
 		model.addAttribute("items", service.typeList(seq.toString()));
-		return "/user/product/sakeType";
+		if(seq>= 3 && seq<=10) {
+			model.addAttribute("items", service.localList(seq.toString()));
+		}else if(seq>= 11 && seq<=19) {
+			model.addAttribute("items", service.typeList(seq.toString()));
+		}else if(seq>=81 && seq <=129) {
+			model.addAttribute("items", service.localDetailList(seq.toString()));
+		}	
+		return "/user/product/sakeMenu";
 	}
-	
-	@RequestMapping(value="sakeLocal")
-	public String sakeLocal(ProductVo vo, Model model){
-		Integer seq = vo.getSeq();
-		System.out.println(seq);
-		model.addAttribute("list", seq);
+	///////
+	// 사케제품
+	///////
+	@RequestMapping(value="sakeProduct")
+	public String sakeProduct(ProductDto dto,ProductVo vo,Model model){
+		dto.setPd_id(vo.getPd_id());
+		model.addAttribute("item", productservice.selectView(dto));
 		
-		model.addAttribute("items", service.localList(seq.toString()));
-		
-		return "/user/product/sakeLocal";
+		return "/user/product/sakeProduct";
 	}
-	
-	@RequestMapping(value="sakeLocalDetail")
-	public String sakeLocalDetail(ProductVo vo, Model model){
-		Integer seq = vo.getSeq();
-		System.out.println(seq);
-		model.addAttribute("list", seq);
-		
-		model.addAttribute("items", service.localDetailList(seq.toString()));
-		
-		return "/user/product/sakeLocalDetail";
-	}
-	
-	
 }

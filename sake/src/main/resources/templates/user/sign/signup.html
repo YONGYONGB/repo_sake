@@ -151,6 +151,8 @@
   
   
   <script type="text/javascript">
+  var isValid = true; 
+  
   document.getElementById("id").addEventListener("blur", function() {
 	  	document.getElementById("id").classList.remove("is-invalid");
 	    document.getElementById("id").classList.remove("is-valid");
@@ -161,15 +163,15 @@
 		if(id == null || id == ""){
 			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
 			document.getElementById("id").classList.add("is-invalid");
-			return;
+			return false;
 		}else if(id.trim() != id){
 			document.getElementById("idError").textContent = "띄어쓰기를 제거해주세요.";
 			document.getElementById("id").classList.add("is-invalid");
-			return;
+			return false;
 		}else if(!expIdText.test(id)){
 			document.getElementById("idError").textContent = "영/한 4~10자리의 아이디를 만드세요.";
 			document.getElementById("id").classList.add("is-invalid");
-			return;
+			return false;
 		}else{
 			document.getElementById("id").classList.add("is-valid");
 		} 
@@ -182,10 +184,12 @@
 		      data: {"id" : $("#id").val()},
 		      success: function(response) {
 		        if(response.id === "success") {
+		        	isValid = true;
 		        	document.getElementById("id").classList.remove("is-invalid");
 		    	  	document.getElementById("id").classList.remove("is-valid");	
 		    	  	document.getElementById("id").classList.add("is-valid");
 		        }else if (response.id === "fail") {
+		        	isValid = false;
 		        	document.getElementById("id").classList.remove("is-invalid");
 		    	  	document.getElementById("id").classList.remove("is-valid");	
 		    	  	document.getElementById("idError").textContent = '';
@@ -198,20 +202,18 @@
 		      }
 		    });
 		  });	    
-  </script>
-  
-  <script type="text/javascript">
+
   document.getElementById("clearance").addEventListener("blur", function() {
 	  	document.getElementById("clearance").classList.remove("is-invalid");
 	    document.getElementById("clearance").classList.remove("is-valid");
 	    document.getElementById("clearanceError").textContent = '';
 	    
-	    const clearance1 = document.getElementById("clearance").value;
+	    const clearance = document.getElementById("clearance").value;
  	   	let iciNoRule = /^(p|P)[1-6]{1}[0-9]{11}$/;
- 		 if(!iciNoRule.test(clearance1)){
+ 		 if(!iciNoRule.test(clearance)){
 			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입력해주세요.(p와 12자리의 값을 입력해주세요)";
 			document.getElementById("clearance").classList.add("is-invalid");
-			return;
+			return false;
 		}else{
 			document.getElementById("clearance").classList.add("is-valid");
 		}
@@ -224,15 +226,18 @@
 		      data: {"clearance" : $("#clearance").val()},
 		      success: function(response) {
 		        if(response.cl === "success") {
+		        	isValid = true;
 		        	document.getElementById("clearance").classList.remove("is-invalid");
 		    	  	document.getElementById("clearance").classList.remove("is-valid");	
 		    	  	document.getElementById("clearance").classList.add("is-valid");
 		        }else if (response.cl === "fail") {
+		        	isValid = false;
 		        	document.getElementById("clearance").classList.remove("is-invalid");
 		    	  	document.getElementById("clearance").classList.remove("is-valid");	
 		    	  	document.getElementById("clearanceError").textContent = '';
 		    	  	document.getElementById("clearanceError").textContent = "사용중인 통관번호가 존재합니다.";
 					document.getElementById("clearance").classList.add("is-invalid");
+					
 		        }
 		      },
 		      error: function(jqXHR, textStatus, errorThrown) {
@@ -240,9 +245,7 @@
 		      }
 		    });
 		  });	    
-  </script>
-  
-  <script type="text/javascript">
+
   document.getElementById("email").addEventListener("blur", function() {
 	  document.getElementById("email").classList.remove("is-invalid");
 	  document.getElementById("email").classList.remove("is-valid");
@@ -252,7 +255,7 @@
 		 if(!regexp.test(ema)){
 			document.getElementById("emailError").textContent = " 올바른 이메일 형식을 입력해주세요.";
 			document.getElementById("email").classList.add("is-invalid");
-			return;
+			return false;
 		}else{
 			document.getElementById("email").classList.add("is-valid");
 		}
@@ -265,15 +268,18 @@
 		      data: {"email" : $("#email").val()},
 		      success: function(response) {
 		        if(response.rt === "success") {
+		        	isValid = true;
 		        	document.getElementById("email").classList.remove("is-invalid");
 		    	  	document.getElementById("email").classList.remove("is-valid");	
 		    	  	document.getElementById("email").classList.add("is-valid");
 		        }else if (response.rt === "fail") {
+		        	isValid = false;
 		        	document.getElementById("email").classList.remove("is-invalid");
 		    	  	document.getElementById("email").classList.remove("is-valid");	
 		    	  	document.getElementById("emailError").textContent = '';
 		    	  	document.getElementById("emailError").textContent = "사용중인 이메일이 존재합니다.";
 					document.getElementById("email").classList.add("is-invalid");
+					
 		        }
 		      },
 		      error: function(jqXHR, textStatus, errorThrown) {
@@ -281,10 +287,7 @@
 		      }
 		    });
 		  });	    
-  </script>
-  
-  
-  <script type="text/javascript">
+
   document.getElementById("user_submit").addEventListener("click",function(event){
 	  
 	  	let seq = document.querySelector("input[name=user_id]");
@@ -328,8 +331,6 @@
  		document.getElementById("passwordError").textContent = '';
  		document.getElementById("pwchError").textContent = '';
  	
-      	      
-		let isValid = true; 
 	    
 		
 		const name = document.getElementById("name").value;
@@ -369,18 +370,27 @@
 		}
 		
  	    const clearance = document.getElementById("clearance").value;
+ 	   	let iciNoRule = /^(p|P)[1-6]{1}[0-9]{11}$/;
  		 if(clearance == null || clearance == ""){
 			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입려해주세요.";
+			document.getElementById("clearance").classList.add("is-invalid");
+			isValid = false;
+		}else if(!iciNoRule.test(clearance)){
+			document.getElementById("clearanceError").textContent = "발급받은 고유통관번호를 입력해주세요.(p와 12자리의 값을 입력해주세요)";
 			document.getElementById("clearance").classList.add("is-invalid");
 			isValid = false;
 		}else{
 			document.getElementById("clearance").classList.add("is-valid");
 		}
  		 
- 		 const id = document.getElementById("id").value;
- 		let expIdText = /^[A-Za-z]{4,20}$/;
+ 		const id = document.getElementById("id").value;
+ 		let expIdText = /^[가-힣A-Za-z]{4,20}$/;
 		if(id == null || id == ""){
 			document.getElementById("idError").textContent = "아이디를 입력해주세요.";
+			document.getElementById("id").classList.add("is-invalid");
+			isValid = false;
+		}else if(!expIdText.test(id)){
+			document.getElementById("idError").textContent = "영/한 4~10자리의 아이디를 만드세요.";
 			document.getElementById("id").classList.add("is-invalid");
 			isValid = false;
 		}else{

@@ -17,9 +17,24 @@ public class CartController extends UserBaseController{
 		return "/user/cart/Wishlist";
 	}
 	
+	
+	
 	@RequestMapping(value="ShoppingCart")
 	public String ShoppingCart() {
 		return "/user/cart/ShoppingCart";
 	}
+	
+	
+	@RequestMapping(value="cartInsert")
+	public String cartInsert(@RequestParam String seq) {
+		String[] values = seq.split(",");
+		String pdId = values[0]; 
+		int productQuality = Integer.parseInt(values[1]);
+		int price= Integer.parseInt(values[2]);
+		
+		return new String();
+	}
+	
+	
 	
 }
