@@ -2,6 +2,7 @@
 <html lang="kor" xmlns:th="http://www.thymeleaf.org">
  <div th:replace = "~{user/include/header :: header}"></div> 
 <main>
+<form id="form" method="post">
 		<!-- section -->
 		<section>
 			<!-- container -->
@@ -35,7 +36,7 @@
 								<h2 class="mb-0">주소</h2>
 								<!-- button -->
 								
-								<button type="button" class="btn btn-outline-primary" onclick="location.href='/user/account/UserAccountAddAddress'">주소 추가하기</button>
+								<button type="button" class="btn btn-outline-primary" id="addressInsert">주소 추가하기</button>
 							</div>
 							<div class="row">
 								<!-- col -->
@@ -44,13 +45,14 @@
 									<div class="card">
 										<div class="card-body p-6">
 											<div class="form-check mb-4">
-												<input class="form-check-input" type="radio" name="flexRadioDefault"
-													id="homeRadio" checked />
+												<input class="form-check-input uaRepRadio" type="radio" name="flexRadioDefault"
+													th:id="'homeRadio' + ${list.ua_id}" th:attr="data-ua-id=${list.ua_id}"  th:checked="${list.ua_rep == 1}">
 												<label class="form-check-label text-dark fw-semibold"
-													for="homeRadio">집</label>
+													for="homeRadio">대표 주소</label>
 											</div>
 											<!-- address -->
 											<p class="mb-6">
+												<input type="hidden" name="ua_id" th:value="${list.ua_id}">
 												<input type="text" id="zipCode" name="zipCode" th:value="${list.zipCode}" />
 												<input type="text" id="ua_address" name="ua_address" th:value="${list.ua_address}" />
 												<input type="text" id="detailAd" name="detailAd" th:value="${list.detailAd}" />
@@ -59,11 +61,9 @@
 												<input type="text" id="longitude" name="longitude" th:value="${list.longitude}" />
 											</p>
 											<!-- btn -->
-											<a href="#" class="btn btn-info btn-sm">기본 주소</a>
 											<div class="mt-4">
-												<a href="#" class="text-inherit">편집</a>
-												<a href="#" class="text-danger ms-3" data-bs-toggle="modal"
-													data-bs-target="#deleteModal">삭제</a>
+												<button type="button" class="btn btn-outline-primary">편집</button>
+												<button type="button" class="btn btn-outline-primary text-danger ms-3 btnUel"><i class="bi bi-trash"></i> 삭제</button>
 											</div>
 										</div>
 									</div>
@@ -74,7 +74,102 @@
 				</div>
 			</div>
 		</section>
+		<!-- 삭제 모달 -->
+	<div class="modal fade" id="modalConfirmUelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalConfirmUeleteLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalConfirmTitleUelete">확 인</h5>
+	                <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close" style="background:none;border:none;">
+					<i class="fas fa-times fa-lg"></i>
+					</button>
+				</div>
+				<div class="modal-body" id="modalConfirmBodyUelete">
+					해당 주소를 삭제하시겠습니까 ?
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary btn btn_custom" data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-danger btn_custom" id="btnModalUelete">삭제</button>
+				</div>
+			</div>
+	    </div>
+	</div>
+</form>
 </main>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript">
+		var form = document.getElementById("form");
+		
+		/* insert */
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("addressInsert").onclick =function(){
+			const uaIdInputs = document.querySelectorAll('input[name="ua_id"]');
+
+			if (uaIdInputs.length >= 3) {
+			  alert("주소를 3개 이상 더 이상 추가하지 못합니다.");
+			}else{
+			  form.action ="/user/account/UserAccountAddAddress"
+			  form.submit();
+			}
+			}
+		});
+		
+		<!-- 삭제 모달 -->
+		// 전역 변수로 선택한 주소 ID를 저장할 공간을 만듭니다.
+		let selectedUaId = "";
+		// 모든 삭제 버튼(.btnUel)에 클릭 이벤트를 등록합니다.
+		document.querySelectorAll(".btnUel").forEach(button => {
+		  button.addEventListener("click", function () {
+		    // 현재 클릭된 버튼의 가장 가까운 상위 .card 요소를 찾습니다.
+		    const card = this.closest(".card");
+		    // 해당 카드 안에 있는 ua_id input을 찾아 값을 읽어옵니다.
+		    const uaIdInput = card.querySelector('input[name="ua_id"]');
+		    // 선택된 주소의 ID를 전역 변수에 저장합니다.
+		    selectedUaId = uaIdInput.value;
+		    // 삭제 확인 모달창을 띄웁니다.
+		    new bootstrap.Modal(document.getElementById('modalConfirmUelete')).show();
+		  });
+		});
+		// 삭제 확인 모달창 안의 "삭제" 버튼이 클릭되었을 때 실행됩니다.
+		document.getElementById("btnModalUelete").onclick = function () {
+		  // 삭제 요청을 보낼 서버 주소를 설정합니다.
+		  let godelete = "/user/account/AddressDelete";
+		  // 기존 form 안에 ua_id 이름을 가진 input이 여러 개 있을 수 있으므로 전부 제거합니다.
+		  form.querySelectorAll('input[name="ua_id"]').forEach(input => input.remove());
+		  // 새로운 hidden input을 생성하여, 선택한 ua_id 값을 설정합니다.
+		  const hiddenInput = document.createElement("input");
+		  hiddenInput.type = "hidden";      // 화면에 보이지 않게 설정
+		  hiddenInput.name = "ua_id";       // 서버에서 이 이름으로 값을 받게 됨
+		  hiddenInput.value = selectedUaId; // 전역변수에 저장한 값으로 설정
+		  // 생성한 hidden input을 form 안에 추가합니다.
+		  form.appendChild(hiddenInput);
+		  form.action = godelete;
+		  form.submit();
+		};
+		
+		
+		
+		/* 대표주소변경 */
+		$(document).ready(function() {
+			  $('.uaRepRadio').on('change', function() {
+			    let selectedUaId = $(this).data('ua-id');
+
+			    $.ajax({
+			      url: '/user/account/SetRepresentive', // 주소는 상황에 맞게 수정
+			      method: 'POST',
+			      data: {ua_id: selectedUaId },
+			      success: function(response) {
+			        alert("기본 주소가 설정되었습니다.");
+			      },
+			      error: function() {
+			        alert("기본 주소 설정 실패");
+			      }
+			    });
+			  });
+			});
+		</script>
+		
 		<div th:replace ="~{user/include/footer :: footer}"></div>
 </body>
 
