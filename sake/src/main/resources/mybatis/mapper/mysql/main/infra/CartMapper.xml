@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.user.cart.CartDao">
+	<resultMap type="com.sake.user.cart.CartDto" id="resultMapObj"></resultMap>
+	
+	<select id="cartList" resultMap="resultMapObj">
+	 	select
+	 		a.cart_id 
+	 		,a.cart_price
+			,a.cart_quantity
+			,b.name
+			,b.pd_quantity
+			,a.user_user_id
+			,cart_regDate
+			,b.pd_id
+			,c.path
+		from
+		cart a
+		left join product b on b.pd_id = a.product_pd_id
+		left join `user` u on  a.user_user_id = u.user_id
+		left join productUploaded c on c.pseq = b.pd_id
+		where 1=1
+		and u.user_id =#{user_user_id}
+	</select>
+	
+	<insert id="cartInsert">
+		insert into cart(
+			cart_price
+			,cart_quantity
+			,product_pd_id
+			,user_user_id
+			,cart_regDate
+		)values(
+			#{cart_price}
+			,#{cart_quantity}
+			,#{product_pd_id}
+			,#{user_user_id}
+			,now()
+		)
+		<selectKey resultType="String" keyProperty="cart_id" order="AFTER">
+			Select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<delete id="cartDelete">
+		delete from cart
+		where
+		cart_id = #{cart_id}
+	</delete>
+	
+	</mapper>
