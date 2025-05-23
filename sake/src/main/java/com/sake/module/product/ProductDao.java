@@ -5,8 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.sake.module.base.BaseDao;
+import com.sake.module.base.BaseDto;
+
 @Repository
-public interface ProductDao {
+public interface ProductDao extends BaseDao{
 
 	public List<ProductDto> selectList(ProductVo vo);
 	public List<ProductDto> localcheck(String cd_id);
@@ -39,6 +42,7 @@ public interface ProductDao {
 	public  List<ProductDto> typeList(String type);
 	
 	
+	public int urlcount(String pseq);
 }
 
 
