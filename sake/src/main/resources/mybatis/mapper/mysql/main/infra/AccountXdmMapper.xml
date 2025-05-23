@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.user.account.AccountCodeDao">
+<resultMap type="com.sake.user.account.AccountCodeDto" id="resultMapObj"></resultMap>
+
+
+	<!-- 주소보기 -->
+	<select id="addressList" resultMap="resultMapObj">
+		select
+			ua_id
+			,zipCode
+			,ua_address
+			,detailAd
+			,reference
+			,latitude
+			,longitude
+			,ua_rep
+		from
+			userAddress
+		where 1=1
+		and user_user_id = #{user_user_id}
+		and ua_delny = 0
+	</select>
+	
+	
+	<!-- 주소추가 -->
+	<insert id="addressInsert">
+		insert into useraddress(
+			zipCode
+			,ua_address
+			,detailAd
+			,reference
+			,latitude
+			,longitude
+			,user_user_id
+		)values(
+			#{zipCode}
+			,#{ua_address}
+			,#{detailAd}
+			,#{reference}
+			,#{latitude}
+			,#{longitude}
+			,#{user_user_id}
+		)
+		<selectKey resultType="String" keyProperty="ua_id" order="AFTER">
+			Select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	
+	<update id="addressDelete">
+		update useraddress set 
+		ua_delny = 1
+		where 1=1
+		and ua_id = #{ua_id}
+	</update>
+	
+	
+	<update id="resetrep">
+	update useraddress set 
+	ua_rep = 0
+	where 1=1
+	and user_user_id = #{seq}
+	</update>
+
+	<update id="setrep">
+	update useraddress set 
+	ua_rep = 1
+	where 1=1
+	and user_user_id = #{seq}
+	and ua_id =#{ua_id}
+	</update>
+
+</mapper>
