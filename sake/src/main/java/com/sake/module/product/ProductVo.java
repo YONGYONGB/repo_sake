@@ -5,6 +5,17 @@ import com.sake.module.base.BaseVo;
 public class ProductVo extends BaseVo{
 
 	private String pd_id;
+	private String name;
+	private Integer local;
+	private Integer local_detail;
+	private Integer brand;
+	private Integer type;
+	private Integer fixed_price;
+	private Double total_rating;
+	
+	
+	
+	
 	private String discount_dc_id;
 	private Integer seq;
 	
@@ -60,6 +71,62 @@ public class ProductVo extends BaseVo{
 
 	public void setSeq(Integer seq) {
 		this.seq = seq;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getLocal() {
+		return local;
+	}
+
+	public void setLocal(Integer local) {
+		this.local = local;
+	}
+
+	public Integer getLocal_detail() {
+		return local_detail;
+	}
+
+	public void setLocal_detail(Integer local_detail) {
+		this.local_detail = local_detail;
+	}
+
+	public Integer getBrand() {
+		return brand;
+	}
+
+	public void setBrand(Integer brand) {
+		this.brand = brand;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Integer getFixed_price() {
+		return fixed_price;
+	}
+
+	public void setFixed_price(Integer fixed_price) {
+		this.fixed_price = fixed_price;
+	}
+
+	public Double getTotal_rating() {
+		return total_rating;
+	}
+
+	public void setTotal_rating(Double total_rating) {
+		this.total_rating = total_rating;
 	}
 
 	
