@@ -102,7 +102,6 @@ public class SignCodeController extends UserBaseController{
 	// 회원가입
 	@RequestMapping(value = "signupInst" )
 	public String MemberXdmList(MemberDto memberDto, TemplateVo templateVo) throws Exception{
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		System.out.println(memberDto.getPassword());
 		memberDto.setPassword(encodeBcrypt(memberDto.getPassword(),10));
 		
