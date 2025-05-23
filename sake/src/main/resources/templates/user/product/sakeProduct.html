@@ -32,11 +32,10 @@
 						<div style="position: sticky; top: 30px;">
 							<!-- img slide -->
 							<div class="product" id="product">
-								<div class="zoom" onmousemove="zoom(event)"
-									style="background-image:url(/xdm/img/tonbo.jpg) "> <!-- url(../assets/images/sake/chugoku_2/yamaguchi/dassi/dassai.jpg) -->
+								<div><!-- url(../assets/images/sake/chugoku_2/yamaguchi/dassi/dassai.jpg) -->
 									<!-- img -->
 									<!-- img -->
-									<img src="/xdm/img/tonbo.jpg" alt="" class="item-img"/>
+									 <img th:if="${item != null}" th:src="@{${item.path}}"class="mb-3 img-fluid item-img" />
 								</div>
 								<!-- <div>
 									<div class="zoom" onmousemove="zoom(event)"
@@ -52,7 +51,7 @@
 					</div>
 					<form id="form" method="post" class="col-md-7 col-xl-6">
 						<input type="hidden" id="seq" name="seq">
-						<input type="hidden" name="pd_id" th:value="${item.pd_id}">
+						<input type="hidden" id="pd_id" name="pd_id" th:value="${item.pd_id}">
 						<div class="ps-lg-10 mt-6 mt-md-0" style="position: sticky; top: 0px;">
 							<!-- content -->
 							<a th:href="@{/user/product/sakeMenu(seq=${item.type})}" class="mb-4 d-block" th:text ="${@codeService.selectOneCachedCode(item.type)}">준마이다이긴죠슈</a>
@@ -77,8 +76,9 @@
 							</div>
 							<div class="fs-4">
 								<!-- price -->
-								<span class="fw-bold text-dark" id="price" th:value="${item.fixed_price}" th:text="${item.fixed_price} + '¥'"> 판매가격</span>
-								<span class="text-decoration-line-through text-muted" th:text="${item.fixed_price} + '¥'">정가</span>
+								<input type="hidden" id="price" th:value="${item.fixed_price}">
+								<span class="fw-bold text-dark price"  th:value="${item.fixed_price}" th:text="${item.fixed_price}"> 판매가격</span>
+								<span class="text-decoration-line-through text-muted price" th:text="${item.fixed_price}">정가</span>
 								<span><small class="fs-6 ms-2 text-danger" th:text="${item.discount_rate} + '%' ">5% Off</small></span>
 							</div>
 							<!-- hr -->
@@ -819,24 +819,43 @@
    <!-- footer -->
    <div th:replace ="~{user/include/footer :: footer}"></div>
    
-   <script type="text/javascript">
+  
    
-   let pd_id = document.getElementById("pd_id").value;
-   let product_quality = document.getElementById("quantity").value;
-   let price = document.getElementById("price").value;
-   let form = document.getElementById("form")
+   
+   <script type="text/javascript">   
+   
+   const pd_id = document.getElementById("pd_id").value;
+  
+   const price = document.getElementById("price").value;
+ 
+   const form = document.getElementById("form")
    
    document.getElementById("cart").onclick = function(){
+	   const cart_quality = document.getElementById("quantity").value; 
+	// 🛑 수량이 0이면 동작 막기
+       if (parseInt(cart_quality) === 0) {
+           alert("수량을 1 이상으로 선택해주세요.");
+           return; // 여기서 함수 종료됨 (버튼 동작 안 함)
+       }
 	   const Values = [];
 	   Values.push(pd_id);
-	   Values.push(product_quality);
+	   Values.push(cart_quality);
 	   Values.push(price);
-	   document.getElementById("seq").value = values.join(',');
-	   form.action = "/user/cart/";
+	   document.getElementById("seq").value = Values.join(',');
+	   form.action = "/user/cart/cartInsert";
 	   form.submit();
    }
-   
    </script>
+   
+    <script>
+  document.querySelectorAll('.price').forEach(priceElement => {
+    // 현재 가격값 가져오기 (문자열로 되어 있을 가능성 있음)
+    let price = parseInt(priceElement.textContent.replace(/,/g, ''));  // 쉼표 제거 후 숫자화
+    
+    // 숫자에 천 단위 쉼표 추가
+    priceElement.textContent = '¥'+ price.toLocaleString();  // 예: 1,000,000
+  });
+</script>
    
 </body>
 
