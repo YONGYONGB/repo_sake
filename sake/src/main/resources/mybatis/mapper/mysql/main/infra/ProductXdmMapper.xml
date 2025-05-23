@@ -44,7 +44,7 @@
 			a.liquor,
 			a.fixed_price,
 			a.discountNY,
-			a.product_number,
+			a.pd_quantity,
 			a.discount_dc_id,
 			b.dc_id,
 			b.discount_name,
@@ -74,7 +74,7 @@
 			a.liquor,
 			a.fixed_price,
 			a.discountNY,
-			a.product_number,
+			a.pd_quantity,
 			a.discount_dc_id,
 			b.dc_id,
 			b.discount_name,
@@ -82,11 +82,13 @@
 			b.discount_dateS,
 			b.discount_dateF,
 			a.pd_regiDate,
-			a.pd_modiDate
+			a.pd_modiDate,
+			c.path
 		from product as a
  		left join discount b on b.dc_id = a.discount_dc_id
+ 		left join productUploaded c on c.pseq = a.pd_id
  		where 1=1
- 		and pd_id = #{pd_id}
+ 		and a.pd_id = #{pd_id}
  		ORDER BY a.pd_id desc		
 	</select>
 	
@@ -113,7 +115,7 @@
 			liquor,
 			fixed_price,
 			discountNY,
-			product_number,
+			pd_quantity,
 			pd_regiDate,
 			discount_dc_id
 	)
@@ -129,7 +131,7 @@
 	 	#{liquor},
 	 	#{fixed_price},
 	 	#{discountNY},
-	 	#{product_number},
+	 	#{pd_quantity},
 	 	now(),
 	 	<if test="discount_dc_id== null">1</if>
         <if test="discount_dc_id != null">#{discount_dc_id}</if>
@@ -152,7 +154,7 @@
 		liquor = #{liquor},
 		fixed_price = #{fixed_price},
 		discountNY = #{discountNY},
-		product_number = #{product_number},
+		pd_quantity = #{pd_quantity},
 		pd_modiDate = now(),
 		discount_dc_id = <if test="discount_dc_id== null">1</if>
         				 <if test="discount_dc_id != null">#{discount_dc_id}</if>
@@ -191,6 +193,7 @@
 		from
 			code_inclusion ci
 		left join code a on ci.child_code_id = a.cd_id
+		
 		where ci.parent_code_id = #{cd_id}
 	</select>
 	
@@ -210,16 +213,18 @@
 			a.liquor,
 			a.fixed_price,
 			a.discountNY,
-			a.product_number,
+			a.pd_quantity,
 			a.discount_dc_id,
 			b.dc_id,
 			b.discount_name,
-			b.discount_rate
+			b.discount_rate,
+			c.path
 		from
 			product a
 			join discount b on b.dc_id = a.discount_dc_id
+			left join productUploaded c on c.pseq = a.pd_id
 			where 1=1
-			and local = #{local}
+			and a.local = #{local}
 	</select>
 	
 	<!--상세지역  -->
@@ -235,16 +240,18 @@
 			a.liquor,
 			a.fixed_price,
 			a.discountNY,
-			a.product_number,
+			a.pd_quantity,
 			a.discount_dc_id,
 			b.dc_id,
 			b.discount_name,
-			b.discount_rate
+			b.discount_rate,
+			c.path
 		from
 			product a
 			join discount b on b.dc_id = a.discount_dc_id
+			left join productUploaded c on c.pseq = a.pd_id
 			where 1=1
-			and local_detail = #{local_detail}
+			and a.local_detail = #{local_detail}
 	</select>
 	
 	<!--상세지역  -->
@@ -260,17 +267,61 @@
 			a.liquor,
 			a.fixed_price,
 			a.discountNY,
-			a.product_number,
+			a.pd_quantity,
 			a.discount_dc_id,
 			b.dc_id,
 			b.discount_name,
-			b.discount_rate
+			b.discount_rate,
+			c.path
 		from
 			product a
-			join discount b on b.dc_id = a.discount_dc_id
+			left join discount b on b.dc_id = a.discount_dc_id
+			left join productUploaded c on c.pseq = a.pd_id
 			where 1=1
-			and type = #{type}
+			and a.type = #{type}
 	</select>
+	
+	
+	 <select id="filterProducts" resultMap="resultMapObj">
+ 	 	SELECT
+    		a.pd_id,
+   			a.name,
+   			a.local,
+   			a.local_detail,
+    		a.brand,
+    		a.type,
+    		a.capacity,
+    		a.liquor,
+    		a.fixed_price,
+    		a.discountNY,
+    		a.pd_quantity,
+    		a.discount_dc_id,
+    		b.dc_id,
+    		b.discount_name,
+    		b.discount_rate,
+    		c.path
+  		FROM
+    		product a
+    		LEFT JOIN discount b ON b.dc_id = a.discount_dc_id
+    		LEFT JOIN productUploaded c ON c.pseq = a.pd_id
+  		WHERE 1=1
+  		<if test="local != null">
+    	AND a.local = #{local}
+  		</if>
+  		<if test="local_detail != null">
+    	AND a.local_detail = #{local_detail}
+  		</if>
+  		<if test="type != null">
+   		AND a.type = #{type}
+  		</if>
+  		<if test="minPrice != null">
+    	AND a.fixed_price &gt;= #{minPrice}
+  		</if>
+  		<if test="maxPrice != null">
+    	AND a.fixed_price &lt;= #{maxPrice}
+  		</if>
+	</select>
+	
 	
 	
 </mapper>
