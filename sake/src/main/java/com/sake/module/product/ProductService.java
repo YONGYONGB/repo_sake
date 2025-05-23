@@ -6,11 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.sake.module.base.BaseDao;
+import com.sake.module.base.BaseService;
+
 @Service
-public class ProductService {
+public class ProductService extends BaseService{
+	
+//	for aws.s3 fileupload s
+	@Autowired
+	private AmazonS3Client amazonS3Client;
 
 	@Autowired
 	ProductDao productDao;
+	
+	@Autowired
+	BaseDao dao;
 	
 	public List<ProductDto> selectList(ProductVo vo){
 		return productDao.selectList(vo);
@@ -30,22 +41,41 @@ public class ProductService {
 		return productDao.selectView(dto);
 	}
 	
-	public int insert(ProductDto dto) {
+	public int insert(ProductDto dto) throws Exception{
 		 if (dto.getName() != null) {
 	            // 유니코드 정규화 (NFC 형태로)
 	            String normalizedName = Normalizer.normalize(dto.getName(), Normalizer.Form.NFC);
 	            dto.setName(normalizedName);;
 	        }
-		return productDao.insert(dto);
+		productDao.insert(dto);
+		uploadFilesToS3(
+    			dto
+    			, "productUploaded"
+    			, dto.getType()
+    			, dto.getPd_id()
+    			, dao
+    			, amazonS3Client);
+    	return 1; 
 	}
 	
-	public int update(ProductDto dto){
+	
+	
+	
+	public int update(ProductDto dto) throws Exception{
 		if (dto.getName() != null) {
             // 유니코드 정규화 (NFC 형태로)
             String normalizedName = Normalizer.normalize(dto.getName(), Normalizer.Form.NFC);
             dto.setName(normalizedName);;
         }
-		return productDao.update(dto);
+		productDao.update(dto);
+		uploadFilesToS3(
+    			dto
+    			, "productUploaded"
+    			, dto.getType()
+    			, dto.getPd_id()
+    			, dao
+    			, amazonS3Client);
+    	return 1; 
 	}
 	
 	public int uelete(List<Integer> pdIds) {
