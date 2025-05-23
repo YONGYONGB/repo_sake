@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class = "wrap2">
-          <form method="post" id="form" class="row needs-validation" novalidate>  
+          <form method="post" id="form" class="row needs-validation" novalidate enctype="multipart/form-data">  
             <div class = "row">
            		<div class="col-3"><label for="name" class="form-label" >제품이름</label><span style="color: crimson;">*</span>
                 	<input type="text" class="form-control" id="name" name ="name" th:value ="${item?.name}" required>
@@ -119,7 +119,13 @@
                   <option value="0" th:selected="${item?.pd_use == 0}" >미사용</option>
                 </select><div class="invalid-feedback" id="pd_useError">
                     Please select a valid state.
-                  </div></div>
+                  </div>
+             </div>
+             <div class = "col-3">
+                <label for="img" class="form-label">이미지</label><span style="color: crimson;">*</span>
+                <input type="file" class="form-control" id="uploadImg1" name="uploadImg1" onchange="previewImage(event)" multiple>
+                 <img th:if="${item != null}" th:src="@{${item.path}}" name="previewImg" class="mb-3 img-fluid item-img" />
+             </div> 
             </div>
             <div class = "row"><div class = "col-6 "></div></div>
             <div class = "row"><div class = "col-6 "></div></div>
@@ -445,7 +451,26 @@
             console.log("유효성 검사 실패: 폼 제출 안 함");
         }
 	};
-  
+  	
+	
+	function previewImage(event) {
+	    const input = event.target;
+	    const preview = document.getElementsByName("previewImg")[0]; // 첫 번째 요소만 선택
+
+	    if (input.files && input.files[0]) {
+	        const reader = new FileReader();
+
+	        reader.onload = function(e) {
+	            preview.src = e.target.result;
+	            preview.style.display = "block";
+	        };
+
+	        reader.readAsDataURL(input.files[0]);
+	    } else {
+	        preview.src = "#";
+	        preview.style.display = "none";
+	    }
+	}
   </script>
 
   <!-- ======= Footer ======= -->
