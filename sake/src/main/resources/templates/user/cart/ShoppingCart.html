@@ -3,6 +3,7 @@
 <!-- <div th:replace = "~{user/include/header :: header}"></div> -->
  <div th:replace = "~{user/include/header :: header}"></div> 
 	 <main>
+	 <form id="form" method="post">
 		<!-- section-->
 		<div class="mt-4">
 			<div class="container">
@@ -44,26 +45,25 @@
 							<!-- alert -->
 							<div class="alert alert-danger p-2" role="alert">
 								무료 배달을 서비스를 받아보세요!
-								<a href="./signin.html" class="alert-link">로그인!</a>
+								<a href="/user/sign/signin" class="alert-link">로그인!</a>
 							</div>
-							<ul class="list-group list-group-flush">
+							<ul class="list-group list-group-flush" th:each = "list: ${lists}">
 								<!-- list group -->
 								<li class="list-group-item py-3 ps-0 border-top">
 									<!-- row -->
 									<div class="row align-items-center">
 										<div class="col-6 col-md-6 col-lg-7">
 											<div class="d-flex">
-												<img src="/user/template/assets/images/sake/chugoku_2/yamaguchi/dassi/dassai.jpg" alt="Ecommerce"
-													class="icon-shape icon-xxl" />
+											<img th:if="${list != null}" th:src="@{${list.path}}"  alt="Ecommerce" class="icon-shape icon-xxl" />
 												<div class="ms-3">
 													<!-- title -->
-													<a href="../pages/shop-single.html" class="text-inherit">
-														<h6 class="mb-0">닷사이23</h6>
+													<a th:href="@{/user/product/sakeProduct(pd_id=${list.pd_id})}" th:value="${list.pd_id}" class="text-inherit">
+														<h6 class="mb-0" th:text="${list.name}">제품이름</h6>
 													</a>
-													<span><small class="text-muted">720ML</small></span>
 													<!-- text -->
 													<div class="mt-2 small lh-1">
-														<a href="#!" class="text-decoration-none text-inherit">
+														<input type="hidden" name="delete" th:value="${list.cart_id}"> 
+														<a href="javascript:void(0);" class="delete-btn" th:attr="data-cart-id=${list.cart_id}">
 															<span class="me-1 align-text-bottom">
 																<svg xmlns="http://www.w3.org/2000/svg" width="14"
 																	height="14" viewBox="0 0 24 24" fill="none"
@@ -78,8 +78,10 @@
 																	<line x1="14" y1="11" x2="14" y2="17"></line>
 																</svg>
 															</span>
-															<span class="text-muted">Remove</span>
+															
+															
 														</a>
+														<span class="fw-bold countdown" th:text= ${list.cart_regDate}>시간</span>
 													</div>
 												</div>
 											</div>
@@ -89,142 +91,28 @@
 											<!-- input -->
 											<!-- input -->
 											<div class="input-group input-spinner">
-												<input type="button" value="-" class="button-minus btn btn-sm"
-													data-field="quantity" />
-												<input type="number" step="1" max="10" value="1" name="quantity"
-													class="quantity-field form-control-sm form-input" />
-												<input type="button" value="+" class="button-plus btn btn-sm"
-													data-field="quantity" />
+												<input type="button" value="-" class="num button-minus btn btn-sm"
+													data-field="quantity" data-action="minus"/>
+												<input type="number" step="1"  min="1" max="${list.pd_quantity}" th:value="${list.cart_quantity}" name="quantity"
+													class="quantity-field form-control-sm form-input"  th:data-product-id="${list.pd_id}" th:data-max-quantity="${list.pd_quantity}" th:data-price="${list.cart_price}"/>
+												<input type="button" value="+" class="num button-plus btn btn-sm"
+													data-field="quantity" data-action="plus"/>
 											</div>
 										</div>
+										
 										<!-- price -->
 										<div class="col-2 text-lg-end text-start text-md-end col-md-2">
-											<span class="fw-bold">¥9,100</span>
+											<span class="fw-bold price" th:text= "${list.cart_price} * ${list.cart_quantity}" th:data-price="${list.cart_price}">가격</span>
 										</div>
+										
 									</div>
 								</li>
 								<!-- list group -->
-								<li class="list-group-item py-3 ps-0">
-									<!-- row -->
-									<div class="row align-items-center">
-										<div class="col-6 col-md-6 col-lg-7">
-											<div class="d-flex">
-												<img src="/user/template/assets/images/products/product-img-2.jpg" alt="Ecommerce"
-													class="icon-shape icon-xxl" />
-												<div class="ms-3">
-													<a href="../pages/shop-single.html" class="text-inherit">
-														<h6 class="mb-0">NutriChoice Digestive</h6>
-													</a>
-													<span><small class="text-muted">250g</small></span>
-													<!-- text -->
-													<div class="mt-2 small lh-1">
-														<a href="#!" class="text-decoration-none text-inherit">
-															<span class="me-1 align-text-bottom">
-																<svg xmlns="http://www.w3.org/2000/svg" width="14"
-																	height="14" viewBox="0 0 24 24" fill="none"
-																	stroke="currentColor" stroke-width="2"
-																	stroke-linecap="round" stroke-linejoin="round"
-																	class="feather feather-trash-2 text-success">
-																	<polyline points="3 6 5 6 21 6"></polyline>
-																	<path
-																		d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-																	</path>
-																	<line x1="10" y1="11" x2="10" y2="17"></line>
-																	<line x1="14" y1="11" x2="14" y2="17"></line>
-																</svg>
-															</span>
-															<span class="text-muted">Remove</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- input group -->
-										<div class="col-4 col-md-4 col-lg-3">
-											<!-- input -->
-											<!-- input -->
-											<div class="input-group input-spinner">
-												<input type="button" value="-" class="button-minus btn btn-sm"
-													data-field="quantity" />
-												<input type="number" step="1" max="10" value="1" name="quantity"
-													class="quantity-field form-control-sm form-input" />
-												<input type="button" value="+" class="button-plus btn btn-sm"
-													data-field="quantity" />
-											</div>
-										</div>
-										<!-- price -->
-										<div class="col-2 text-lg-end text-start text-md-end col-md-2">
-											<span class="fw-bold text-danger">$20.00</span>
-											<div class="text-decoration-line-through text-muted small">$26.00</div>
-										</div>
-									</div>
-								</li>
-								<!-- list group -->
-
-								<!-- list group -->
-								<li class="list-group-item py-3 ps-0 border-bottom">
-									<!-- row -->
-									<div class="row align-items-center">
-										<div class="col-6 col-md-6 col-lg-7">
-											<div class="d-flex">
-												<img src="/user/template/assets/images/products/product-img-5.jpg" alt="Ecommerce"
-													class="icon-shape icon-xxl" />
-												<div class="ms-3">
-													<!-- title -->
-													<a href="../pages/shop-single.html" class="text-inherit">
-														<h6 class="mb-0">Salted Instant Popcorn</h6>
-													</a>
-													<span><small class="text-muted">100g</small></span>
-													<!-- text -->
-													<div class="mt-2 small lh-1">
-														<a href="#!" class="text-decoration-none text-inherit">
-															<span class="me-1 align-text-bottom">
-																<svg xmlns="http://www.w3.org/2000/svg" width="14"
-																	height="14" viewBox="0 0 24 24" fill="none"
-																	stroke="currentColor" stroke-width="2"
-																	stroke-linecap="round" stroke-linejoin="round"
-																	class="feather feather-trash-2 text-success">
-																	<polyline points="3 6 5 6 21 6"></polyline>
-																	<path
-																		d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-																	</path>
-																	<line x1="10" y1="11" x2="10" y2="17"></line>
-																	<line x1="14" y1="11" x2="14" y2="17"></line>
-																</svg>
-															</span>
-															<span class="text-muted">Remove</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- input group -->
-										<div class="col-4 col-md-4 col-lg-3">
-											<!-- input -->
-											<!-- input -->
-											<div class="input-group input-spinner">
-												<input type="button" value="-" class="button-minus btn btn-sm"
-													data-field="quantity" />
-												<input type="number" step="1" max="10" value="1" name="quantity"
-													class="quantity-field form-control-sm form-input" />
-												<input type="button" value="+" class="button-plus btn btn-sm"
-													data-field="quantity" />
-											</div>
-										</div>
-										<!-- price -->
-										<div class="col-2 text-lg-end text-start text-md-end col-md-2">
-											<span class="fw-bold">$15.00</span>
-											<div class="text-decoration-line-through text-muted small">$25.00</div>
-										</div>
-									</div>
-								</li>
 							</ul>
 							<!-- btn -->
 							<div class="d-flex justify-content-between mt-4">
-								<a href="../sake_homepage.html" class="btn btn-primary">쇼핑</a>
-								<a href="#!" class="btn btn-dark">카트 업데이트</a>
+								<a href="/user/index/UserIndex" class="btn btn-primary">쇼핑</a>
+								<a href="/user/cart/ShoppingCart" class="btn btn-dark">카트 업데이트</a>
 							</div>
 						</div>
 					</div>
@@ -235,44 +123,20 @@
 						<div class="mb-5 card mt-6">
 							<div class="card-body p-6">
 								<h2 class="h5 mb-4"><span>주소</span></h2>							
-								<div>
-    								 <!-- 집 선택 -->
+								<div th:each ="address : ${address}">
 									 <div class="form-check mb-4">
-										<input class="form-check-input" type="radio" name="addressSelect" id="homeRadio" checked />
-										<label class="form-check-label" for="homeRadio">집</label>
+										<input class="form-check-input uaRepRadio" type="radio" name="flexRadioDefault"
+													th:id="'homeRadio' + ${address.ua_id}" th:attr="data-ua-id=${address.ua_id}"  th:checked="${address.ua_rep == 1}">
+										<label class="form-check-label" for="homeRadio">대표 주소</label>
 									</div>
 								
 									<div id="homeCard" class="card">
 										<div class="address-info">
-											<p>대한민국 서울시 노원구 이젠아카데미</p>
+											<p th:text="${address.ua_address} +''+ ${address.detailAd}+'' +${address.reference}">대한민국 서울시 노원구 이젠아카데미</p>
 											<!-- <i>태그로 아이콘 변경 -->
-												<span class="toggle-btn" id="homeToggle"><i class="bi bi-three-dots-vertical"></i></span>
-										</div>
-										<div class="actions hidden" id="homeActions">
-											<a href="#" class="edit-btn">Edit</a>
-											<a href="#" class="text-danger delete-btn">Delete</a>
-										</div>
-									</div>
-								
-									<!-- 회사 선택 -->
-									<div class="form-check mb-4">
-										<input class="form-check-input" type="radio" name="addressSelect" id="officeRadio" />
-										<label class="form-check-label" for="officeRadio">회사</label>
-									</div>
-								
-									<div id="officeCard" class="card hidden">
-										<div class="address-info">
-											<p>이젠아카데미</p>
-											<!-- 아이콘을 오른쪽에 배치 -->
-											<span class="toggle-btn" id="officeToggle"><i class="bi bi-three-dots-vertical"></i></span>
-										</div>
-										<div class="actions hidden" id="officeActions">
-											<a href="#" class="edit-btn">Edit</a>
-											<a href="#" class="text-danger delete-btn">Delete</a>
 										</div>
 									</div>
 								</div>
-								<a href="./account-add-address.html" class="btn btn-outline-primary"><i class="bi bi-plus"></i>주소 추가</a>
 							</div>
 							
 							
@@ -306,7 +170,7 @@
 											<div class="me-auto">
 												<div>구매목록 금액</div>
 											</div>
-											<span>$70.00</span>
+											<span  id="pd-price">$70.00</span>
 										</li>
 
 										<!-- list group item -->
@@ -314,14 +178,14 @@
 											<div class="me-auto">
 												<div>할인 혜택</div>
 											</div>
-											<span>$3.00</span>
+											<span id="pd-sale"></span>
 										</li>
 										<!-- list group item -->
 										<li class="list-group-item d-flex justify-content-between align-items-start">
 											<div class="me-auto">
 												<div class="fw-bold">총 금액</div>
 											</div>
-											<span class="fw-bold">$67.00</span>
+											<span class="fw-bold all-price">$67.00</span>
 										</li>
 									</ul>
 								</div>
@@ -331,7 +195,7 @@
 										class="btn btn-primary btn-lg d-flex justify-content-between align-items-center"
 										type="submit">
 										결제 버튼
-										<span class="fw-bold">$67.00</span>
+										<span class="fw-bold all-price">$67.00</span>
 									</button>
 								</div>
 								<!-- text -->
@@ -366,21 +230,197 @@
 				</div>
 			</div>
 		</section>
+		</form>
 	</main>
 	
 	<div th:replace ="~{user/include/footer :: footer}"></div>
+	
+	
+	<!-- 삭제에 대한 버튼  -->
 	<script>
-		$(document).ready(function() {
-			$("input[name='addressSelect']").change(function() {
-				$(".card").removeClass("active"); // 모든 카드 숨김
-					if ($("#homeRadio").is(":checked")) {
-						$("#homeCard").addClass("active"); // 집 카드 보이게
-					}else{
-						$("#officeCard").addClass("active"); // 회사 카드 보이게
-					}
-				});
+	$(document).ready(function () {
+		  $(".delete-btn").on("click", function () {
+		    // data-cart-id에서 cart_id 가져오기
+		    const cartId = $(this).data("cart-id");
+
+		    // AJAX 요청 보내기
+		    $.ajax({
+		      type: "POST",
+		      url: "/user/cart/cartDelete",  // 삭제할 URL
+		      data: { "cart_id": cartId },   // cart_id 전달
+		      success: function (response) {
+		        // 삭제가 성공하면 페이지 리로드 또는 다른 처리를 할 수 있음
+		        location.reload(); // 예시로 페이지 리로드
+		      },
+		      error: function (error) {
+		        alert("삭제 실패. 다시 시도해주세요.");
+		      }
+		    });
+		  });
 		});
 	</script>
+	
+	<script>
+	//총 금액 계산 함수
+	  function updateTotalPrice() {
+	    // pd-price와 pd-sale 요소 찾기
+	    const priceElement = document.querySelector('#pd-price');
+	    const saleElement = document.querySelector('#pd-sale');
+	    const allPriceElement = document.querySelector('.all-price');
+
+	    // 값 가져오기 (가격 및 할인)
+	    const price = parseFloat(priceElement.textContent.replace('¥', '').replace(',', '')); // '¥' 제거하고 숫자로 변환
+	    const sale = parseFloat(saleElement.textContent.replace('¥', '').replace(',', '')); // '¥' 제거하고 숫자로 변환
+
+	    // 할인 적용 후 최종 금액 계산
+	    const finalPrice = price - sale;
+
+	    // 최종 금액을 all-price에 업데이트
+	    if (allPriceElement) {
+	      allPriceElement.textContent = '¥' + finalPrice.toLocaleString(); // 금액 포맷팅 후 표시
+	    }
+	  }
+
+	  // 페이지 로딩 후 최초 실행
+	  document.addEventListener('DOMContentLoaded', function () {
+	    updateTotalPrice(); // 페이지 로드 시 총 금액 계산
+	  });	
+	
+document.addEventListener('DOMContentLoaded', function () {
+	updatePdPrice();
+  // 수량 필드에 이벤트 바인딩
+  document.querySelectorAll('.quantity-field').forEach(function (input) {
+    input.addEventListener('input', function () {
+      const quantity = parseInt(this.value);
+      const pricePerUnit = parseInt(this.dataset.price); // data-price 읽기
+      const priceSpan = this.closest('.row').querySelector('.price');
+
+      
+      if (!isNaN(quantity) && priceSpan) {
+        priceSpan.textContent = '¥' + (quantity * pricePerUnit).toLocaleString() ;
+      }
+   // 총 금액 계산
+      updatePdPrice();
+    });
+  });
+
+  // + / - 버튼 클릭도 감지
+  document.querySelectorAll('.button-plus, .button-minus').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+    event.preventDefault(); // 기본 동작 방지
+    event.preventDefault();       // ✔ 기본 동작 방지
+    event.stopPropagation();      // ✔ 중복 이벤트 방지
+    
+    const input = this.closest('.input-spinner').querySelector('.quantity-field');
+    const currentVal = parseInt(input.value);
+    const action = this.dataset.action;
+    const productId = input.dataset.productId;
+    const maxQuantity = parseInt(input.dataset.maxQuantity);
+
+    // 같은 상품 ID를 가진 모든 수량 필드를 찾아 합계 계산
+    let totalForProduct = 0;
+    document.querySelectorAll(`.quantity-field[data-product-id="${productId}"]`).forEach(function (el) {
+      totalForProduct += parseInt(el.value);
+    });
+
+    let newVal = currentVal;
+
+    if (action === 'plus') {
+        if (totalForProduct < maxQuantity) {
+          newVal = Math.min(currentVal + 1, maxQuantity);
+        } else {
+          return; // 제한 초과, 아무 일도 안 함
+        }
+    }else if (action === 'minus') {
+        newVal = Math.max(currentVal - 1, parseInt(input.min) || 1);
+    }
+      input.value = newVal;
+      input.dispatchEvent(new Event('input')); // input 이벤트 강제로 발생
+      // 가격과 총 금액 업데이트
+      updatePdPrice();
+      updateTotalPrice();
+    });
+  });
+  
+  // 물품 금액을 계산하는 함수
+  function updatePdPrice() {
+    let PdPrice = 0;
+
+    document.querySelectorAll('.quantity-field').forEach(function (input) {
+      const quantity = parseInt(input.value);
+      const pricePerUnit = parseInt(input.dataset.price);
+
+      // 금액 계산 후 총 금액에 더하기
+      if (!isNaN(quantity) && !isNaN(pricePerUnit)) {
+    	  PdPrice += quantity * pricePerUnit;
+      }
+    });
+
+    // 총 금액을 표시할 위치 찾기
+    const PdPriceElement = document.querySelector('#pd-price');
+    if (PdPriceElement) {
+      PdPriceElement.textContent = '¥' + PdPrice.toLocaleString();
+    }
+  }
+  
+});
+</script>
+
+
+	<!--db 자동 삭제 이벤트 보여주기  -->
+	<script>
+	document.querySelectorAll('.countdown').forEach(el => {
+		  const cartTime = new Date(el.textContent.replace(' ', 'T')); // 안정적인 포맷
+
+		  const expirationTime = cartTime.getTime() + (48 * 60 * 60 * 1000);
+
+		  function updateCountdown() {
+		    const now = new Date();
+		    const timeLeft = expirationTime - now;
+
+		    if (timeLeft <= 0) {
+		      el.innerText = '시간 종료';
+		    } else {
+		      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+		      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+		      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+		      el.innerText = `${hours}시간 ${minutes}분 ${seconds}초 뒤 삭제`;
+		    }
+		  }
+
+		  // 처음 실행하고 1초마다 업데이트
+		  updateCountdown();
+		  setInterval(updateCountdown, 1000);
+		});
+</script>
+	
+	<script>
+  document.querySelectorAll('.price').forEach(priceElement => {
+    // 현재 가격값 가져오기 (문자열로 되어 있을 가능성 있음)
+    let price = parseInt(priceElement.textContent.replace(/,/g, ''));  // 쉼표 제거 후 숫자화
+    
+    // 숫자에 천 단위 쉼표 추가
+    priceElement.textContent =  '¥'+ price.toLocaleString();  // 예: 1,000,000
+    
+  });
+  
+  $(document).ready(function() {
+	  $('.uaRepRadio').on('change', function() {
+	    let selectedUaId = $(this).data('ua-id');
+
+	    $.ajax({
+	      url: '/user/account/SetRepresentive', // 주소는 상황에 맞게 수정
+	      method: 'POST',
+	      data: {ua_id: selectedUaId },
+	      success: function(response) {
+	        
+	      },
+	      error: function() {
+	      }
+	    });
+	  });
+	});
+</script>
 </body>
 
 </html>
