@@ -2,7 +2,6 @@ package com.sake.module.product;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sake.module.base.BaseController;
 
@@ -23,6 +23,8 @@ public class ProductController extends BaseController{
 
 	@Autowired
 	ProductService productservice;
+	
+	
 	
 	@RequestMapping(value = "ProductXdmList")
 	public String productXdmList(@ModelAttribute("vo") ProductVo vo,Model model) {
@@ -51,17 +53,15 @@ public class ProductController extends BaseController{
 	}
 	
 	@RequestMapping(value="ProductXdmInsert")
-	public String productXdmInsert(ProductDto dto) {
+	public String productXdmInsert(ProductDto dto) throws Exception{
 		productservice.insert(dto);
 		return "redirect:/xdm/product/ProductXdmList";
 	}
 	
 	@RequestMapping(value="ProductXdmUpdate")
-	public String productXdmUpdate(@RequestParam("ld") Integer ld,ProductDto dto) {
+	public String productXdmUpdate(@RequestParam("ld") Integer ld,ProductDto dto) throws Exception{
 		if(dto.getLocal_detail()== null){
 			dto.setLocal_detail(ld);
-			System.out.println(dto.getLocal_detail()); 
-			System.out.println("@@@@@@@@@@@@@@@@@@@@");
 		}
 		productservice.update(dto);
 		return "redirect:/xdm/product/ProductXdmList";
