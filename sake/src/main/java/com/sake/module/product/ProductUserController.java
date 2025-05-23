@@ -1,9 +1,12 @@
 package com.sake.module.product;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sake.user.base.UserBaseController;
 
@@ -17,6 +20,7 @@ public class ProductUserController extends UserBaseController{
 	@Autowired
 	ProductService productservice;
 	
+	
 	///////
 	// 메뉴
 	///////
@@ -24,16 +28,48 @@ public class ProductUserController extends UserBaseController{
 	public String sakeMenu(ProductVo vo, Model model){
 		Integer seq = vo.getSeq();
 		model.addAttribute("list", seq);
-		model.addAttribute("items", service.typeList(seq.toString()));
+		model.addAttribute("seq", seq);
+
 		if(seq>= 3 && seq<=10) {
 			model.addAttribute("items", service.localList(seq.toString()));
 		}else if(seq>= 11 && seq<=19) {
 			model.addAttribute("items", service.typeList(seq.toString()));
-		}else if(seq>=81 && seq <=129) {
+		}else if(seq>=80 && seq <=129) {
 			model.addAttribute("items", service.localDetailList(seq.toString()));
 		}	
 		return "/user/product/sakeMenu";
 	}
+	/////
+	//필터링
+	@RequestMapping(value="filter")
+	public String filterProducts(
+			@RequestParam(name = "seq", required = false) Integer seq,
+	        @RequestParam(name = "local_detail", required = false) Integer localDetail,
+	        @RequestParam(name = "type", required = false) Integer type,
+	        @RequestParam(name = "minPrice", required = false) Integer minPrice,
+	        @RequestParam(name = "maxPrice", required = false) Integer maxPrice,
+	        Model model) {
+
+	    // FilterDTO에 필터 조건을 묶어 서비스로 전달
+		FilterDto filterDTO = new FilterDto(localDetail, type, minPrice, maxPrice);
+		if (seq != null) {
+			if(seq>= 3 && seq<=10){
+				filterDTO.setLocal(seq);
+			}else if(seq>=80 && seq <=129){
+				filterDTO.setLocal_detail(seq);
+			}else if(seq>= 11 && seq<=19) {
+				filterDTO.setType(seq);
+			}
+		}
+	    // 필터링된 상품 리스트 가져오기
+	    List<ProductDto> items = service.filterProducts(filterDTO);
+
+	    model.addAttribute("items", items);
+
+	    return "user/product/_productList :: #product-list";  // 상품 리스트만 업데이트
+	}
+	
+	
 	///////
 	// 사케제품
 	///////
