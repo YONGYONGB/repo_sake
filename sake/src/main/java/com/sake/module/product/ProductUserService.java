@@ -25,4 +25,12 @@ public class ProductUserService {
 	}
 	
 	
+	
+	public List<ProductDto> filterProducts(FilterDto filterDto) {
+        // 필터 조건을 받아 DAO로 전달하여 필터링된 상품 리스트를 가져옴
+        return dao.filterProducts(filterDto);
+    }
+
+	
+	
 }
