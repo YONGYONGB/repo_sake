@@ -1,9 +1,10 @@
 package com.sake.module.product;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-public class ProductDto {
+import com.sake.module.base.BaseDto;
+
+public class ProductDto extends BaseDto{
 
 	private String pd_id;
 	private String name;
@@ -13,13 +14,14 @@ public class ProductDto {
 	private Integer type;
 	private Integer capacity;
 	private Integer liquor;
-	private Integer fixed_price;
+	private Integer fixed_price; // mapper에서 하나 만들어줘 할듯 실제 가격표
 	private Integer discountNY;
 	private Integer product_number;
 	private String discount_dc_id;
 	private Integer pd_use;
 	private String pd_regiDate;
 	private String pd_modiDate;
+	private Double total_rating;
 	
 	private String dc_id;
 	private String discount_name;
@@ -30,8 +32,11 @@ public class ProductDto {
 	
 	private String cd_id;
     private String cd_name;
-	
+    
+    
 	private List<Integer> pdIds;
+	
+
 	//  - - - - -
 	
 	
@@ -174,6 +179,14 @@ public class ProductDto {
 	public void setCd_name(String cd_name) {
 		this.cd_name = cd_name;
 	}
+	public Double getTotal_rating() {
+		return total_rating;
+	}
+	public void setTotal_rating(Double total_rating) {
+		this.total_rating = total_rating;
+	}
+	
+
 	
 
 	
