@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sake.module.member.MemberDto;
 import com.sake.module.member.MemberService;
@@ -162,11 +162,16 @@ public class AccountCodeController extends UserBaseController{
 	public String UserOrderDetails() {
 		return "/user/account/UserOrderDetails";
 	}
+	
+	
+	
+	
+	
 	///////////////////////////////
 	// 주소
 	///////////////////////////////
 	@RequestMapping(value="UserAccountAddress")
-	public String UserAccountAddress(HttpSession httpSession,MemberDto dto, Model model) {
+	public String UserAccountAddress(HttpSession httpSession,AccountCodeDto dto, Model model) {
 		dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
 		model.addAttribute("lists",accountCodeService.addressList(dto));
 		return "/user/account/UserAccountAddress";
@@ -176,14 +181,32 @@ public class AccountCodeController extends UserBaseController{
 	public String UserAccountAddAddress() {
 		return "/user/account/UserAccountAddAddress";
 	}
+	
 	// 추가행위
 	@RequestMapping(value="AddressInsert")
-	public String AddressInsert(HttpSession httpSession,MemberDto dto) {
+	public String AddressInsert(HttpSession httpSession,AccountCodeDto dto) {
 		dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
 		accountCodeService.addressInsert(dto);
-		return"/user/account/UserAccountAddress";
+		return"redirect:/user/account/UserAccountAddress";
 	}
 	
+	
+	@RequestMapping(value="AddressDelete")
+	public String AddressDelete(HttpSession httpSession,AccountCodeDto dto, @RequestParam("ua_id") String ua_id) {
+		dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
+		dto.setUa_id(ua_id);
+		accountCodeService.addressDelete(dto);
+		return "redirect:/user/account/UserAccountAddress";
+	}
+	
+	
+	@RequestMapping(value="SetRepresentive")
+	@ResponseBody
+	public ResponseEntity<String> setRepresentative(HttpSession httpSession,@RequestParam("ua_id") String ua_id){
+		String seq =httpSession.getAttribute("sessSeqUser").toString();
+		accountCodeService.updateRepresentive(ua_id, seq);
+		 return ResponseEntity.ok("success");
+	}
 	
 	
 	
