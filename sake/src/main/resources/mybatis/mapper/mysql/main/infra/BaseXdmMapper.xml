@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.module.base.BaseDao">
+	<resultMap type="com.sake.module.base.BaseDto" id="resultMapObj"></resultMap>
+	
+	<insert id="insertUploaded">
+		INSERT INTO ${tableName}(
+			type
+			,path
+			,originalName
+			,uuidName
+			,ext
+			,size
+			,delNy
+			,pseq
+		) values (
+			#{type}
+			,#{path}
+			,#{originalName}
+			,#{uuidName}
+			,#{ext}
+			,#{size}
+			,0
+			,#{pseq}
+		)
+	</insert>
+	
+	<update id="updateUploaded">
+		update ${tableName} set
+			ext = #{ext},
+			originalName = #{originalName}
+			,path = #{path}
+		where 1=1
+		and pseq = #{pseq}
+	</update>
+	
+	
+</mapper>
