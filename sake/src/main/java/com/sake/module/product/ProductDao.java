@@ -42,7 +42,7 @@ public interface ProductDao extends BaseDao{
 	public  List<ProductDto> typeList(String type);
 	
 	
+	public List<ProductDto> filterProducts(FilterDto filterDto); 
+	
 	public int urlcount(String pseq);
 }
-
-
