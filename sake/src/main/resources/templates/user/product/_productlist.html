@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+			<div id="product-list"> 
+                 <div class="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2"> <!--상품 목록 위 -->
+                     <!-- col -->
+                     <div th:if="${#lists.isEmpty(items)}" class="hover-actions-trigger btn-reveal-trigger position-static">    		
+                  			<p class="fs-3 text-center my-4">사케가 없습니다!</p>        		
+                  	</div>
+                     <div th:if="${!#lists.isEmpty(items)}" class="col" th:each="item: ${items}">
+                        <!-- card -->
+                        <div class="card card-product">								<!-- 상품 시작점 -->
+                           <div class="card-body">
+                              <!-- badge -->
+                              <div class="text-center position-relative">
+                                 <div class="position-absolute top-0 start-0">
+                                    <!-- <span class="badge bg-danger">Sale</span> -->
+                                 </div> 
+                                 <a th:href="@{/user/product/sakeProduct(pd_id=${item.pd_id})}">
+                                    <!-- img -->
+                                    <img th:if="${item != null}" th:src="@{${item.path}}"class="mb-3 img-fluid item-img" />
+                                 </a>
+                                 <!-- action btn -->
+                                 
+                              </div>
+                              <!-- heading -->
+                              <div class="text-small mb-1">
+                                 <a th:href="@{/user/product/sakeMenu(seq=${item.type})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.type)}"><small>준마이다이긴죠슈</small></a>
+                              </div>
+                              <div class="text-small mb-1">
+                                 <a th:href="@{/user/product/sakeMenu(seq=${item.local})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.local)}"><small>주고쿠</small></a>
+                                 <a th:href="@{/user/product/sakeMenu(seq=${item.local_detail})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.local_detail)}"><small>야마구치현</small></a>
+                                 <a  class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.brand)}"><small>닷사이</small></a>
+                              </div>
+                             
+                              <h2 class="fs-6"><a th:href="@{/user/product/sakeProduct(pd_id=${item.pd_id})}"
+                                    class="text-inherit text-decoration-none" th:text ="${item.name}">닷사이23</a></h2>
+                              <div>
+                                 <!-- rating -->
+                                 <small class="text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                 </small>
+                                 <span class="text-muted small">4.5(149)</span>
+                              </div>
+                              <!-- price -->
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                 <div>
+                                    <span class="text-dark price"  th:text ="|${item.fixed_price}¥| ">¥9,100</span>
+                                    <span class="text-decoration-line-through text-muted price"  th:text ="|${item.fixed_price}¥|">¥9,500</span>
+                                 </div>
+                                 <!-- btn -->
+                                 <div>
+                                    <a href="#!" class="btn btn-primary btn-sm">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                          stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                                          <line x1="12" y1="5" x2="12" y2="19"></line>
+                                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                                       </svg>
+                                       Add
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  </div>
+</body>
+</html>
