@@ -172,7 +172,9 @@
                 </div>
                 <div class= "col-6"></div>
                 <div class = "col-3 fini" style="display: flex; justify-content: end;">
-                  <button type="button" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i></button>
+                   <input type="file" id="excelFile" name="file"/>
+                    <button type="button" id="excel_upload" class="btn btn-success"><i class="bi bi-upload"></i></button>
+                  <a href="/xdm/product/excel" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i></a>
                   <button type="button" id="pd_form" class="btn btn-primary"><i class="bi bi-file-earmark-plus-fill"></i></button>
                 </div>
               </div>
@@ -234,6 +236,61 @@
   	}
   	</script>
   <!-- ======= 등록에 대한 js 끝======= -->
+  
+  <!-- 엑셀 등록 -->
+  <script type="text/javascript">
+  const inputFile = document.getElementById('excelFile');
+  const excelUploadBtn = document.getElementById('excel_upload');
+
+  excelUploadBtn.addEventListener('click', function() {
+    if (!inputFile.value) {
+      alert('파일을 선택해주세요.');
+      return;
+    }
+
+    // 확장자 검사
+    const fileName = inputFile.value;
+    const ext = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+    const allowedExtensions = ['xls', 'xlsx'];
+
+    if (!allowedExtensions.includes(ext)) {
+      alert('엑셀 파일만 업로드 가능합니다 (.xls, .xlsx)');
+      return;
+    }
+
+    // 용량 검사 (5MB 제한)
+    const maxSize = 5 * 1024 * 1024;
+    if (inputFile.files[0].size > maxSize) {
+      alert('파일 크기는 5MB를 초과할 수 없습니다.');
+      return;
+    }
+
+    // FormData 생성
+    const formData = new FormData();
+    formData.append('file', inputFile.files[0]);
+
+    // AJAX 요청 (fetch 사용 예)
+    fetch('/xdm/product/uploadExcel', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('업로드 성공!');
+        inputFile.value = '';  // 초기화
+      } else {
+        alert('업로드 실패 : ' + response.statusText);
+      }
+    })
+    .catch(error => {
+      alert('업로드 중 오류 발생 : ' + error.message);
+    });
+  });
+  
+  </script>
+  
+  
+  <!--엑셀 등록 -->
  	 	
  	
  	 <script type="text/javascript">
@@ -254,6 +311,11 @@
         form.submit(); // 폼 제출
     }
 	</script>
+	
+	
+	
+	
+	
 	
 	<script type="text/javascript">
 	document.getElementById("btnSearch").onclick = function () {

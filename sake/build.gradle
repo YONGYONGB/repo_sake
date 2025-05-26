@@ -35,6 +35,10 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail' , version: '3.2.5'
 	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+	
+	/*엑셀 실험*/
+	implementation 'org.apache.poi:poi:5.2.3'    /*기본적인 Excel 기능 제공*/
+	implementation 'org.apache.poi:poi-ooxml:5.2.3' 	/* .xlsx를 만들거나 열려면 반드시 필요*/
 }
 
 

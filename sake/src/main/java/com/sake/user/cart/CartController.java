@@ -1,11 +1,14 @@
 package com.sake.user.cart;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sake.user.account.AccountCodeDto;
 import com.sake.user.account.AccountCodeService;
@@ -23,6 +26,12 @@ public class CartController extends UserBaseController{
 	
 	@Autowired
 	AccountCodeService accountCodeService;
+	
+	@Value("${toss.client.key}")
+	private String tossClientKey;
+	
+	@Value("${toss.secret.key}")
+	private String tossSecretKey;
 
 	@RequestMapping(value="Wishlist")
 	public String Wishlist() {
@@ -66,5 +75,17 @@ public class CartController extends UserBaseController{
 		dto.setCart_id(seq);
 		service.cartDelete(dto.getCart_id());
 		return "redirect:/user/cart/ShoppingCart";
+	}
+	
+	@GetMapping("success")
+	public String paymentSuccess(@RequestParam Map<String, String> params) {
+	    // 결제 성공 처리 로직
+	    return "success"; // success.html
+	}
+
+	@GetMapping("fail")
+	public String paymentFail(@RequestParam Map<String, String> params) {
+	    // 결제 실패 처리 로직
+	    return "fail"; // fail.html
 	}
 }
