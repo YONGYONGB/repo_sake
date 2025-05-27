@@ -1,5 +1,7 @@
 package com.sake.user.cart;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +29,8 @@ public class CartController extends UserBaseController{
 	@Autowired
 	AccountCodeService accountCodeService;
 	
-	@Value("${toss.client.key}")
-	private String tossClientKey;
 	
-	@Value("${toss.secret.key}")
-	private String tossSecretKey;
 
-	@RequestMapping(value="Wishlist")
-	public String Wishlist() {
-		return "/user/cart/Wishlist";
-	}
 	
 	
 	// 화면
@@ -77,15 +71,4 @@ public class CartController extends UserBaseController{
 		return "redirect:/user/cart/ShoppingCart";
 	}
 	
-	@GetMapping("success")
-	public String paymentSuccess(@RequestParam Map<String, String> params) {
-	    // 결제 성공 처리 로직
-	    return "success"; // success.html
-	}
-
-	@GetMapping("fail")
-	public String paymentFail(@RequestParam Map<String, String> params) {
-	    // 결제 실패 처리 로직
-	    return "fail"; // fail.html
-	}
 }

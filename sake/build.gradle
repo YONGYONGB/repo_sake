@@ -39,6 +39,11 @@ dependencies {
 	/*엑셀 실험*/
 	implementation 'org.apache.poi:poi:5.2.3'    /*기본적인 Excel 기능 제공*/
 	implementation 'org.apache.poi:poi-ooxml:5.2.3' 	/* .xlsx를 만들거나 열려면 반드시 필요*/
+	
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+	
+	//토스페이json
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 

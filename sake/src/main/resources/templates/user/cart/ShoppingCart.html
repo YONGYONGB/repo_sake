@@ -3,7 +3,7 @@
 <!-- <div th:replace = "~{user/include/header :: header}"></div> -->
  <div th:replace = "~{user/include/header :: header}"></div> 
 	 <main>
-	 <form id="form" method="post">
+	 <form id="form" method="get">
 		<!-- section-->
 		<div class="mt-4">
 			<div class="container">
@@ -58,7 +58,7 @@
 												<div class="ms-3">
 													<!-- title -->
 													<a th:href="@{/user/product/sakeProduct(pd_id=${list.pd_id})}" th:value="${list.pd_id}" class="text-inherit">
-														<h6 class="mb-0" th:text="${list.name}">제품이름</h6>
+														<h6 class="mb-0 pdName" th:text="${list.name}">제품이름</h6>
 													</a>
 													<!-- text -->
 													<div class="mt-2 small lh-1">
@@ -432,8 +432,11 @@ function updatePrices() {
       // @docs https://docs.tosspayments.com/sdk/v2/js#paymentrequestpayment
       async function requestPayment() {
   		const totalPriceElement = document.querySelector('.all-price');
+  		const userName = document.getElementById("userName").value;
+  		/* const userEmail = document.getElementById("userEmail").value; */
  		let totalPrice = 0;
 
+		
   		if (totalPriceElement) {
     		const rawText = totalPriceElement.textContent.trim();
     		const numericText = rawText.replace('¥', '').replace(/,/g, '');
@@ -444,19 +447,31 @@ function updatePrices() {
     		alert("결제 금액이 0원입니다. 장바구니를 확인해주세요.");
     		return;
   		}
+  		
+  		const pdnames = [];
+  		const pdname = document.getElementsByClassName('pdName');  // 클래스명은 문자열로 전달
+
+  		Array.from(pdname).forEach(element => {
+  		  pdnames.push(element.textContent.trim());  // textContent로 텍스트 가져오기
+  		});
+  		const uniquePdnames = [...new Set(pdnames)]; // 중복명 제거
+  		const orderName= uniquePdnames.join(', ') // ,로 가져오기.
+ 		// 서버로부터 orderId 받아오기
+ 		const response = await fetch("/api/order-id");
+	 	data = await response.json();
+		const orderId = data.orderId;
 
   		await payment.requestPayment({
     		method: "CARD",
     		amount: {
       		currency: "KRW",
-      		value: totalPrice,
+      		value: 300,
     	},
-    	orderId: "sDMXjyuu_jEYyIjXU0IUK",
-    	orderName: "토스 티셔츠 외 2건",
-    	successUrl: window.location.origin + "/user/cart/success",
-    	failUrl: window.location.origin + "/user/cart/fail",
-    	customerEmail: "customer123@gmail.com",
-    	customerName: "김토스",
+    	orderId: orderId,
+    	orderName: orderName,
+    	successUrl: window.location.origin + "/success",
+    	failUrl: window.location.origin + "/fail",
+    	customerName: pdnames.join(', '), 
     	card: {
      	 useEscrow: false,
       	flowMode: "DEFAULT",
