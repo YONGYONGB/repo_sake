@@ -373,7 +373,7 @@ function updatePrices() {
 	    let selectedUaId = $(this).data('ua-id');
 
 	    $.ajax({
-	      url: '/user/account/SetRepresentive', // 주소는 상황에 맞게 수정
+	      url: '/user/account/SetRepresentive', 
 	      method: 'POST',
 	      data: {ua_id: selectedUaId },
 	      success: function(response) {
@@ -447,7 +447,10 @@ function updatePrices() {
     		alert("결제 금액이 0원입니다. 장바구니를 확인해주세요.");
     		return;
   		}
+  		//카트seq
   		
+  		
+  		//제품이름
   		const pdnames = [];
   		const pdname = document.getElementsByClassName('pdName');  // 클래스명은 문자열로 전달
 
@@ -456,6 +459,7 @@ function updatePrices() {
   		});
   		const uniquePdnames = [...new Set(pdnames)]; // 중복명 제거
   		const orderName= uniquePdnames.join(', ') // ,로 가져오기.
+  		
  		// 서버로부터 orderId 받아오기
  		const response = await fetch("/api/order-id");
 	 	data = await response.json();
