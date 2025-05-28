@@ -157,11 +157,8 @@ public class AccountCodeController extends UserBaseController{
 	}
 	
 	
-	//주문내역
-	@RequestMapping(value="UserOrderDetails")
-	public String UserOrderDetails() {
-		return "/user/account/UserOrderDetails";
-	}
+	
+	
 	
 	
 	
