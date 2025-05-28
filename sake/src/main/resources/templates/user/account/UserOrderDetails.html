@@ -28,7 +28,7 @@
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-8 col-12">
-						<div class="py-6 p-md-6 p-lg-10">
+						<!-- <div class="py-6 p-md-6 p-lg-10"> -->
 							<!-- heading -->
 							<h2 class="mb-6">주문 내역</h2>
 
@@ -48,28 +48,25 @@
 											<th>cancel</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody th:each = "list: ${lists}">
 										<!-- Table body -->
 										<tr style="text-align: center; align-content: center;">
 											<td class="align-middle border-top-0 w-0">
-												<a href="#"><img src="../assets/images/sake/chugoku_2/yamaguchi/dassi/dassai.jpg"
+												<a th:href="@{/user/product/sakeProduct(pd_id=${list.pd_id})}" th:value="${list.pd_id}"><img th:if="${list != null}" th:src="@{${list.path}}" 
 														alt="Ecommerce" class="icon-shape icon-xl" /></a>
 											</td>
 											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">닷사이23</h6>
+												<a th:href="@{/user/product/sakeProduct(pd_id=${list.pd_id})}" th:value="${list.pd_id}" class="fw-semibold text-inherit">
+													<h6 class="mb-0" th:text="${list.name}">닷사이23</h6>
 												</a>
-												<span><small class="text-muted">720ML</small></span>
 											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="text-inherit">#14899</a>
-											</td>
-											<td class="align-middle border-top-0">March 5, 2023</td>
-											<td class="align-middle border-top-0">1</td>
+											<td class="align-middle border-top-0" th:text="${list.op_id}">주문</td>
+											<td class="align-middle border-top-0" th:text="${list.od_date}">March 5, 2023</td>
+											<td class="align-middle border-top-0" th:text="${list.product_quantity}">갯수</td>
 											<td class="align-middle border-top-0">
 												<span class="badge bg-warning">Processing</span>
 											</td>
-											<td class="align-middle border-top-0">¥9,100</td>
+											<td class="align-middle border-top-0" th:text="${list.sum}">가격</td>
 											<td class="align-middle border-top-0">
 												<button class="btn btn-primary" type="button">
 													결제취소
@@ -81,7 +78,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				<!-- </div> -->
 			</div>
 		</section>
 	</main>

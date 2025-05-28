@@ -22,7 +22,17 @@
             </div>
 
             <form class="needs-validation" method="post" id="form" novalidate>
+            
               <div class="row g-3">
+              <div  class="fb-login-button"
+    				data-max-rows="1"
+    				data-size="<medium, large>"
+    				data-button-type="continue_with"
+    				data-width="<100% or px>"
+    				data-scope="<comma separated list of permissions, e.g. public_profile, email>">					
+    		  </div>
+
+              
                 <!-- row -->
 
                 <div class="col-12">
@@ -107,12 +117,31 @@
    <script type="text/javascript">
   $("#modalAlert").modal("hide");
   </script>
+  
   <script type="text/javascript">
   $(".close, .btn-secondary").on("click", function () {
 	    $("#modalAlert").modal("hide");
 	});
   </script> 
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : 'your-app-id',
+      xfbml            : true,
+      version          : 'v22.0'
+    });
+  };
   
+  FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    console.log(response.authResponse.accessToken);
+	  }
+	});
+  
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+
   
   <script type="text/javascript">
   document.getElementById("buttonSignIn").addEventListener("click",function(event){

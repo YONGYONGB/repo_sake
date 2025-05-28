@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sake.module.order.OrderDao">
+	<resultMap type="com.sake.module.order.OrderDto" id="resultMapObj"></resultMap>
+	
+	<!-- 토스페이 결제후 userorder테이블에 값 넣 -->
+	<insert id="Uoinsert" useGeneratedKeys="true" keyProperty="od_id">
+	insert into userOrder(
+		all_payment
+		,od_date
+		,user_user_id
+	)values(
+		#{all_payment}
+		,now()
+		,#{user_user_id}
+	)
+	</insert>
+
+	<!--토스페이 결제 후 orderproduct에 값넣 -->
+	<insert id="Opinsert">
+    INSERT INTO orderProduct (
+        op_price,
+        product_quantity,
+        product_pd_id,
+        userOrder_od_id
+    )
+    SELECT
+        c.cart_price,
+        c.cart_quantity,
+        c.product_pd_id,
+        #{userOrder_od_id}
+    FROM cart c
+    WHERE c.cart_id = #{cart_id}
+	</insert>
+	
+	
+	<select id="findUserUoseq" resultType="string">
+	select
+		od_id
+	from
+		userOrder
+	where 1=1
+	and user_user_id = #{user_user_id}
+	</select>
+
+
+	<select id="findOpList" resultMap="resultMapObj">
+	select
+		op.op_id
+		,p.name
+		,uo.od_date
+		,op.product_quantity
+		,op.op_price
+		,(op.product_quantity * op.op_price) as sum
+		,pu.path
+	from
+		orderProduct op
+		left join product p on p.pd_id = op.product_pd_id
+		left join userOrder uo ON op.userOrder_od_id = uo.od_id
+		left join productUploaded pu on pu.seq = op.product_pd_id
+	where 1=1
+	and op.userOrder_od_id in
+	<foreach collection="odIdList" item="odId" open="(" separator="," close=")">
+		#{odId}
+	</foreach>
+	</select>
+	
+	
+</mapper>

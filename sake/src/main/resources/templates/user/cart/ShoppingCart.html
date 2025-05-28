@@ -54,8 +54,8 @@
 									<div class="row align-items-center">
 										<div class="col-6 col-md-6 col-lg-7">
 											<div class="d-flex">
-											<img th:if="${list != null}" th:src="@{${list.path}}"  alt="Ecommerce" class="icon-shape icon-xxl" />
-												<div class="ms-3">
+											<img th:if="${list != null}" th:src="@{${list.path}}"  alt="Ecommerce" class="icon-shape icon-xxl"/>
+												<div class="ms-3 cartid" th:attr="data-id=${list.cart_id}">
 													<!-- title -->
 													<a th:href="@{/user/product/sakeProduct(pd_id=${list.pd_id})}" th:value="${list.pd_id}" class="text-inherit">
 														<h6 class="mb-0 pdName" th:text="${list.name}">제품이름</h6>
@@ -448,7 +448,15 @@ function updatePrices() {
     		return;
   		}
   		//카트seq
+  		const cartIds =[];
+  		const cartid = document.getElementsByClassName('cartid');
+  		Array.from(cartid).forEach(element => {
+  		  cartIds.push(element.dataset.id);  // data-id 값 가져오기
+  		});
+  		const cartseq = cartIds.join('-');
   		
+  		//유저seq
+  		const userseq = document.getElementById('userSeq').value;
   		
   		//제품이름
   		const pdnames = [];
@@ -463,7 +471,7 @@ function updatePrices() {
  		// 서버로부터 orderId 받아오기
  		const response = await fetch("/api/order-id");
 	 	data = await response.json();
-		const orderId = data.orderId;
+		const orderId = data.orderId + "_"+ cartseq +"_"+userseq;
 
   		await payment.requestPayment({
     		method: "CARD",
@@ -473,7 +481,7 @@ function updatePrices() {
     	},
     	orderId: orderId,
     	orderName: orderName,
-    	successUrl: window.location.origin + "/success",
+    	successUrl: window.location.origin + "/success" ,
     	failUrl: window.location.origin + "/fail",
     	customerName: pdnames.join(', '), 
     	card: {
