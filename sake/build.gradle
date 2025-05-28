@@ -44,6 +44,10 @@ dependencies {
 	
 	//토스페이json
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    
+    //페이스북 
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    //implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 

@@ -58,7 +58,7 @@
 		orderProduct op
 		left join product p on p.pd_id = op.product_pd_id
 		left join userOrder uo ON op.userOrder_od_id = uo.od_id
-		left join productUploaded pu on pu.seq = op.product_pd_id
+		left join productUploaded pu on pu.pseq = op.product_pd_id
 	where 1=1
 	and op.userOrder_od_id in
 	<foreach collection="odIdList" item="odId" open="(" separator="," close=")">
