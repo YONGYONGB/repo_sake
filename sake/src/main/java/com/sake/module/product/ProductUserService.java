@@ -12,18 +12,29 @@ public class ProductUserService {
 	ProductDao dao;
 	
 	
-	public  List<ProductDto> localDetailList(String local_detail){
-		return dao.localDetailList(local_detail);
+	public  List<ProductDto> localDetailList(int local_detail,ProductVo vo){
+		return dao.localDetailList(local_detail,vo);
 	}
 	
-	public  List<ProductDto> localList(String local){
-		return dao.localList(local);
+	public int countlocalList(int local_detail, ProductVo vo) {
+		return dao.countlocalList(local_detail, vo);
 	}
 	
-	public  List<ProductDto> typeList(String type){
-		return dao.typeList(type);
+	public  List<ProductDto> localList(int local, ProductVo vo){
+		return dao.localList(local, vo);
 	}
 	
+	public int countlocalDetailList(int local, ProductVo vo) {
+		return dao.countlocalDetailList(local, vo);
+	}
+	
+	public  List<ProductDto> typeList(int type,ProductVo vo){
+		return dao.typeList(type,vo);
+	}
+	
+	public int counttypeList(int type,ProductVo vo) {
+		return dao.counttypeList(type, vo);
+	}
 	
 	
 	public List<ProductDto> filterProducts(FilterDto filterDto) {

@@ -29,13 +29,19 @@ public class ProductUserController extends UserBaseController{
 		Integer seq = vo.getSeq();
 		model.addAttribute("list", seq);
 		model.addAttribute("seq", seq);
-
+		
 		if(seq>= 3 && seq<=10) {
-			model.addAttribute("items", service.localList(seq.toString()));
+			vo.setParamsPaging(service.countlocalList(seq, vo));
+			model.addAttribute("ProductVo", vo);
+			model.addAttribute("items", service.localList(seq,vo));
 		}else if(seq>= 11 && seq<=19) {
-			model.addAttribute("items", service.typeList(seq.toString()));
+			vo.setParamsPaging(service.counttypeList(seq, vo));
+			model.addAttribute("ProductVo", vo);
+			model.addAttribute("items", service.typeList(seq,vo));
 		}else if(seq>=80 && seq <=129) {
-			model.addAttribute("items", service.localDetailList(seq.toString()));
+			vo.setParamsPaging(service.countlocalDetailList(seq,vo));
+			model.addAttribute("ProductVo", vo);
+			model.addAttribute("items", service.localDetailList(seq,vo));
 		}	
 		return "/user/product/sakeMenu";
 	}
@@ -48,8 +54,9 @@ public class ProductUserController extends UserBaseController{
 	        @RequestParam(name = "type", required = false) Integer type,
 	        @RequestParam(name = "minPrice", required = false) Integer minPrice,
 	        @RequestParam(name = "maxPrice", required = false) Integer maxPrice,
+	        ProductVo vo,
 	        Model model) {
-
+//		model.addAttribute("ProductVo", vo);
 	    // FilterDTO에 필터 조건을 묶어 서비스로 전달
 		FilterDto filterDTO = new FilterDto(localDetail, type, minPrice, maxPrice);
 		if (seq != null) {

@@ -35,11 +35,23 @@ public interface ProductDao extends BaseDao{
 	
 	///  유저
 	
-	public  List<ProductDto> localDetailList(String local_detail);
+	public  List<ProductDto> localDetailList(@Param("local_detail") int local_detail, @Param("vo")ProductVo vo);
 	
-	public  List<ProductDto> localList(String local);
+	public int countlocalList(@Param("local") int local, @Param("vo")ProductVo vo);
 	
-	public  List<ProductDto> typeList(String type);
+	
+	public  List<ProductDto> localList(@Param("local")int local, @Param("vo") ProductVo vo);
+	
+	public int countlocalDetailList(@Param("local_detail")int local_detail, @Param("vo") ProductVo vo);
+	
+	
+	
+	public  List<ProductDto> typeList(@Param("type")int type, @Param("vo") ProductVo vo);
+	
+	public int counttypeList(@Param("type")int type, @Param("vo") ProductVo vo);
+	
+	
+	
 	
 	
 	public List<ProductDto> filterProducts(FilterDto filterDto); 

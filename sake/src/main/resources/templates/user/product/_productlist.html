@@ -71,6 +71,41 @@
                            </div>
                         </div>
                      </div>
+                     <!-- 페이징 -->
+                     	<div class="mt-6">
+							    <nav>
+							        <ul class="pagination justify-content-center">
+							            <!-- 이전 페이지 -->
+							            <li class="page-item" th:if="${ProductVo.thisPage > ProductVo.pageNumToShow}" style="cursor: pointer;">
+							                <a class="page-link"
+							                   th:attr="onclick=|goList('${ProductVo.startPage - 1}')|">
+							                    <span>&laquo;</span>
+							                </a>
+							            </li>
+							
+							            <!-- 페이지 번호 -->
+							            <li class="page-item"
+							                th:each="num : ${#numbers.sequence(ProductVo.startPage, ProductVo.endPage)}"
+							                th:classappend="${num == ProductVo.thisPage} ? 'active' : ''"
+							                style="cursor: pointer;">
+							                <a class="page-link"
+							                   th:attr="onclick=|goList('${num}')|"
+							                   th:text="${num}">
+							                </a>
+							            </li>
+							
+							            <!-- 다음 페이지 -->
+							            <li class="page-item" th:if="${ProductVo.endPage < ProductVo.totalPages}" style="cursor: pointer;">
+							                <a class="page-link"
+							                   th:attr="onclick=|goList('${ProductVo.endPage + 1}')|"
+							                   >
+							                    <span>&raquo;</span>
+							                </a>
+							            </li>
+							        </ul>
+							    </nav>
+							</div>
+                     
                   </div>
                   </div>
 </body>

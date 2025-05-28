@@ -5,8 +5,9 @@
 
 
    <main>
-   <form id="form" method="post">
-   
+   <form id="form" method="get" action="/user/product/sakeMenu">
+   	 <input type="hidden" name="thisPage" th:value="${ProductVo.thisPage}">
+      <input type="hidden" name="seq" th:value="${seq}"> 
       <!-- section-->
       <div class="mt-4">
          <div class="container">
@@ -28,6 +29,7 @@
       </div>
       <!-- section -->
       <div class="mt-8 mb-lg-14 mb-8">
+     
          <!-- container -->
          <div class="container">
             <!-- row -->
@@ -458,25 +460,7 @@
                         </div>
 
                         <div class="d-flex mt-2 mt-lg-0">
-                           <div class="me-2 flex-grow-1">
-                              <!-- select option -->
-                              <select class="form-select">
-                                 <option selected>Show: 50</option>
-                                 <option value="10">10</option>
-                                 <option value="20">20</option>
-                                 <option value="30">30</option>
-                              </select>
-                           </div>
-                           <div>
-                              <!-- select option -->
-                              <select class="form-select">
-                                 <option selected>Sort by: Featured</option>
-                                 <option value="Low to High">Price: Low to High</option>
-                                 <option value="High to Low">Price: High to Low</option>
-                                 <option value="Release Date">Release Date</option>
-                                 <option value="Avg. Rating">Avg. Rating</option>
-                              </select>
-                           </div>
+                           
                         </div>
                      </div>
                   </div>
@@ -551,9 +535,45 @@
                   </div>
                   </div>
                   <!-- row -->
-                  <div class="row mt-8">
+                  <!-- Pagination Start -->
+							
+							<div class="mt-6">
+							    <nav>
+							        <ul class="pagination justify-content-center">
+							            <!-- 이전 페이지 -->
+							            <li class="page-item" th:if="${ProductVo.thisPage > ProductVo.pageNumToShow}" style="cursor: pointer;">
+							                <a class="page-link"
+							                   th:attr="onclick=|goList('${ProductVo.startPage - 1}')|">
+							                    <span>&laquo;</span>
+							                </a>
+							            </li>
+							
+							            <!-- 페이지 번호 -->
+							            <li class="page-item"
+							                th:each="num : ${#numbers.sequence(ProductVo.startPage, ProductVo.endPage)}"
+							                th:classappend="${num == ProductVo.thisPage} ? 'active' : ''"
+							                style="cursor: pointer;">
+							                <a class="page-link"
+							                   th:attr="onclick=|goList('${num}')|"
+							                   th:text="${num}">
+							                </a>
+							            </li>
+							
+							            <!-- 다음 페이지 -->
+							            <li class="page-item" th:if="${ProductVo.endPage < ProductVo.totalPages}" style="cursor: pointer;">
+							                <a class="page-link"
+							                   th:attr="onclick=|goList('${ProductVo.endPage + 1}')|"
+							                   >
+							                    <span>&raquo;</span>
+							                </a>
+							            </li>
+							        </ul>
+							    </nav>
+							</div>
+							<!-- Pagination End -->
+                  <!-- <div class="row mt-8">
                      <div class="col">
-                        <!-- nav -->
+                        nav
                         <nav>
                            <ul class="pagination">
                               <li class="page-item disabled">
@@ -574,7 +594,7 @@
                            </ul>
                         </nav>
                      </div>
-                  </div>
+                  </div> -->
                </section>
             </div>
          </div>
@@ -619,6 +639,41 @@
 
 
 <!-- 필터링 -->
+
+	<script type="text/javascript">
+	
+	// 페이징
+	let form = document.querySelector('form');
+
+	function goList(thisPage) {
+	    document.querySelector("input[name=thisPage]").value = thisPage;
+
+	    const seqInput = document.querySelector("input[name=seq]");
+	    if (!seqInput || !seqInput.value) {
+	        alert("seq 값이 없습니다.");
+	        return;
+	    }
+
+	    const form = document.getElementById("form");
+	    if (!form) {
+	        alert("form을 찾을 수 없습니다.");
+	        return;
+	    }
+	    form.submit();
+	}
+
+	// 검색
+	document.getElementById("btnSearch").onclick = function () {
+		document.querySelector("input[name=thisPage]").value = 1;
+	    form.submit();
+	};
+		
+		
+	</script>
+
+
+
+
 <script type="text/javascript">
 
 

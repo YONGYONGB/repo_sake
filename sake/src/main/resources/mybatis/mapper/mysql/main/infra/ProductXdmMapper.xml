@@ -225,7 +225,20 @@
 			left join productUploaded c on c.pseq = a.pd_id
 			where 1=1
 			and a.local = #{local}
+			LIMIT #{vo.rowNumToShow} OFFSET #{vo.startRnumForMysql}
 	</select>
+	
+	
+	<select id="countlocalList" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			product
+		Where 1=1
+			and local = #{local}
+			LIMIT #{vo.rowNumToShow} OFFSET #{vo.startRnumForMysql}
+	</select>
+	
 	
 	<!--상세지역  -->
 	<select id="localDetailList" resultMap="resultMapObj">
@@ -252,6 +265,17 @@
 			left join productUploaded c on c.pseq = a.pd_id
 			where 1=1
 			and a.local_detail = #{local_detail}
+			LIMIT #{vo.rowNumToShow} OFFSET #{vo.startRnumForMysql}
+	</select>
+	
+	<select id="countlocalDetailList" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			product
+		Where 1=1
+			and local_detail = #{local_detail}
+			LIMIT #{vo.rowNumToShow} OFFSET #{vo.startRnumForMysql}
 	</select>
 	
 	<!--상세지역  -->
@@ -279,6 +303,17 @@
 			left join productUploaded c on c.pseq = a.pd_id
 			where 1=1
 			and a.type = #{type}
+			LIMIT #{vo.rowNumToShow} OFFSET #{vo.startRnumForMysql}
+	</select>
+	
+	<select id="counttypeList" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			product
+		Where 1=1
+			and type = #{type}
+			LIMIT #{vo.rowNumToShow} OFFSET #{vo.startRnumForMysql}
 	</select>
 	
 	
@@ -305,21 +340,12 @@
     		LEFT JOIN discount b ON b.dc_id = a.discount_dc_id
     		LEFT JOIN productUploaded c ON c.pseq = a.pd_id
   		WHERE 1=1
-  		<if test="local != null">
-    	AND a.local = #{local}
-  		</if>
-  		<if test="local_detail != null">
-    	AND a.local_detail = #{local_detail}
-  		</if>
-  		<if test="type != null">
-   		AND a.type = #{type}
-  		</if>
-  		<if test="minPrice != null">
-    	AND a.fixed_price &gt;= #{minPrice}
-  		</if>
-  		<if test="maxPrice != null">
-    	AND a.fixed_price &lt;= #{maxPrice}
-  		</if>
+  		<if test="local != null">AND a.local = #{local}</if>
+  		<if test="local_detail != null">AND a.local_detail = #{local_detail}</if>
+  		<if test="type != null">AND a.type = #{type}</if>
+  		<if test="minPrice != null">AND a.fixed_price &gt;= #{minPrice}</if>
+  		<if test="maxPrice != null">AND a.fixed_price &lt;= #{maxPrice}</if>
+  		
 	</select>
 	
 	
