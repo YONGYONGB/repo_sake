@@ -144,19 +144,19 @@
 	
 	<update id="update">
 		update product set
-		name = #{name},
-		pd_use = #{pd_use},
-		local = #{local},
-		local_detail = #{local_detail},
-		brand = #{brand},
-		type = #{type},
-		capacity = #{capacity},
-		liquor = #{liquor},
-		fixed_price = #{fixed_price},
-		discountNY = #{discountNY},
-		pd_quantity = #{pd_quantity},
-		pd_modiDate = now(),
-		discount_dc_id = <if test="discount_dc_id== null">1</if>
+		name = #{name}
+		,pd_use = #{pd_use}
+		,local = #{local}
+		,local_detail = #{local_detail}
+		,brand = #{brand}
+		,type = #{type}
+		,capacity = #{capacity}
+		,liquor = #{liquor}
+		,fixed_price = #{fixed_price}
+		,discountNY = #{discountNY}
+		,pd_quantity = #{pd_quantity}
+		,pd_modiDate = now()
+		,discount_dc_id = <if test="discount_dc_id== null">1</if>
         				 <if test="discount_dc_id != null">#{discount_dc_id}</if>
 		WHERE 1=1
 		and pd_id = #{pd_id}
@@ -322,6 +322,10 @@
   		</if>
 	</select>
 	
+	
+	<select id="urlcount" resultType="Integer">
+        SELECT COUNT(*) FROM productUploaded WHERE pseq = #{pseq}
+    </select>
 	
 	
 </mapper>

@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,9 @@ public class OrderController {
 	
 	@Autowired
 	OrderService service;
+	
+	@Autowired
+	CartService cartservice;
 	
 	@Value("${toss.secret.key}")
 	private String SECRET_KEY;
@@ -102,6 +106,7 @@ public class OrderController {
 	        	        String[] cartIds = cartSeqPart.split("-");
 	        	        for (String cart_id : cartIds) {
 	        	        	service.Opinsert(cart_id, generatedId);
+	        	        	cartservice.cartDelete(cart_id); // 장바구니 삭제.
 	        	        }
 	        	 }
 	        }
@@ -213,6 +218,18 @@ public class OrderController {
 			
 			return "/user/account/UserOrderDetails";
 		}
+		
+		//header에 주문 숫자 담기.
+		  @ModelAttribute
+		   public void addCommonAttributes(HttpSession httpSession,Model model) {
+			  if (httpSession.getAttribute("sessSeqUser") != null) {
+			  	String seq= httpSession.getAttribute("sessSeqUser").toString();
+			  	List<String> odIdList = service.findUserUoseq(seq);
+			  	
+		        int orderItemCount = service.getPCount(odIdList); 
+		        model.addAttribute("orderItemCount", orderItemCount);
+			  }
+		    }
 	}
 	  
 	  

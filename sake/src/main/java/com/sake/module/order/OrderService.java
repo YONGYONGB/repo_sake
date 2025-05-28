@@ -26,5 +26,8 @@ public class OrderService {
 	public List<OrderDto> findOpList(List<String>odIdList){
 		return dao.findOpList(odIdList);
 	}
+	public int getPCount(List<String>odIdList) {
+		return dao.getPCount(odIdList);
+	}
 	
 }

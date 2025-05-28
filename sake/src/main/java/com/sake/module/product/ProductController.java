@@ -60,6 +60,7 @@ public class ProductController extends BaseController{
 		} else {
 //			update mode
 			model.addAttribute("item", productservice.selectView(dto));
+			
 		}
 		return "/xdm/product/ProductXdmForm";
 	}

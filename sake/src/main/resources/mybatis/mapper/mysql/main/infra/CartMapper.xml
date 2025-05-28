@@ -43,6 +43,13 @@
 		</selectKey>
 	</insert>
 	
+	
+	<select id="getCount" resultType="Integer">
+	select count(*)
+		from cart
+	where user_user_id = #{user_user_id}
+	</select>
+	
 	<delete id="cartDelete">
 		delete from cart
 		where

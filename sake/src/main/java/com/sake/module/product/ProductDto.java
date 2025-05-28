@@ -22,6 +22,7 @@ public class ProductDto extends BaseDto{
 	private String pd_regiDate;
 	private String pd_modiDate;
 	private Double total_rating;
+	private Integer pd_quantity;
 	
 	private String dc_id;
 	private String discount_name;
@@ -184,6 +185,12 @@ public class ProductDto extends BaseDto{
 	}
 	public void setTotal_rating(Double total_rating) {
 		this.total_rating = total_rating;
+	}
+	public Integer getPd_quantity() {
+		return pd_quantity;
+	}
+	public void setPd_quantity(Integer pd_quantity) {
+		this.pd_quantity = pd_quantity;
 	}
 	
 

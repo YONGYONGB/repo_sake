@@ -43,6 +43,8 @@
 	where 1=1
 	and user_user_id = #{user_user_id}
 	</select>
+	
+	
 
 
 	<select id="findOpList" resultMap="resultMapObj">
@@ -61,10 +63,19 @@
 		left join productUploaded pu on pu.pseq = op.product_pd_id
 	where 1=1
 	and op.userOrder_od_id in
-	<foreach collection="odIdList" item="odId" open="(" separator="," close=")">
-		#{odId}
-	</foreach>
+		<foreach collection="odIdList" item="odId" open="(" separator="," close=")">
+			#{odId}
+		</foreach>
 	</select>
 	
+	
+	<select id="getPCount" resultType="Integer">
+	select count(*)
+		from orderProduct
+	where userOrder_od_id in
+	<foreach collection="odIdList" item="odId" open="(" separator="," close=")">
+			#{odId}
+		</foreach>
+	</select>
 	
 </mapper>

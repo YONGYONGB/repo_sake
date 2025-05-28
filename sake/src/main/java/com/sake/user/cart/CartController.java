@@ -1,14 +1,9 @@
 package com.sake.user.cart;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -70,5 +65,15 @@ public class CartController extends UserBaseController{
 		service.cartDelete(dto.getCart_id());
 		return "redirect:/user/cart/ShoppingCart";
 	}
+	
+	//header에 장바구니 숫자 담기.
+	  @ModelAttribute
+	   public void addCommonAttributes(HttpSession httpSession,Model model) {
+		  if (httpSession.getAttribute("sessSeqUser") != null) {
+		  	String seq= httpSession.getAttribute("sessSeqUser").toString();
+	        int cartItemCount = service.getCount(seq); 
+	        model.addAttribute("cartItemCount", cartItemCount);
+		  }
+	    }
 	
 }

@@ -12,4 +12,6 @@ public interface CartDao {
 	public int cartInsert(CartDto dto);
 	
 	public int cartDelete(String cart_id);
+	
+	public int getCount(String user_user_id);
 }

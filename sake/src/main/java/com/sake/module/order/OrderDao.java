@@ -19,4 +19,6 @@ public interface OrderDao{
 	public List<String> findUserUoseq(String user_user_id);
 	
 	public List<OrderDto> findOpList(@Param("odIdList") List<String>odIdList);
+	
+	public int getPCount(@Param("odIdList") List<String>odIdList);
 }

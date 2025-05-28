@@ -94,7 +94,7 @@
                   Please select a valid state.
                 </div></div>
               <div class = "col-3"><label for="product_number" class="form-label">재고</label><span style="color: crimson;">*</span> 
-                <input type="text" class="form-control" id="product_number" placeholder="가격을 입력하세요." required name="product_number" th:value="${item?.product_number}">
+                <input type="text" class="form-control" id="product_number" placeholder="가격을 입력하세요." required name="pd_quantity" th:value="${item.pd_quantity}">
                 <div class="invalid-feedback" id="numberError">
                     Please select a valid state.
                   </div></div>   
@@ -405,7 +405,7 @@
 		const number = document.getElementById("product_number").value;
  		let num = /^[0-9]{1,10}$/;
 		if(number == null || number == ""){
-			document.getElementById("numberError").textContent = "가격을 입력해주세요.";
+			document.getElementById("numberError").textContent = "재고를 입력해주세요.";
 			document.getElementById("product_number").classList.add("is-invalid");
 			isValid = false;
 		}else if(number.trim() != number){

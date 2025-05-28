@@ -22,4 +22,7 @@ public class CartService {
 	public int cartDelete(String cart_id) {
 		return dao.cartDelete(cart_id);
 	}
+	public int getCount(String user_user_id) {
+		return dao.getCount(user_user_id);
+	}
 }
