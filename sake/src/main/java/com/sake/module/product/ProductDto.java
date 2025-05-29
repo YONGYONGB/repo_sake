@@ -37,7 +37,7 @@ public class ProductDto extends BaseDto{
     
 	private List<Integer> pdIds;
 	
-	
+	private List<String> seqList;
 	
    
 
@@ -195,6 +195,12 @@ public class ProductDto extends BaseDto{
 	}
 	public void setPd_quantity(Integer pd_quantity) {
 		this.pd_quantity = pd_quantity;
+	}
+	public List<String> getSeqList() {
+		return seqList;
+	}
+	public void setSeqList(List<String> seqList) {
+		this.seqList = seqList;
 	}
 
 

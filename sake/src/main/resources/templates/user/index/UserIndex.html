@@ -20,113 +20,13 @@
 		<section class="mb-lg-10 mt-lg-14 my-8" style="margin-bottom: 16px !important;">
 			<div class="container">
 				<div class="category-slider">
-					<div class="item" >
-						<a href="/pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-dairy-bread-eggs.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-									<div class="text-truncate">Dairy, Bread & Eggs</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="/pages/shop-single.html" class="text-decoration-none text-inherit">
+					<div class="item" th:each ="item:${items}">
+						<a th:href="@{/user/product/sakeProduct(pd_id=${item.pd_id})}" class="text-decoration-none text-inherit">
 							<div class="card card-product mb-lg-4">
 								<div class="card-body text-center py-8" style= "border: 0px">
-									<img src="/user/template/assets/images/sake/chugoku_2/yamaguchi/dassi/dassai.jpg"
+									<img th:src="@{${item.path}}"
 										alt="Grocery Ecommerce Template" class="mb-3 item-img" />
-									<div class="text-truncate">닷사이23</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="./pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-bakery-biscuits.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3" />
-									<div class="text-truncate">Bakery & Biscuits</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="./pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-instant-food.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3" />
-									<div class="text-truncate">Instant Food</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="./pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-tea-coffee-drinks.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3" />
-									<div class="text-truncate">Tea, Coffee & Drinks</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="./pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-atta-rice-dal.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3" />
-									<div class="text-truncate">Atta, Rice & Dal</div>
-								</div>
-							</div>
-						</a>
-					</div>
-
-					<div class="item">
-						<a href="./pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-baby-care.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3" />
-									<div class="text-truncate">Baby Care</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="./pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-chicken-meat-fish.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3" />
-									<div class="text-truncate">Chicken, Meat & Fish</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-cleaning-essentials.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3" />
-									<div class="text-truncate">Cleaning Essentials</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="./pages/shop-grid.html" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/category/category-pet-care.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3" />
-									<div class="text-truncate">Pet Care</div>
+									<div class="text-truncate" th:text="${item.name}">제품이름</div>
 								</div>
 							</div>
 						</a>
@@ -150,7 +50,7 @@
 						<div data-trigger-click="click [data-relatedlink=':re:_link']">
 							<div class="py-10 px-8 rounded"
 								style="background: url(/user/template/assets/images/banner/discount_banner1.jpg) no-repeat; background-size: cover; background-position: center">
-								<a href="./pages/shop-sale-sake.html" data-relatedlink="re_link"></a>
+								<a href="#" data-relatedlink="re_link"></a>
 								<div>
 									<h3 class="fw-bold mb-1" style="color: white;">사케 할인</h3>
 									<p class="mb-4" style="color: white;">
@@ -164,7 +64,7 @@
 						<div data-trigger-click="click [data-relatedlink=':re:_link']">
 							<div class="py-10 px-8 rounded"
 								style="background: url(/user/template/assets/images/banner/discount_banner3.jpg) no-repeat; background-size: cover; background-position: center">
-								<a href="./pages/shop-sale-brand.html" data-relatedlink="re_link"></a>
+								<a href="#" data-relatedlink="re_link"></a>
 								<div>
 									<h3 class="fw-bold mb-1" style="color: white;">어디 브랜드 사케 할인</h3>
 									<p class="mb-4" style="color: white;">
@@ -466,198 +366,7 @@
 		</section>
 		<!-- Popular Products End-->
 		<section>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 mb-6">
-						<h3 class="mb-0">금일 인기 상품</h3>
-					</div>
-				</div>
-				<div class="table-responsive-lg pb-6">
-					<div class="row row-cols-lg-4 row-cols-1 row-cols-md-2 g-4 flex-nowrap">
-						<div class="col">
-							<div class="pt-8 px-6 px-xl-8 rounded"
-								style="background: url(/user/template/assets/images/banner/banner-deal.jpg) no-repeat; background-size: cover; height: 470px">
-								<div>
-									<h3 class="fw-bold text-white">100% Organic Coffee Beans.</h3>
-									<p class="text-white">Get the best deal before close.</p>
-									<a href="#!" class="btn btn-primary">
-										Shop Now
-										<i class="feather-icon icon-arrow-right ms-1"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<div class="text-center position-relative">
-										<a href="./pages/shop-single.html"><img
-												src="/user/template/assets/images/sake/chugoku_2/yamaguchi/dassi/dassai.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-
-										<!-- <div class="card-product-action">
-											<a href="#!" class="btn-action" data-bs-toggle="modal"
-												data-bs-target="#quickViewModal">
-												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-													title="Quick View"></i>
-											</a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Wishlist"><i class="bi bi-heart"></i></a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-										</div> -->
-									</div>
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>준마이다이긴죠슈</small></a>
-									</div>
-									<h2 class="fs-6"><a href="./pages/shop-single.html"
-											class="text-inherit text-decoration-none">닷사이23</a></h2>
-
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">¥9,100</span>
-											<span class="text-decoration-line-through text-muted">¥9,500</span>
-										</div>
-										<div>
-											<small class="text-warning">
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-half"></i>
-											</small>
-											<span><small>4.5</small></span>
-										</div>
-									</div>
-									<div class="d-grid mt-2">
-										<a href="#!" class="btn btn-primary">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-												viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-												stroke-linecap="round" stroke-linejoin="round"
-												class="feather feather-plus">
-												<line x1="12" y1="5" x2="12" y2="19"></line>
-												<line x1="5" y1="12" x2="19" y2="12"></line>
-											</svg>
-											상품 넣기
-										</a>
-									</div>
-									<div class="d-flex justify-content-start text-center mt-3">
-										<div class="deals-countdown w-100" data-countdown="2028/10/10 00:00:00"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<div class="text-center position-relative">
-										<a href="./pages/shop-single.html"><img
-												src="/user/template/assets/images/products/product-img-12.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-										<!-- <div class="card-product-action">
-											<a href="#!" class="btn-action" data-bs-toggle="modal"
-												data-bs-target="#quickViewModal">
-												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-													title="Quick View"></i>
-											</a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Wishlist"><i class="bi bi-heart"></i></a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-										</div> -->
-									</div>
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>Fruits &
-												Vegetables</small></a>
-									</div>
-									<h2 class="fs-6"><a href="./pages/shop-single.html"
-											class="text-inherit text-decoration-none">Crushed Tomatoes</a></h2>
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">$13</span>
-											<span class="text-decoration-line-through text-muted">$18</span>
-										</div>
-										<div>
-											<small class="text-warning">
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-half"></i>
-											</small>
-											<span><small>4.5</small></span>
-										</div>
-									</div>
-									<div class="d-grid mt-2">
-										<a href="#!" class="btn btn-primary">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-												viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-												stroke-linecap="round" stroke-linejoin="round"
-												class="feather feather-plus">
-												<line x1="12" y1="5" x2="12" y2="19"></line>
-												<line x1="5" y1="12" x2="19" y2="12"></line>
-											</svg>
-											Add to cart
-										</a>
-									</div>
-									<div class="d-flex justify-content-start text-center mt-3 w-100">
-										<div class="deals-countdown w-100" data-countdown="2028/12/9 00:00:00"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<div class="text-center position-relative">
-										<a href="./pages/shop-single.html"><img
-												src="/user/template/assets/images/products/product-img-13.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-										
-									</div>
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>Fruits 
-												Vegetables</small></a>
-									</div>
-									<h2 class="fs-6"><a href="./pages/shop-single.html"
-											class="text-inherit text-decoration-none">Golden Pineapple</a></h2>
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">$13</span>
-											<span class="text-decoration-line-through text-muted">$18</span>
-										</div>
-										<div>
-											<small class="text-warning">
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-half"></i>
-											</small>
-											<span><small>4.5</small></span>
-										</div>
-									</div>
-									<div class="d-grid mt-2">
-										<a href="#!" class="btn btn-primary">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-												viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-												stroke-linecap="round" stroke-linejoin="round"
-												class="feather feather-plus">
-												<line x1="12" y1="5" x2="12" y2="19"></line>
-												<line x1="5" y1="12" x2="19" y2="12"></line>
-											</svg>
-											Add to cart
-										</a>
-									</div>
-									<div class="d-flex justify-content-start text-center mt-3">
-										<div class="deals-countdown w-100" data-countdown="2028/11/11 00:00:00"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 		</section>
 		
 	</main>

@@ -46,4 +46,14 @@ public class ProductUserService {
 	public int filterProductCount(FilterDto filterDTO) {
 		return dao.filterProductCount(filterDTO);
 	}
+	
+	// user index화면
+	
+		public int sakeCount() {
+			return dao.sakeCount();
+		}
+		public List<ProductDto>  randomList(String[] seqList) {
+			return dao.randomList(seqList);
+		}
+		
 }

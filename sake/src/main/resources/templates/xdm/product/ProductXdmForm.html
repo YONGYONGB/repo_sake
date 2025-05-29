@@ -93,8 +93,8 @@
                 <div class="invalid-feedback" id="discountError">
                   Please select a valid state.
                 </div></div>
-              <div class = "col-3"><label for="product_number" class="form-label">재고</label><span style="color: crimson;">*</span> 
-                <input type="text" class="form-control" id="product_number" placeholder="가격을 입력하세요." required name="pd_quantity" th:value="${item.pd_quantity}">
+              <div class = "col-3"><label for="pd_quantity" class="form-label">재고</label><span style="color: crimson;">*</span> 
+                <input type="text" class="form-control" id="pd_quantity" placeholder="가격을 입력하세요." required name="pd_quantity" th:value="${item?.pd_quantity}">
                 <div class="invalid-feedback" id="numberError">
                     Please select a valid state.
                   </div></div>   
@@ -270,8 +270,8 @@
 	    document.getElementById("discountNY").classList.remove("is-invalid");
 	    document.getElementById("discountNY").classList.remove("is-valid");
 	    
-	    document.getElementById("product_number").classList.remove("is-invalid");
-	    document.getElementById("product_number").classList.remove("is-valid");
+	    document.getElementById("pd_quantity").classList.remove("is-invalid");
+	    document.getElementById("pd_quantity").classList.remove("is-valid");
 	    
 	    document.getElementById("pd_use").classList.remove("is-invalid");
 	    document.getElementById("pd_use").classList.remove("is-valid");
@@ -402,22 +402,22 @@
 		}
 		
 		
-		const number = document.getElementById("product_number").value;
+		const number = document.getElementById("pd_quantity").value;
  		let num = /^[0-9]{1,10}$/;
 		if(number == null || number == ""){
 			document.getElementById("numberError").textContent = "재고를 입력해주세요.";
-			document.getElementById("product_number").classList.add("is-invalid");
+			document.getElementById("pd_quantity").classList.add("is-invalid");
 			isValid = false;
 		}else if(number.trim() != number){
 			document.getElementById("numberError").textContent = "띄어쓰기를 제거해주세요.";
-			document.getElementById("product_number").classList.add("is-invalid");
+			document.getElementById("pd_quantity").classList.add("is-invalid");
 			isValid = false;
 		}else if(!num.test(number)){
 			document.getElementById("numberError").textContent = "숫자로만 구성된 3~10자리의 가격을 만드세요.";
-			document.getElementById("product_number").classList.add("is-invalid");
+			document.getElementById("pd_quantity").classList.add("is-invalid");
 			isValid = false;
 		}else{
-			document.getElementById("product_number").classList.add("is-valid"); 	
+			document.getElementById("pd_quantity").classList.add("is-valid"); 	
 		}
 			
 		const dc = document.getElementById("discount_dc_id").value;	

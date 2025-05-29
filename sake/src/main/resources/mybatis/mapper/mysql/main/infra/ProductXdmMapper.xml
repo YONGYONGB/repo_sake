@@ -368,6 +368,28 @@
 	
 	
 	
+	<!-- userindex 화면 -->
+	<select id="randomList" resultMap="resultMapObj">
+		select
+			a.pd_id,
+			a.name,
+			c.path
+		from
+			product a
+			left join productUploaded c on c.pseq = a.pd_id
+			where 1=1
+			and a.pd_id in
+			<foreach collection="seqList" item="seq"  open="(" separator="," close=")">
+				#{seq}
+			</foreach>
+	</select>
+	
+	
+	<select id="sakeCount" resultType="Integer">
+  		SELECT COUNT(*)
+  		FROM product a
+	</select>
+	
 	
 	
 	<select id="urlcount" resultType="Integer">

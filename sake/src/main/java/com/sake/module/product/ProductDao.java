@@ -32,6 +32,8 @@ public interface ProductDao extends BaseDao{
 	
 	public List<ProductDto> localcheck(ProductDto dto);
 	
+
+	public int urlcount(String pseq);
 	
 	///  유저
 	
@@ -56,5 +58,13 @@ public interface ProductDao extends BaseDao{
 	
 	public List<ProductDto> filterProducts(FilterDto filterDto); 
 	
-	public int urlcount(String pseq);
+	
+	// user index화면
+	
+	public int sakeCount();
+	public List<ProductDto>  randomList(@Param("seqList")String[] seqList);
+	
+	
+	
+	
 }
