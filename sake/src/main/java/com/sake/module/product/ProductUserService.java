@@ -43,5 +43,7 @@ public class ProductUserService {
     }
 
 	
-	
+	public int filterProductCount(FilterDto filterDTO) {
+		return dao.filterProductCount(filterDTO);
+	}
 }

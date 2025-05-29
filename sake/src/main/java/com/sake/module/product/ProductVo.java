@@ -15,7 +15,6 @@ public class ProductVo extends BaseVo{
 	
 	
 	
-	
 	private String discount_dc_id;
 	private Integer seq;
 	

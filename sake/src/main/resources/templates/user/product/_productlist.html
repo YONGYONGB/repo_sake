@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 </head>
 <body>
-			<div id="product-list"> 
+		<div th:fragment="productFragment">
+		
+		
+			<div> 
                  <div class="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2"> <!--상품 목록 위 -->
                      <!-- col -->
                      <div th:if="${#lists.isEmpty(items)}" class="hover-actions-trigger btn-reveal-trigger position-static">    		
@@ -12,7 +15,8 @@
                   	</div>
                      <div th:if="${!#lists.isEmpty(items)}" class="col" th:each="item: ${items}">
                         <!-- card -->
-                        <div class="card card-product">								<!-- 상품 시작점 -->
+                        <div class="card card-product h-100 d-flex flex-column">
+							<!-- 상품 시작점 -->
                            <div class="card-body">
                               <!-- badge -->
                               <div class="text-center position-relative">
@@ -57,56 +61,34 @@
                                  </div>
                                  <!-- btn -->
                                  <div>
-                                    <!-- <a href="#!" class="btn btn-primary btn-sm">
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                          stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                                          <line x1="12" y1="5" x2="12" y2="19"></line>
-                                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                                       </svg>
-                                       Add
-                                    </a> -->
+                                  
                                  </div>
                               </div>
                            </div>
                         </div>
                      </div>
-                     <!-- 페이징 -->
-                     	<div class="mt-6">
+                  </div>
+                  </div>
+                  <!-- row -->
+                  <!-- Pagination Start -->
+							
+							<div class="mt-6">
 							    <nav>
-							        <ul class="pagination justify-content-center">
-							            <!-- 이전 페이지 -->
-							            <li class="page-item" th:if="${ProductVo.thisPage > ProductVo.pageNumToShow}" style="cursor: pointer;">
-							                <a class="page-link"
-							                   th:attr="onclick=|goList('${ProductVo.startPage - 1}')|">
-							                    <span>&laquo;</span>
-							                </a>
-							            </li>
-							
-							            <!-- 페이지 번호 -->
-							            <li class="page-item"
-							                th:each="num : ${#numbers.sequence(ProductVo.startPage, ProductVo.endPage)}"
-							                th:classappend="${num == ProductVo.thisPage} ? 'active' : ''"
-							                style="cursor: pointer;">
-							                <a class="page-link"
-							                   th:attr="onclick=|goList('${num}')|"
-							                   th:text="${num}">
-							                </a>
-							            </li>
-							
-							            <!-- 다음 페이지 -->
-							            <li class="page-item" th:if="${ProductVo.endPage < ProductVo.totalPages}" style="cursor: pointer;">
-							                <a class="page-link"
-							                   th:attr="onclick=|goList('${ProductVo.endPage + 1}')|"
-							                   >
-							                    <span>&raquo;</span>
-							                </a>
-							            </li>
-							        </ul>
-							    </nav>
+  <ul class="pagination justify-content-center">
+    <li class="page-item" th:if="${ProductVo.thisPage > ProductVo.pageNumToShow}" style="cursor: pointer;">
+      <a class="page-link" href="javascript:void(0);" th:onclick="|goList(${ProductVo.startPage - 1})|">&laquo;</a>
+    </li>
+    <li class="page-item" th:each="num : ${#numbers.sequence(ProductVo.startPage, ProductVo.endPage)}"
+        th:classappend="${num == ProductVo.thisPage} ? 'active' : ''" style="cursor: pointer;">
+      <a class="page-link" href="javascript:void(0);" th:onclick="|goList(${num})|"
+         th:text="${num}"></a>
+    </li>
+    <li class="page-item" th:if="${ProductVo.endPage < ProductVo.totalPages}" style="cursor: pointer;">
+      <a class="page-link" href="javascript:void(0);" th:onclick="|goList(${ProductVo.endPage + 1})|">&raquo;</a>
+    </li>
+  </ul>
+</nav>
 							</div>
-                     
-                  </div>
-                  </div>
+		</div>
 </body>
 </html>

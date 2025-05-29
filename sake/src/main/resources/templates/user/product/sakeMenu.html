@@ -5,9 +5,9 @@
 
 
    <main>
-   <form id="form" method="get" action="/user/product/sakeMenu">
-   	 <input type="hidden" name="thisPage" th:value="${ProductVo.thisPage}">
-      <input type="hidden" name="seq" th:value="${seq}"> 
+   <form id="form">
+   	 <input type="hidden" id="thisPage" name="thisPage"  th:value="${ProductVo != null and ProductVo.thisPage != null ? ProductVo.thisPage : 1}">
+      <input type="hidden" id="seq" name="seq" th:value="${seq}"> 
       <!-- section-->
       <div class="mt-4">
          <div class="container">
@@ -47,7 +47,7 @@
                            <h5 class="mb-3">사케</h5>
                            <div class="my-4 input-group">
                               <!-- input -->
-                              <input type="search" class="form-control" placeholder="이름 및 브랜드" />
+                              <input type="search" class="form-control" id="shValue" name="shValue" th:value="${shValue} ?: ''" placeholder="이름 및 브랜드" /> 
                               <span class="input-group-append">
 											<button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end"
 												type="button">
@@ -66,52 +66,52 @@
                               <!-- form check -->
                               <div class="form-check mb-2">
                                  <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="11" data-type="type"/>
-                                 <label class="form-check-label" for="eGrocery">준마이다이긴죠슈(純米大吟醸酒)</label>
+                                 <input class="form-check-input" type="radio" id="type11" name="type" data-value="11" data-type="type"/>
+                                 <label class="form-check-label" for="type11">준마이다이긴죠슈(純米大吟醸酒)</label>
                               </div>
                               <!-- form check -->
                               <div class="form-check mb-2">
                                  <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="12" data-type="type"/>
-                                 <label class="form-check-label" for="Dmart">준마이긴죠슈(純米吟醸酒)</label>
+                                 <input class="form-check-input" type="radio" id="type12" name="type" data-value="12" data-type="type"/>
+                                 <label class="form-check-label" for="type12">준마이긴죠슈(純米吟醸酒)</label>
                               </div>
                               <div class="form-check mb-2">
                                  <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="13" data-type="type"/>
-                                 <label class="form-check-label" for="StoreFront">토쿠베츠준마이슈(特別純米酒)</label>
+                                 <input class="form-check-input" type="radio"  id="type13" name="type" data-value="13" data-type="type"/>
+                                 <label class="form-check-label" for="type13">토쿠베츠준마이슈(特別純米酒)</label>
                               </div>
                               <div class="form-check mb-2">
                                  <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="14" data-type="type" />
-                                 <label class="form-check-label" for="BigBasket">준마이슈(純米酒)</label>
+                                 <input class="form-check-input" type="radio" id="type14" name="type" data-value="14" data-type="type" />
+                                 <label class="form-check-label" for="type14">준마이슈(純米酒)</label>
                               </div>
                               <div class="form-check mb-2">
                                  <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="15" data-type="type" />
-                                 <label class="form-check-label" for="DealShare">다이긴죠슈(大吟醸酒)</label>
-                              </div>
-                              <!-- form check -->
-                              <div class="form-check mb-2">
-                                 <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="16" data-type="type" />
-                                 <label class="form-check-label" for="Blinkit">긴죠슈(吟醸酒)</label>
+                                 <input class="form-check-input" type="radio"  id="type15" name="type" data-value="15" data-type="type" />
+                                 <label class="form-check-label" for="type15">다이긴죠슈(大吟醸酒)</label>
                               </div>
                               <!-- form check -->
                               <div class="form-check mb-2">
                                  <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="17" data-type="type" />
-                                 <label class="form-check-label" for="Spencers">토쿠베츠혼죠조슈(特別本醸造酒)</label>
+                                 <input class="form-check-input" type="radio" id="type16" name="type" data-value="16" data-type="type" />
+                                 <label class="form-check-label" for="type16">긴죠슈(吟醸酒)</label>
                               </div>
                               <!-- form check -->
                               <div class="form-check mb-2">
                                  <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="18" data-type="type" />
-                                 <label class="form-check-label" for="onlineGrocery">혼죠조슈(本醸造酒)</label>
+                                 <input class="form-check-input" type="radio" id="type17" name="type" data-value="17" data-type="type" />
+                                 <label class="form-check-label" for="type17">토쿠베츠혼죠조슈(特別本醸造酒)</label>
+                              </div>
+                              <!-- form check -->
+                              <div class="form-check mb-2">
+                                 <!-- input -->
+                                 <input class="form-check-input" type="radio"  id="type18" name="type" data-value="18" data-type="type" />
+                                 <label class="form-check-label" for="type18">혼죠조슈(本醸造酒)</label>
                               </div>
                               <div class="form-check mb-2">
                                  <!-- input -->
-                                 <input class="form-check-input" type="checkbox" data-value="19" data-type="type"/>
-                                 <label class="form-check-label" for="onlineGrocery">기타</label>
+                                 <input class="form-check-input" type="radio"  id="type19" name="type" data-value="19" data-type="type"/>
+                                 <label class="form-check-label" for="type19">기타</label>
                               </div>
                            </div>
                         </div>
@@ -358,75 +358,6 @@
                               <span id="priceRange-value" class="small"></span>
                            </div>
                         </div>
-                        <!-- rating -->
-                        <div class="mb-8">
-                           <h5 class="mb-3">별점</h5>
-                           <div>
-                              <!-- form check -->
-                              <div class="form-check mb-2">
-                                 <!-- input -->
-                                 <input class="form-check-input" type="checkbox" value="" id="ratingFive" />
-                                 <label class="form-check-label" for="ratingFive">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                 </label>
-                              </div>
-                              <!-- form check -->
-                              <div class="form-check mb-2">
-                                 <!-- input -->
-                                 <input class="form-check-input" type="checkbox" value="" id="ratingFour" checked />
-                                 <label class="form-check-label" for="ratingFour">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                 </label>
-                              </div>
-                              <!-- form check -->
-                              <div class="form-check mb-2">
-                                 <!-- input -->
-                                 <input class="form-check-input" type="checkbox" value="" id="ratingThree" />
-                                 <label class="form-check-label" for="ratingThree">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                 </label>
-                              </div>
-                              <!-- form check -->
-                              <div class="form-check mb-2">
-                                 <!-- input -->
-                                 <input class="form-check-input" type="checkbox" value="" id="ratingTwo" />
-                                 <label class="form-check-label" for="ratingTwo">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                 </label>
-                              </div>
-                              <!-- form check -->
-                              <div class="form-check mb-2">
-                                 <!-- input -->
-                                 <input class="form-check-input" type="checkbox" value="" id="ratingOne" />
-                                 <label class="form-check-label" for="ratingOne">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                    <i class="bi bi-star text-warning"></i>
-                                 </label>
-                              </div>
-                           </div>
-                        </div>
-                        <div>
-                        	<button id="filterButton" onclick="applyFilters()">필터 적용</button>
-                        </div>
                      </div>
                   </div>
                </aside>
@@ -465,136 +396,10 @@
                      </div>
                   </div>
                   <!-- row -->
-                 <div id="product-list"> 
-                 <div class="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2"> <!--상품 목록 위 -->
-                     <!-- col -->
-                     <div th:if="${#lists.isEmpty(items)}" class="hover-actions-trigger btn-reveal-trigger position-static">    		
-                  			<p class="fs-3 text-center my-4">사케가 없습니다!</p>        		
-                  	</div>
-                     <div th:if="${!#lists.isEmpty(items)}" class="col" th:each="item: ${items}">
-                        <!-- card -->
-                        <div class="card card-product">								<!-- 상품 시작점 -->
-                           <div class="card-body">
-                              <!-- badge -->
-                              <div class="text-center position-relative">
-                                 <div class="position-absolute top-0 start-0">
-                                    <!-- <span class="badge bg-danger">Sale</span> -->
-                                 </div> 
-                                 <a th:href="@{/user/product/sakeProduct(pd_id=${item.pd_id})}">
-                                    <!-- img -->
-                                    <img th:if="${item != null}" th:src="@{${item.path}}"class="mb-3 img-fluid item-img" />
-                                 </a>
-                                 <!-- action btn -->
-                                 
-                              </div>
-                              <!-- heading -->
-                              <div class="text-small mb-1">
-                                 <a th:href="@{/user/product/sakeMenu(seq=${item.type})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.type)}"><small>준마이다이긴죠슈</small></a>
-                              </div>
-                              <div class="text-small mb-1">
-                                 <a th:href="@{/user/product/sakeMenu(seq=${item.local})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.local)}"><small>주고쿠</small></a>
-                                 <a th:href="@{/user/product/sakeMenu(seq=${item.local_detail})}" class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.local_detail)}"><small>야마구치현</small></a>
-                                 <a  class="text-decoration-none text-muted" th:text ="${@codeService.selectOneCachedCode(item.brand)}"><small>닷사이</small></a>
-                              </div>
-                             
-                              <h2 class="fs-6"><a th:href="@{/user/product/sakeProduct(pd_id=${item.pd_id})}"
-                                    class="text-inherit text-decoration-none" th:text ="${item.name}">닷사이23</a></h2>
-                              <div>
-                                 <!-- rating -->
-                                 <small class="text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-half"></i>
-                                 </small>
-                                 <span class="text-muted small">4.5(149)</span>
-                              </div>
-                              <!-- price -->
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                 <div>
-                                    <span class="text-dark price"  th:text ="|${item.fixed_price}¥| ">¥9,100</span>
-                                    <span class="text-decoration-line-through text-muted price"  th:text ="|${item.fixed_price}¥|">¥9,500</span>
-                                 </div>
-                                 <!-- btn -->
-                                 <div>
-                                   <!--  <a href="#!" class="btn btn-primary btn-sm">
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                          stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                                          <line x1="12" y1="5" x2="12" y2="19"></line>
-                                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                                       </svg>
-                                       Add
-                                    </a> -->
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  </div>
-                  <!-- row -->
-                  <!-- Pagination Start -->
-							
-							<div class="mt-6">
-							    <nav>
-							        <ul class="pagination justify-content-center">
-							            <!-- 이전 페이지 -->
-							            <li class="page-item" th:if="${ProductVo.thisPage > ProductVo.pageNumToShow}" style="cursor: pointer;">
-							                <a class="page-link"
-							                   th:attr="onclick=|goList('${ProductVo.startPage - 1}')|">
-							                    <span>&laquo;</span>
-							                </a>
-							            </li>
-							
-							            <!-- 페이지 번호 -->
-							            <li class="page-item"
-							                th:each="num : ${#numbers.sequence(ProductVo.startPage, ProductVo.endPage)}"
-							                th:classappend="${num == ProductVo.thisPage} ? 'active' : ''"
-							                style="cursor: pointer;">
-							                <a class="page-link"
-							                   th:attr="onclick=|goList('${num}')|"
-							                   th:text="${num}">
-							                </a>
-							            </li>
-							
-							            <!-- 다음 페이지 -->
-							            <li class="page-item" th:if="${ProductVo.endPage < ProductVo.totalPages}" style="cursor: pointer;">
-							                <a class="page-link"
-							                   th:attr="onclick=|goList('${ProductVo.endPage + 1}')|"
-							                   >
-							                    <span>&raquo;</span>
-							                </a>
-							            </li>
-							        </ul>
-							    </nav>
-							</div>
-							<!-- Pagination End -->
-                  <!-- <div class="row mt-8">
-                     <div class="col">
-                        nav
-                        <nav>
-                           <ul class="pagination">
-                              <li class="page-item disabled">
-                                 <a class="page-link mx-1" href="#" aria-label="Previous">
-                                    <i class="feather-icon icon-chevron-left"></i>
-                                 </a>
-                              </li>
-                              <li class="page-item"><a class="page-link mx-1 active" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link mx-1" href="#">2</a></li>
-
-                              <li class="page-item"><a class="page-link mx-1" href="#">...</a></li>
-                              <li class="page-item"><a class="page-link mx-1" href="#">12</a></li>
-                              <li class="page-item">
-                                 <a class="page-link mx-1" href="#" aria-label="Next">
-                                    <i class="feather-icon icon-chevron-right"></i>
-                                 </a>
-                              </li>
-                           </ul>
-                        </nav>
-                     </div>
-                  </div> -->
+                  <div class="mb-6" id="pdList">
+						<!-- Ajax -->
+				 </div>
+             
                </section>
             </div>
          </div>
@@ -609,16 +414,118 @@
    <!-- footer -->
    <div th:replace = "~{user/include/footer :: footer}"></div>
    
- <script>
-  document.querySelectorAll('.price').forEach(priceElement => {
-    // 현재 가격값 가져오기 (문자열로 되어 있을 가능성 있음)
-    let price = parseInt(priceElement.textContent.replace(/,/g, ''));  // 쉼표 제거 후 숫자화
-    
-    // 숫자에 천 단위 쉼표 추가
-    priceElement.textContent =  '¥'+ price.toLocaleString();  // 예: 1,000,000
-    
-  });
+
+
+<!-- pdlist 로드 -->
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(){
+	checkpd();
+})
+
+function checkpd(){
+	const seq = document.getElementById("seq").value;
+	const thisPage = document.getElementById("thisPage").value;
+	
+	fetch(`/user/product/filter?thisPage=${thisPage}&seq=${seq}`)
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById("pdList").innerHTML = html;
+        document.getElementById("thisPage").value = thisPage; 
+    })
+    .catch(error => console.error("리뷰 로딩 실패: ", error));
+}
+
 </script>
+
+<!-- 필터링 -->
+
+	<script type="text/javascript">
+	
+	// 페이징
+	function goList(thisPage) {
+    const seq = document.getElementById("seq").value;
+    fetch(`/user/product/filter?thisPage=${thisPage}&seq=${seq}`)
+      .then(res => res.text())
+      .then(html => {
+          document.getElementById("pdList").innerHTML = html;
+          // hidden input도 현재 페이지로 갱신
+          document.getElementById("thisPage").value = thisPage;
+      })
+      .catch(err => console.error("상품 리스트 로딩 실패:", err));
+	}
+		
+	</script>
+
+
+<script>
+$(function(){
+    let typingTimer;
+
+    $('#shValue').on('keyup', function(e){
+        e.preventDefault();
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(function(){
+            applyFilterFromUI(1);
+        }, 500);
+    });
+
+    $('.nav-link[data-type="local_detail"]').on('click', function(e){
+        e.preventDefault();
+        $('.nav-link[data-type="local_detail"]').removeClass('active');
+        $(this).addClass('active');
+        applyFilterFromUI(1);
+    });
+    
+    $('input[data-type="type"]').on('change', function() {
+        applyFilterFromUI(1);
+    });
+
+    $("#priceRange").slider({
+        range: true,
+        min: 0,
+        max: 100000,
+        values: [1000, 30000],
+        slide: function(event, ui) {
+            $("#priceRange-value").text(ui.values[0].toLocaleString() + " - " + ui.values[1].toLocaleString());
+        }
+    });
+    $("#priceRange-value").text(
+        $("#priceRange").slider("values", 0).toLocaleString() + " - " +
+        $("#priceRange").slider("values", 1).toLocaleString()
+    );
+});
+
+function applyFilterFromUI(thisPage) {
+    var localDetail = $('.nav-link.active[data-type="local_detail"]').data('value') || null;
+    var selectedType = $('input[data-type="type"]:checked').data('value') || null;
+    var shValue = $('#shValue').val() || '';
+    var minPrice = $("#priceRange").slider("values", 0);
+    var maxPrice = $("#priceRange").slider("values", 1);
+    var seq = $('#seq').val() || null;
+
+    $.ajax({
+        url: '/user/product/addfilter',
+        method: 'GET',
+        data: {
+            local_detail: localDetail,
+            type: selectedType,
+            shValue: shValue,
+            thisPage: thisPage,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+            seq: seq
+        },
+        success: function(response){
+            $('#pdList').html(response);
+        },
+        error: function(){
+            alert('필터 적용 실패');
+        }
+    });
+}
+</script>
+
+
 
 <!-- 가격 -->
 <script>
@@ -635,107 +542,6 @@
     $("#priceRange-value").text($("#priceRange").slider("values", 0) +
       "원 - " + $("#priceRange").slider("values", 1) + "¥");
   });
-</script>
-
-
-<!-- 필터링 -->
-
-	<script type="text/javascript">
-	
-	// 페이징
-	let form = document.querySelector('form');
-
-	function goList(thisPage) {
-	    document.querySelector("input[name=thisPage]").value = thisPage;
-
-	    const seqInput = document.querySelector("input[name=seq]");
-	    if (!seqInput || !seqInput.value) {
-	        alert("seq 값이 없습니다.");
-	        return;
-	    }
-
-	    const form = document.getElementById("form");
-	    if (!form) {
-	        alert("form을 찾을 수 없습니다.");
-	        return;
-	    }
-	    form.submit();
-	}
-
-	// 검색
-	document.getElementById("btnSearch").onclick = function () {
-		document.querySelector("input[name=thisPage]").value = 1;
-	    form.submit();
-	};
-		
-		
-	</script>
-
-
-
-
-<script type="text/javascript">
-
-
-function applyFilterFromUI() {
-    // 지역 필터 (a 태그 중 active된 것의 data-value 가져오기)
-    var localDetail = $('.nav-link.active[data-type="local_detail"]').data('value');
-
-    // 타입 필터 (체크된 체크박스의 value들 중 첫 번째만 사용 - 단일 선택 가정)
-    var checkedType = $('input[data-type="type"]:checked').map(function () {
-        return $(this).data('value');
-    }).get();
-	
-    
-    
-    // 가격 정보 가져오기
-    var priceRange = $('#priceRange-value').text(); // 예: "1000원 - 5000원"
-	var prices = priceRange.split('-').map(function (item) {
-    	return item.trim().replace(/[^0-9]/g, ''); // 숫자만 남기기
-	});
-	var minPrice = prices[0] ? parseInt(prices[0]) : null;
-	var maxPrice = prices[1] ? parseInt(prices[1]) : null;
-
-    // 첫 번째 체크된 타입만 사용 (단일 타입 필터 기준, 다중 타입은 별도 처리 필요)
-    var type = checkedType.length > 0 ? checkedType[0] : null;
-    
-	// seq값 가져오기
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentSeq = urlParams.get("seq");
-    
-    $.ajax({
-        url: '/user/product/filter',
-        method: 'GET',
-        data: {
-        	seq: currentSeq,
-            local_detail: localDetail,
-            type: type,
-            minPrice: minPrice,
-            maxPrice: maxPrice
-        },
-        success: function (response) {
-            $('#product-list').html(response);
-        },
-        error: function () {
-            alert('필터 적용에 실패했습니다.');
-        }
-    });
-}
-
-
-$(document).on('click', '.nav-link[data-type="local_detail"]', function (e) {
-    e.preventDefault();
-    // 기존 active 제거하고 새로 설정
-    $('.nav-link[data-type="local_detail"]').removeClass('active');
-    $(this).addClass('active');
-
-    applyFilterFromUI();
-});
-
-// 타입 체크박스 선택 시
-$(document).on('change', 'input[data-type="type"]', function () {
-    applyFilterFromUI();
-});
 </script>
 
 

@@ -51,7 +51,7 @@ public interface ProductDao extends BaseDao{
 	public int counttypeList(@Param("type")int type, @Param("vo") ProductVo vo);
 	
 	
-	
+	public int filterProductCount(FilterDto filterDTO);
 	
 	
 	public List<ProductDto> filterProducts(FilterDto filterDto); 
