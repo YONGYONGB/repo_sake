@@ -50,6 +50,7 @@
 	<select id="findOpList" resultMap="resultMapObj">
 	select
 		op.op_id
+		,p.pd_id
 		,p.name
 		,uo.od_date
 		,op.product_quantity
