@@ -34,7 +34,7 @@ public class MemberController extends BaseController{
 		vo.setParamsPaging(memberService.selectOneCount(vo));		
 		model.addAttribute("list", memberService.selectList(vo));
 		
-		return "/xdm/member/MemberXdmList";
+		return "xdm/member/MemberXdmList";
 	}
 	
 	
@@ -46,7 +46,7 @@ public class MemberController extends BaseController{
 			model.addAttribute("item",memberService.selectView(memberdto));
 		}
 		
-		return "/xdm/member/MemberXdmForm";
+		return "xdm/member/MemberXdmForm";
 	}
 	
 	@RequestMapping(value ="MemberXdmInst")
@@ -72,7 +72,7 @@ public class MemberController extends BaseController{
 	
 	@RequestMapping(value ="SigninXdmForm")
 	public String login() {
-		return "/xdm/member/SigninXdmForm";
+		return "xdm/member/SigninXdmForm";
 	}
 	
 	

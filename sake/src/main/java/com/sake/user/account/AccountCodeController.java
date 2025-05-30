@@ -29,14 +29,14 @@ public class AccountCodeController extends UserBaseController{
 	
 	@RequestMapping(value="ChangeUserPassword")
 	public String ChangeUserPassword() {
-		return "/user/account/ChangeUserPassword";
+		return "user/account/ChangeUserPassword";
 	}
 	//////////////////////////////////////////////
 	// 비밀번호 변경
 	@RequestMapping(value="UserAccountPassword")
 	public String UserAccountPassword(HttpSession httpSession,MemberDto dto,Model model) {
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
-		return "/user/account/UserAccountPassword";
+		return "user/account/UserAccountPassword";
 	}
 	
 	@ResponseBody   //	json정보를  매핑시켜줌.
@@ -72,7 +72,7 @@ public class AccountCodeController extends UserBaseController{
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
 		accountCodeService.accountSetting(dto.getUser_id());
 		model.addAttribute("item", accountCodeService.accountSetting(dto.getUser_id()));
-		return "/user/account/UserAccountSettings";
+		return "user/account/UserAccountSettings";
 		
 	}
 	///////////////////////////////
@@ -146,14 +146,14 @@ public class AccountCodeController extends UserBaseController{
 	//계정탈퇴
 	@RequestMapping(value="UserAccountWithdraw")
 	public String UserAccountWithdraw() {
-		return "/user/account/UserAccountWithdraw";
+		return "user/account/UserAccountWithdraw";
 	}
 	
 	@RequestMapping(value="WithdrawAction")
 	public String withdrawAction(HttpSession httpSession,MemberDto dto){
 		dto.setUser_id(httpSession.getAttribute("sessSeqUser").toString());
 		accountCodeService.withdrawAction(dto.getUser_id());
-		return"/user/index/UserIndex";
+		return"user/index/UserIndex";
 	}
 	
 	
@@ -171,12 +171,12 @@ public class AccountCodeController extends UserBaseController{
 	public String UserAccountAddress(HttpSession httpSession,AccountCodeDto dto, Model model) {
 		dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
 		model.addAttribute("lists",accountCodeService.addressList(dto));
-		return "/user/account/UserAccountAddress";
+		return "user/account/UserAccountAddress";
 	}
 	// 추가하는 주소
 	@RequestMapping(value="UserAccountAddAddress")
 	public String UserAccountAddAddress() {
-		return "/user/account/UserAccountAddAddress";
+		return "user/account/UserAccountAddAddress";
 	}
 	
 	// 추가행위
@@ -212,7 +212,7 @@ public class AccountCodeController extends UserBaseController{
 	///////////////////////////////
 	@RequestMapping(value="UserAccountPayment")
 	public String UserAccountPayment() {
-		return "/user/account/UserAccountPayment";
+		return "user/account/UserAccountPayment";
 	}
 	
 }

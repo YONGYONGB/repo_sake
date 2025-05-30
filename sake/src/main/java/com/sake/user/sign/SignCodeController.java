@@ -36,7 +36,7 @@ public class SignCodeController extends UserBaseController{
 	@RequestMapping(value ="signup")
 	public String signup(Model model, CodeDto codeDto, CodeVo vo){
 
-		return "/user/sign/signup";
+		return "user/sign/signup";
 	}
 	
 	
@@ -46,7 +46,7 @@ public class SignCodeController extends UserBaseController{
 	@RequestMapping(value ="signin")
 	public String signin(Model model, CodeDto codeDto, CodeVo vo){
 
-		return "/user/sign/signin";
+		return "user/sign/signin";
 	}
 
 	

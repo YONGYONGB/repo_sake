@@ -31,7 +31,7 @@ public class CodeController extends BaseController{
 		model.addAttribute("vo", vo);
 		vo.setParamsPaging(codeService.selectOneCount(vo));
 		model.addAttribute("list", codeService.selectList(vo));
-		return "/xdm/code/CodeXdmList";
+		return "xdm/code/CodeXdmList";
 	}
 	
 	
@@ -48,7 +48,7 @@ public class CodeController extends BaseController{
 			System.out.println(codeDto);
 		}
 		
-		return "/xdm/code/CodeXdmForm";
+		return "xdm/code/CodeXdmForm";
 	}
 	
 	

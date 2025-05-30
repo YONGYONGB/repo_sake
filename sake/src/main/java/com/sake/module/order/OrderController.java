@@ -8,13 +8,11 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,9 +29,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.UUID;
+
+import com.sake.module.product.ProductVo;
 import com.sake.user.cart.CartService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -157,21 +155,21 @@ public class OrderController {
 
 	    @RequestMapping(value = "/", method = RequestMethod.GET)
 	    public String index() {
-	        return "/widget/checkout";
+	        return "widget/checkout";
 	    }
 
 	    @RequestMapping(value = "/fail", method = RequestMethod.GET)
 	    public String failPayment(HttpServletRequest request, Model model) {
 	        model.addAttribute("code", request.getParameter("code"));
 	        model.addAttribute("message", request.getParameter("message"));
-	        return "/fail";
+	        return "fail";
 	    }
 	    
 	    
 	    
 	  //주문내역
 		@RequestMapping(value="/user/order/UserOrderDetails")
-		public String UserOrderDetails(HttpSession httpSession, OrderDto dto, Model model) {
+		public String UserOrderDetails(HttpSession httpSession,ProductVo vo,OrderDto dto, Model model) {
 			dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
 			
 			
@@ -179,7 +177,7 @@ public class OrderController {
 			model.addAttribute("lists",	service.findOpList(odIdList));
 			
 			
-			return "/user/account/UserOrderDetails";
+			return "user/account/UserOrderDetails";
 		}
 		
 		//header에 주문 숫자 담기.

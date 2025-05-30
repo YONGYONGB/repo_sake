@@ -59,9 +59,13 @@ public interface ProductDao extends BaseDao{
 	public List<ProductDto> filterProducts(FilterDto filterDto); 
 	
 	
+	
+	
+	
 	// user index화면
 	
 	public int sakeCount();
+	
 	public List<ProductDto>  randomList(@Param("seqList")String[] seqList);
 	
 	

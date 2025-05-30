@@ -27,7 +27,7 @@ public class DiscountController extends BaseController{
 		model.addAttribute("vo", vo);
 		vo.setParamsPaging(discountService.selectOneCount(vo));
 		model.addAttribute("list", discountService.selectList(vo));
-		return "/xdm/discount/DiscountXdmList";
+		return "xdm/discount/DiscountXdmList";
 	}
 	
 	
@@ -41,7 +41,7 @@ public class DiscountController extends BaseController{
 			model.addAttribute("item", discountService.selectView(discountDto));
 		}
 		
-		return "/xdm/discount/DiscountXdmForm";
+		return "xdm/discount/DiscountXdmForm";
 	}
 	
 	@RequestMapping( value = "DiscountXdmInsert")

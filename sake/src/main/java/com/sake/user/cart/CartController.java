@@ -35,7 +35,7 @@ public class CartController extends UserBaseController{
 		accountdto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
 		model.addAttribute("lists", service.cartList(dto));
 		model.addAttribute("address",accountCodeService.addressList(accountdto));
-		return "/user/cart/ShoppingCart";
+		return "user/cart/ShoppingCart";
 	}
 	
 	// 물품 seq, 수량,가격, 정보 넘겨주기

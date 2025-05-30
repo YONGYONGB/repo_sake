@@ -38,7 +38,7 @@ public class CodeGroupController extends BaseController{
 		model.addAttribute("lists", codeGroupService.selectList(vo));
 		
 		
-		return "/xdm/codegroup/CodeGroupXdmList";
+		return "xdm/codegroup/CodeGroupXdmList";
 	}
 	
 	
@@ -51,7 +51,7 @@ public class CodeGroupController extends BaseController{
 			model.addAttribute("item", codeGroupService.selectView(codeGroupDto));
 		}
 		
-		return "/xdm/codegroup/CodeGroupForm";
+		return "xdm/codegroup/CodeGroupForm";
 	}
 
 	

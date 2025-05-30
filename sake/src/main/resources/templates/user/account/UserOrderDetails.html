@@ -2,9 +2,11 @@
 <html lang="kor" xmlns:th="http://www.thymeleaf.org">
 <div th:replace = "~{user/include/header :: header}"></div> 
 	<main>
+	<form>
 		<!-- section -->
 		<section>
 			<div class="container">
+			<input type="hidden" id="thisPage" name="thisPage"  th:value="${ProductVo != null and ProductVo.thisPage != null ? ProductVo.thisPage : 1}">
 				<!-- row -->
 				<div class="row">
 					<!-- col -->
@@ -75,15 +77,43 @@
 										</tr>
 									</tbody>
 								</table>
+								<div class="mt-6">
+						<!-- <nav>
+  							<ul class="pagination justify-content-center">
+    							<li class="page-item" th:if="${ProductVo.thisPage > ProductVo.pageNumToShow}" style="cursor: pointer;">
+      								<a class="page-link" href="javascript:void(0);" th:onclick="|goList(${ProductVo.startPage - 1})|">&laquo;</a>
+    							</li>
+    							<li class="page-item" th:each="num : ${#numbers.sequence(ProductVo.startPage, ProductVo.endPage)}"
+        						th:classappend="${num == ProductVo.thisPage} ? 'active' : ''" style="cursor: pointer;">
+      								<a class="page-link" href="javascript:void(0);" th:onclick="|goList(${num})|" th:text="${num}"></a>
+    							</li>
+    							<li class="page-item" th:if="${ProductVo.endPage < ProductVo.totalPages}" style="cursor: pointer;">
+     								<a class="page-link" href="javascript:void(0);" th:onclick="|goList(${ProductVo.endPage + 1})|">&raquo;</a>
+    							</li>
+  							</ul>
+						</nav> -->
+					</div>
 							</div>
 						</div>
 					</div>
 				<!-- </div> -->
 			</div>
 		</section>
+		</form>
 	</main>
 
 	<div th:replace ="~{user/include/footer :: footer}"></div>
+	<script type="text/javascript">
+	
+	// 페이징
+	let form = document.querySelector('form');
+
+	goList = function (thisPage) {
+	    document.querySelector("input[name=thisPage]").value = thisPage;
+	    form.submit();
+	}
+		
+	</script>
 
 </body>
 

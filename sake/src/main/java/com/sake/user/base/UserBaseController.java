@@ -24,7 +24,7 @@ public class UserBaseController {
 			seqList[i] = String.valueOf((int)(Math.random() * count) + 1);
 		}
 		model.addAttribute("items", puservice.randomList(seqList));
-		return "/user/index/UserIndex";
+		return "user/index/UserIndex";
 	}
 	
 	

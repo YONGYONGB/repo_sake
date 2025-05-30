@@ -38,7 +38,7 @@ public class ProductUserController extends UserBaseController{
 		model.addAttribute("list", seq);
 		model.addAttribute("seq", seq);
 		model.addAttribute("shValue", shValue);
-		return "/user/product/sakeMenu";
+		return "user/product/sakeMenu";
 	}
 	
 	
@@ -97,7 +97,7 @@ public class ProductUserController extends UserBaseController{
 	    model.addAttribute("items", items);
 	    model.addAttribute("ProductVo", filterDTO);
 
-	    return "user/product/_productList :: productFragment";
+	    return "user/product/_productlist :: productFragment";
 	}
 	
 	
@@ -113,6 +113,6 @@ public class ProductUserController extends UserBaseController{
 		dto.setPd_id(vo.getPd_id());
 		model.addAttribute("item", productservice.selectView(dto));
 		
-		return "/user/product/sakeProduct";
+		return "user/product/sakeProduct";
 	}
 }

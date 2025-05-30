@@ -45,7 +45,7 @@ public class ProductController extends BaseController{
 		
 		vo.setParamsPaging(productservice.selectOneCount(vo));
 		model.addAttribute("list", productservice.selectList(vo));
-		return "/xdm/product/ProductXdmList";
+		return "xdm/product/ProductXdmList";
 	}
 	
 	
@@ -62,7 +62,7 @@ public class ProductController extends BaseController{
 			model.addAttribute("item", productservice.selectView(dto));
 			
 		}
-		return "/xdm/product/ProductXdmForm";
+		return "xdm/product/ProductXdmForm";
 	}
 	
 	@RequestMapping(value="ProductXdmInsert")
