@@ -11,7 +11,7 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 //		관리자용
-		if(request.getRequestURI().contains("Xdm")) {
+		if(request.getRequestURI().contains("xdm")) {
 			if (request.getSession().getAttribute("sessNameXdm") != null) {
 				
 				// by pass
@@ -25,16 +25,16 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 		}
 		
 ////		사용자용
-//		if(request.getRequestURI().contains(Constants.ABBREVIATION_USER)) {
-//			if (request.getSession().getAttribute(Constants.SESSION_SEQ_NAME_USR) != null) {
-//				// by pass
-//			} else {
-//				response.sendRedirect(Constants.URL_LOGINUSRFORM);
-//				return false;
-//			}
-//		} else {
-////			by pass
-//		}
+		if(request.getRequestURI().contains("user")) {
+			if (request.getSession().getAttribute("sessSeqUser") != null) {
+				// by pass
+			} else {
+				response.sendRedirect("/user/sign/signin");
+				return false;
+			}
+		} else {
+//			by pass
+		}
 		
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);

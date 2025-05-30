@@ -45,7 +45,7 @@
 											<th>갯수</th>
 											<th>Status(상태)</th>
 											<th>가격</th>
-											<th>cancel</th>
+											<!-- <th>cancel</th> -->
 										</tr>
 									</thead>
 									<tbody th:each = "list: ${lists}">
@@ -67,11 +67,11 @@
 												<span class="badge bg-warning">Processing</span>
 											</td>
 											<td class="align-middle border-top-0" th:text="${list.sum}">가격</td>
-											<td class="align-middle border-top-0">
+											<!-- <td class="align-middle border-top-0">
 												<button class="btn btn-primary" type="button">
 													결제취소
 												</button>
-											</td>
+											</td> -->
 										</tr>
 									</tbody>
 								</table>

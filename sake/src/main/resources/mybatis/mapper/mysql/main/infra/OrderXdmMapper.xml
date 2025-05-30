@@ -66,6 +66,7 @@
 		<foreach collection="odIdList" item="odId" open="(" separator="," close=")">
 			#{odId}
 		</foreach>
+	order by op.op_id desc
 	</select>
 	
 	
@@ -77,5 +78,4 @@
 			#{odId}
 		</foreach>
 	</select>
-	
 </mapper>

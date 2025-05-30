@@ -27,6 +27,8 @@ public class UserBaseController {
 		return "/user/index/UserIndex";
 	}
 	
+	
+	
 	//암호화
 	public String encodeBcrypt(String planeText, int strength) {
 		  return new BCryptPasswordEncoder(strength).encode(planeText);

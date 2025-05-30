@@ -113,49 +113,6 @@ public class OrderController {
 	        return ResponseEntity.status(statusCode).body(response);
 	    }
 
-//	    @RequestMapping(value = "/confirm-billing")
-//	    public ResponseEntity<JSONObject> confirmBilling(@RequestBody String jsonBody) throws Exception {
-//	        JSONObject requestData = parseRequestData(jsonBody);
-//	        String billingKey = billingKeyMap.get(requestData.get("customerKey"));
-//	        JSONObject response = sendRequest(requestData, API_SECRET_KEY, "https://api.tosspayments.com/v1/billing/" + billingKey);
-//	        return ResponseEntity.status(response.containsKey("error") ? 400 : 200).body(response);
-//	    }
-
-//	    @RequestMapping(value = "/issue-billing-key")
-//	    public ResponseEntity<JSONObject> issueBillingKey(@RequestBody String jsonBody) throws Exception {
-//	        JSONObject requestData = parseRequestData(jsonBody);
-//	        JSONObject response = sendRequest(requestData, API_SECRET_KEY, "https://api.tosspayments.com/v1/billing/authorizations/issue");
-//
-//	        if (!response.containsKey("error")) {
-//	            billingKeyMap.put((String) requestData.get("customerKey"), (String) response.get("billingKey"));
-//	        }
-//
-//	        return ResponseEntity.status(response.containsKey("error") ? 400 : 200).body(response);
-//	    }
-
-//	    @RequestMapping(value = "/callback-auth", method = RequestMethod.GET)
-//	    public ResponseEntity<JSONObject> callbackAuth(@RequestParam String customerKey, @RequestParam String code) throws Exception {
-//	        JSONObject requestData = new JSONObject();
-//	        requestData.put("grantType", "AuthorizationCode");
-//	        requestData.put("customerKey", customerKey);
-//	        requestData.put("code", code);
-//	        
-//	        String url = "https://api.tosspayments.com/v1/brandpay/authorizations/access-token";
-//	        JSONObject response = sendRequest(requestData, API_SECRET_KEY, url);
-//
-//	        logger.info("Response Data: {}", response);
-//
-//	        return ResponseEntity.status(response.containsKey("error") ? 400 : 200).body(response);
-//	    }
-
-//	    @RequestMapping(value = "/confirm/brandpay", method = RequestMethod.POST, consumes = "application/json")
-//	    public ResponseEntity<JSONObject> confirmBrandpay(@RequestBody String jsonBody) throws Exception {
-//	        JSONObject requestData = parseRequestData(jsonBody);
-//	        String url = "https://api.tosspayments.com/v1/brandpay/payments/confirm";
-//	        JSONObject response = sendRequest(requestData, API_SECRET_KEY, url);
-//	        return ResponseEntity.status(response.containsKey("error") ? 400 : 200).body(response);
-//	    }
-
 	    private JSONObject parseRequestData(String jsonBody) {
 	        try {
 	            return (JSONObject) new JSONParser().parse(jsonBody);
@@ -207,7 +164,7 @@ public class OrderController {
 	    
 	    
 	  //주문내역
-		@RequestMapping(value="UserOrderDetails")
+		@RequestMapping(value="/user/order/UserOrderDetails")
 		public String UserOrderDetails(HttpSession httpSession, OrderDto dto, Model model) {
 			dto.setUser_user_id(httpSession.getAttribute("sessSeqUser").toString());
 			
