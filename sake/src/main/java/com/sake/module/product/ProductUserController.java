@@ -60,7 +60,7 @@ public class ProductUserController extends UserBaseController{
 			model.addAttribute("ProductVo", vo);
 			model.addAttribute("items", service.localDetailList(seq,vo));
 		}		
-		return "user/product/_productList :: productFragment";  // 상품 리스트만 업데이트
+		return "user/product/_productlist :: productFragment";  // 상품 리스트만 업데이트
 	}
 	
 	//필터링
