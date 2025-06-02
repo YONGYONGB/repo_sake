@@ -463,7 +463,8 @@ function checkpd(){
             seq: seq
         },
         success: function(response){
-            $('#pdList').html(response);
+        	 // 서버가 응답한 HTML, JSON, 텍스트 등이 이 변수 response에 들어있음
+            $('#pdList').html(response);  // 응답 내용을 특정 div에 넣음
             $('#thisPage').val(thisPage); // hidden input도 갱신 (필요하면)
         },
         error: function(){
@@ -513,13 +514,14 @@ $(function(){
         applyFilterFromUI(1); // 필터 적용
     });
 
-    $("#priceRange").slider({ // 가격 범위 슬라이더 설정
+    $("#priceRange").slider({ // 가격 범위 슬라이더 설정 , jQuery UI 위젯(슬라이더, 드래그, 다이얼로그 등)의 이벤트 핸들러들은보통 event와 ui 두 개의 인자를 받음.
         range: true,
         min: 0,
         max: 100000,
         values: [1000, 30000],
-        slide: function(event, ui) {
-            $("#priceRange-value").text(ui.values[0].toLocaleString() + " - " + ui.values[1].toLocaleString());
+        change: function(event, ui) { //ui는 해당 위젯과 관련된 부가 정보
+            $("#priceRange-value").text(ui.values[0].toLocaleString() + " - " + ui.values[1].toLocaleString()); //ui.values → [최솟값, 최댓값]
+            applyFilterFromUI(1);
         }
     });
     $("#priceRange-value").text(
