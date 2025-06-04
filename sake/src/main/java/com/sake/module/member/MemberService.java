@@ -3,13 +3,29 @@ package com.sake.module.member;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MemberService {
+//implements UserDetailsService{
 
 	@Autowired
 	MemberDao memberDao;
+	
+	
+//	 @Override
+//	    public UserDetails loadUserByUsername(String username) {
+//	    		throws UsernameNotFoundException {
+//	        MemberDto member = memberDao.findByUsername(username); // 또는 selectOneLogin 등 적절한 메서드 호출
+//
+//	        if (member == null) {
+//	            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
+//	        }
+//	        return new PrincipalDetails(member);
+//	    }
 	
 	public List<MemberDto> selectList(MemberVo vo){
 		return memberDao.selectList(vo);

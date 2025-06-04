@@ -141,8 +141,8 @@ jQuery('#birthday').datetimepicker({
 	    document.getElementById("email").classList.remove("is-invalid");
 	    document.getElementById("email").classList.remove("is-valid");
 	    
-	    document.getElementById("password").classList.remove("is-invalid");
-	    document.getElementById("password").classList.remove("is-valid");
+	    /* document.getElementById("password").classList.remove("is-invalid");
+	    document.getElementById("password").classList.remove("is-valid"); */
 	    
 	    document.getElementById("user_delny").classList.remove("is-invalid");
 	    document.getElementById("user_delny").classList.remove("is-valid");
@@ -155,7 +155,7 @@ jQuery('#birthday').datetimepicker({
  		document.getElementById("clearanceError").textContent = '';
  		document.getElementById("idError").textContent = '';
  		document.getElementById("emailError").textContent = '';
- 		document.getElementById("passwordError").textContent = '';
+ 		/* document.getElementById("passwordError").textContent = ''; */
  		document.getElementById("user_delnyError").textContent = '';
       	      
 		let isValid = true; 
@@ -237,7 +237,7 @@ jQuery('#birthday').datetimepicker({
 		}
 		
 		
-		const password = document.getElementById("password").value;
+		/* const password = document.getElementById("password").value;
 		const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,16}$/;
 	 	if(!reg.test(password)){
 			document.getElementById("passwordError").textContent = "올바른 패스워드를 입력하세요.";
@@ -255,7 +255,7 @@ jQuery('#birthday').datetimepicker({
   		}else{
   			document.getElementById("user_delny").classList.add("is-valid");
   		}
- 		 
+ 		  */
  		 
 		if(isValid){
 				if(seq.value == "0" || seq.value == "") {

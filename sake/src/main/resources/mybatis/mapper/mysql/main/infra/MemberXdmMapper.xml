@@ -259,4 +259,9 @@
 	</insert>
 	
 	
+	<!-- spring security -->
+	<select id="findByUsername" resultMap="resultMapObj">
+    	SELECT * FROM user WHERE name = #{name}
+	</select>	
+	
 </mapper>

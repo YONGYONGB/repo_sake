@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -131,7 +132,7 @@ public class SignCodeController extends UserBaseController{
 	
 	//로그인 파트
 	@ResponseBody   //	json정보를  매핑시켜줌.
-	@RequestMapping(value = "SigninUserProc")
+	@PostMapping(value = "SigninUserProc")
 	public Map<String, Object> SigninUserProc(MemberDto dto, HttpSession httpSession,Model model) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		

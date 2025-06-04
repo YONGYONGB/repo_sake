@@ -357,7 +357,7 @@
   		<where>
     	<if test="local != null">AND a.local = #{local}</if>
     	<if test="local_detail != null">AND a.local_detail = #{local_detail}</if>
-    	<if test="type != null">AND a.type = #{type}</if>
+    	<if test="type != null" >AND a.type = #{type}</if>
     	<if test="minPrice != null">AND a.fixed_price &gt;= #{minPrice}</if>
     	<if test="maxPrice != null">AND a.fixed_price &lt;= #{maxPrice}</if>
     	<if test="keyword != null and keyword != ''">AND a.name LIKE CONCAT('%', #{keyword}, '%')</if>

@@ -4,7 +4,7 @@
 <div th:replace = "~{xdm/include/background :: head}"></div>
 
   <main id="main" class="main" style=" padding: 0px;">
- 	 <form name="formList" id="formList" method="post" autocomplete="off">
+ 	 <form name="formList" id="formList" method="get" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 		<input type="hidden" name="cg_id">
