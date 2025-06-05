@@ -130,7 +130,7 @@
 	<update id="uelete">
 		update user
 		set
-		user_delny = 0,
+		user_delny = 1,
 		user_modiDate = now() 
 		where user_id in
     <foreach collection="userIds" item="userId" open="(" separator="," close=")">
