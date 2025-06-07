@@ -84,12 +84,11 @@ public class CodeGroupController extends BaseController{
 	    for (String id : cgIdArray) {
 	        cgIdList.add(Integer.parseInt(id));  // 각 cg_id를 Integer로 변환하여 리스트에 추가
 	    }
-
 	    // 리스트를 서비스로 전달하여 업데이트
 	    codeGroupService.uelete(cgIdList);
-
 	    return "redirect:/xdm/codegroup/CodeGroupXdmList";
 	}
+	
 	
 	
 
