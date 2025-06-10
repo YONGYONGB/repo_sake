@@ -24,7 +24,7 @@ public class CodeController extends BaseController{
 	CodeService codeService;
 	
 	@RequestMapping( value = "CodeXdmList")
-	public String codeXdmList( @ModelAttribute("vo") CodeVo vo,Model model) {
+	public String codeXdmList(@ModelAttribute("vo") CodeVo vo,Model model) {
 		
 	
 		addEnd(vo);

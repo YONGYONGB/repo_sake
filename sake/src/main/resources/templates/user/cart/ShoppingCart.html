@@ -59,6 +59,7 @@
 													<!-- title -->
 													<a th:href="@{/user/product/sakeProduct(pd_id=${list.pd_id})}" th:value="${list.pd_id}" class="text-inherit">
 														<h6 class="mb-0 pdName" th:text="${list.name}">제품이름</h6>
+														
 													</a>
 													<!-- text -->
 													<div class="mt-2 small lh-1">
@@ -94,9 +95,9 @@
 												<input type="button" value="-" class="num button-minus btn btn-sm"
 													data-field="quantity" data-action="minus"/>
 												<input type="number" step="1"  min="1" max="${list.pd_quantity}" th:value="${list.cart_quantity}" name="quantity"
-													class="quantity-field form-control-sm form-input"  th:data-product-id="${list.pd_id}" th:data-max-quantity="${list.pd_quantity}" th:data-price="${list.cart_price}"/>
+													class="quantity-field form-control-sm form-input"  th:data-product-id="${list.pd_id}" th:data-max-quantity="${list.pd_quantity}" th:data-price="${list.cart_price}" th:data-name="${list.name}"/>
 												<input type="button" value="+" class="num button-plus btn btn-sm"
-													data-field="quantity" data-action="plus"/>
+													data-field="quantity" data-action="plus"/> <!-- 수량 -->
 											</div>
 										</div>
 										
@@ -319,12 +320,13 @@ function initializeQuantityControls() {
 // 제품별 총 수량 계산 (같은 productId를 모두 합산)
 function getTotalQuantityForProduct(productId) {
   let total = 0;
-  document.querySelectorAll(`.quantity-field[data-product-id="${productId}"]`).forEach(function (el) {
-    total += parseInt(el.value) || 0;
+  document.querySelectorAll('.quantity-field').forEach(function (input) {
+    if (input.dataset.productId === productId) {
+      total += parseInt(input.value);
+    }
   });
   return total;
 }
-
 // 총 금액 업데이트
 function updatePrices() {
   let totalPrice = 0;
@@ -447,6 +449,27 @@ function updatePrices() {
     		alert("결제 금액이 0원입니다. 장바구니를 확인해주세요.");
     		return;
   		}
+  		// 추가
+  		 	
+  		// 초과된 상품 찾기
+		let overOrderedItem = null;
+
+		document.querySelectorAll('.quantity-field').forEach(input => {
+  			const productId = input.dataset.productId;
+  			const productname = input.dataset.name;
+  			const maxQuantity = parseInt(input.dataset.maxQuantity);
+  			const totalForProduct = getTotalQuantityForProduct(productId);
+
+  			if (totalForProduct > maxQuantity && !overOrderedItem) {
+    		overOrderedItem = { productId, productname,totalForProduct, maxQuantity };
+  			}
+		});
+		if (overOrderedItem) {
+  			alert(`상품 ${overOrderedItem.productname}의 재고는 ${overOrderedItem.maxQuantity}개인데, ${overOrderedItem.totalForProduct}개를 주문하셨습니다. 수량을 조정해주세요.`);
+  			return;
+		}
+  		
+  		
   		//카트seq
   		const cartIds =[];
   		const cartid = document.getElementsByClassName('cartid');
