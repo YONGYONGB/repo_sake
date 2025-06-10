@@ -452,20 +452,28 @@ function updatePrices() {
   		// 추가
   		 	
   		// 초과된 상품 찾기
-		let overOrderedItem = null;
+		let overOrderedItems = [];
 
 		document.querySelectorAll('.quantity-field').forEach(input => {
   			const productId = input.dataset.productId;
-  			const productname = input.dataset.name;
+  			const productName = input.dataset.name;
   			const maxQuantity = parseInt(input.dataset.maxQuantity);
   			const totalForProduct = getTotalQuantityForProduct(productId);
 
-  			if (totalForProduct > maxQuantity && !overOrderedItem) {
-    		overOrderedItem = { productId, productname,totalForProduct, maxQuantity };
+  			if (totalForProduct > maxQuantity) {
+  			 // 이미 같은 상품 ID가 리스트에 들어있지 않은지 확인
+    			if (!overOrderedItems.some(item => item.productId === productId)) {
+      				overOrderedItems.push({ productId, productName, totalForProduct, maxQuantity });
+    			}
   			}
 		});
-		if (overOrderedItem) {
-  			alert(`상품 ${overOrderedItem.productname}의 재고는 ${overOrderedItem.maxQuantity}개인데, ${overOrderedItem.totalForProduct}개를 주문하셨습니다. 수량을 조정해주세요.`);
+
+		if (overOrderedItems.length > 0) {
+  			let message = "다음 상품들의 수량이 재고를 초과했습니다:\n\n";
+  			overOrderedItems.forEach(item => {
+    			message += `- ${item.productName}: 재고 ${item.maxQuantity}개, 주문 ${item.totalForProduct}개\n`;
+  			});
+		 	alert(message);
   			return;
 		}
   		
