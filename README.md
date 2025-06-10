@@ -30,6 +30,7 @@ Spring boot (Spring Security, MyBatis, Thymeleaf)
 - Controller-Service-DAO 구조 설계 및 유지보수 용이성 고려
 - 예외 처리 및 유효성 검증 (Validation)
 - 페이징 처리 및 검색 기능 구현(관리자, 사용자쪽은 진행중)
+- - Spring Interceptor를 이용하여 로그인 여부 확인(exclude를 이용한 예외 처리 적용)
 
 -----------------------------------------------------------------------
 API/etc
