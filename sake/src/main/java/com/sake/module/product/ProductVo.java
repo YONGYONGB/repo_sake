@@ -6,10 +6,10 @@ public class ProductVo extends BaseVo{
 
 	private String pd_id;
 	private String name;
-	private Integer local;
-	private Integer local_detail;
-	private Integer brand;
-	private Integer type;
+	private String local;
+	private String local_detail;
+	private String brand;
+	private String type;
 	private Integer fixed_price;
 	private Double total_rating;
 	
@@ -80,35 +80,35 @@ public class ProductVo extends BaseVo{
 		this.name = name;
 	}
 
-	public Integer getLocal() {
+	public String getLocal() {
 		return local;
 	}
 
-	public void setLocal(Integer local) {
+	public void setLocal(String local) {
 		this.local = local;
 	}
 
-	public Integer getLocal_detail() {
+	public String getLocal_detail() {
 		return local_detail;
 	}
 
-	public void setLocal_detail(Integer local_detail) {
+	public void setLocal_detail(String local_detail) {
 		this.local_detail = local_detail;
 	}
 
-	public Integer getBrand() {
+	public String getBrand() {
 		return brand;
 	}
 
-	public void setBrand(Integer brand) {
+	public void setBrand(String brand) {
 		this.brand = brand;
 	}
 
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
