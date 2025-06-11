@@ -3,6 +3,7 @@
 
 	<div th:replace = "~{user/include/header :: header}"></div>
 
+
    <main>
    <form id="form">
    	 <input type="hidden" id="thisPage" name="thisPage"  th:value="${ProductVo != null and ProductVo.thisPage != null ? ProductVo.thisPage : 1}">
@@ -551,24 +552,26 @@ $(function(){
         applyFilterFromUI(1);
     });
     
-    if ($('input[data-type="type"]').length === 0) {
+   /*  if ($('input[data-type="type"]').length === 0) {
     	  console.log("필터 UI가 없습니다.");
     	  // 필터 초기화 혹은 기본값 처리
     	  selectedType = "";
     	  applyFilterFromUI(1);
     	} else {
     	  selectedType = $('input[data-type="type"]:checked').data('value') || null;
-    	/*   applyFilterFromUI(1); */
-    	}
+    	
+    	} */
 
     $("#priceRange").slider({ // 가격 범위 슬라이더 설정 , jQuery UI 위젯(슬라이더, 드래그, 다이얼로그 등)의 이벤트 핸들러들은보통 event와 ui 두 개의 인자를 받음.
         range: true,
         min: 0,
         max: 100000,
         values: [1000, 30000],
-        change: function(event, ui) { //ui는 해당 위젯과 관련된 부가 정보
-            $("#priceRange-value").text(ui.values[0].toLocaleString() + " - " + ui.values[1].toLocaleString()); //ui.values → [최솟값, 최댓값]
-            applyFilterFromUI(1);
+        change: function(event, ui) {//ui는 해당 위젯과 관련된 부가 정보
+            $("#priceRange-value").text(
+                ui.values[0].toLocaleString() + " - " + ui.values[1].toLocaleString()
+            );
+            applyFilterFromUI(1); // 이 시점에 모든 값이 정확하게 채워진 상태
         }
     });
     $("#priceRange-value").text(
@@ -578,10 +581,11 @@ $(function(){
 });
 
 function applyFilterFromUI(thisPage) {
+	selectedFilters['type'] = $('input[data-type="type"]:checked').data('value') || null;
 	
 	var localType = selectedFilters['local'] || null;
     var localDetail = selectedFilters['local_detail'] || null;
-    var selectedType = $('input[data-type="type"]:checked').data('value') || null;
+    var selectedType = selectedFilters['type']; // 이걸 바로 사용
     var shValue = $('#shValue').val() || '';
     var minPrice = $("#priceRange").slider("values", 0);
     var maxPrice = $("#priceRange").slider("values", 1);
