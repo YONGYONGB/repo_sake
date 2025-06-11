@@ -69,23 +69,39 @@ public class ProductUserController extends UserBaseController{
 	    @RequestParam(name = "shValue", required = false) String shValue,
 	    @RequestParam(name = "seq", required = false) Integer seq,
 	    @RequestParam(name = "local_detail", required = false) Integer localDetail,
+	    @RequestParam(name = "local", required = false) Integer local,
 	    @RequestParam(name = "type", required = false) Integer type,
 	    @RequestParam(name = "minPrice", required = false) Integer minPrice,
 	    @RequestParam(name = "maxPrice", required = false) Integer maxPrice,
 	    @RequestParam(name = "thisPage", required = false, defaultValue = "1") int thisPage,
 	    Model model
 	) {
-	    FilterDto filterDTO = new FilterDto(localDetail, type, minPrice, maxPrice);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
+		System.out.println("local param: " + local);
+		System.out.println("local_detail param: " + localDetail);
+
+		FilterDto filterDTO = new FilterDto(local, localDetail, type, minPrice, maxPrice);
+		System.out.println("FilterDTO local: " + filterDTO.getLocal());
+		System.out.println("FilterDTO localDetail: " + filterDTO.getLocal_detail());
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
 	    filterDTO.setThisPage(thisPage);
 
 	    if (shValue != null && !shValue.isEmpty()) {
 	        filterDTO.setKeyword(shValue);
 	    }
+	    
 	    if (seq != null) {
-	        if(seq >= 3 && seq <= 10) filterDTO.setLocal(seq);
-	        else if(seq >= 80 && seq <= 129) filterDTO.setLocal_detail(seq);
-	        else if(seq >= 11 && seq <= 19) filterDTO.setType(seq);
+	    	if(seq >= 3 && seq <= 10 && filterDTO.getLocal() == null) {
+	            filterDTO.setLocal(seq);
+	        } else if(seq >= 80 && seq <= 129 && filterDTO.getLocal_detail() == null) {
+	            filterDTO.setLocal_detail(seq);
+	        } else if(seq >= 11 && seq <= 19 && filterDTO.getType() == null) {
+	            filterDTO.setType(seq);
+	        }
 	    }
+	    
+
+	    
 	    filterDTO.setMinPrice(minPrice);
 	    filterDTO.setMaxPrice(maxPrice);
 	    
@@ -93,10 +109,28 @@ public class ProductUserController extends UserBaseController{
 	    filterDTO.setParamsPaging(totalCount);
 
 	    List<ProductDto> items = service.filterProducts(filterDTO);
+	    
+//	    System.out.println("--- Debugging ProductUserController ---");
+//	    System.out.println("Received Request Params:");
+//	    System.out.println("  shValue: " + shValue);
+//	    System.out.println("  seq: " + seq);
+//	    System.out.println("  local (from JS): " + local); 
+//	    System.out.println("  local (from controller): " + filterDTO.getLocal()); 
+//	    System.out.println("  localDetail (from JS): " + localDetail); // JS에서 보낸 local_detail
+//	    System.out.println("  localDetail (from controller): " + filterDTO.getLocal_detail()); 
+//	    System.out.println("  type (from JS): " + type); // JS에서 보낸 type
+//	    
+//	    System.out.println("  minPrice: " + minPrice);
+//	    System.out.println("  maxPrice: " + maxPrice);
+//	    System.out.println("  thisPage: " + thisPage);
+//	    System.out.println("");
+//	    System.out.println("FilterDto State After Setting:");
+//	    System.out.println(filterDTO.toString()); // FilterDto의 toString() 메서드 출력
+//	    System.out.println("-------------------------------------");
 
 	    model.addAttribute("items", items);
 	    model.addAttribute("ProductVo", filterDTO);
-
+	    
 	    return "user/product/_productlist :: productFragment";
 	}
 	

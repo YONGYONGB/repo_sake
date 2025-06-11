@@ -70,6 +70,9 @@ public class OrderController {
 	 
 	 @GetMapping("/success")
 	 public String paymentSuccessPage() {
+		
+		 System.out.println("@@@@@@@@@@@@@@@@");
+		
 		 return "xdm/payment/paymentSuccess";  // 결제 성공
 	  } 
 	 
@@ -181,16 +184,16 @@ public class OrderController {
 		}
 		
 		//header에 주문 숫자 담기.
-		  @ModelAttribute
-		   public void addCommonAttributes(HttpSession httpSession,Model model) {
-			  if (httpSession.getAttribute("sessSeqUser") != null) {
-			  	String seq= httpSession.getAttribute("sessSeqUser").toString();
-			  	List<String> odIdList = service.findUserUoseq(seq);
-			  	
-		        int orderItemCount = service.getPCount(odIdList); 
-		        model.addAttribute("orderItemCount", orderItemCount);
-			  }
-		    }
+//		  @ModelAttribute
+//		   public void addCommonAttributes(HttpSession httpSession,Model model) {
+//			  if (httpSession.getAttribute("sessSeqUser") != null) {
+//			  	String seq= httpSession.getAttribute("sessSeqUser").toString();
+//			  	List<String> odIdList = service.findUserUoseq(seq);
+//			  	
+//		        int orderItemCount = service.getPCount(odIdList); 
+//		        model.addAttribute("orderItemCount", orderItemCount);
+//			  }
+//		    }
 	}
 	  
 	  

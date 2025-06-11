@@ -26,9 +26,13 @@ public class FilterDto extends BaseVo{
 	private String shlocal;
 	private String shbrand;
 	private String shtype;
+	
+	
+	
+	
     
-    public FilterDto(Integer local_detail, Integer type, Integer minPrice, Integer maxPrice) {
- 
+    public FilterDto(Integer local,Integer local_detail, Integer type, Integer minPrice, Integer maxPrice) {
+    	this.local = local;
         this.local_detail = local_detail;
         this.type = type;
         this.minPrice = minPrice;

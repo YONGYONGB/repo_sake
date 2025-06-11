@@ -117,12 +117,22 @@
                         </div>
                         <div th:if="${seq != null and ((seq > 0 and seq < 3) or (seq >10 and seq<20))}"> 
                            <h5 class="mb-3">일본 지역</h5>
+                           
                            <!-- nav -->
                            <ul class="nav nav-category" id="categoryCollapseMenu">
+                           		<li class="nav-item border-bottom w-100">
+                                	 <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
+                                    	data-bs-target="#categoryFlush" aria-expanded="false"
+                                    	aria-controls="categoryFlush"
+                                    	data-value="" data-type="local">
+                                    	전체
+                                   	 <i class="feather-icon icon-chevron-right"></i>
+                                 </a>
                               <li class="nav-item border-bottom w-100">
                                  <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
                                     data-bs-target="#categoryFlushOne" aria-expanded="false"
-                                    aria-controls="categoryFlushOne">
+                                    aria-controls="categoryFlushOne"
+                                    data-value="3" data-type="local">
                                     간토(関東)
                                     <i class="feather-icon icon-chevron-right"></i>
                                  </a>
@@ -154,7 +164,8 @@
                               <li class="nav-item border-bottom w-100">
                                  <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                    aria-controls="flush-collapseTwo">
+                                    aria-controls="flush-collapseTwo"
+                                    data-value="4" data-type="local">
                                     주부(中部)
                                     <i class="feather-icon icon-chevron-right"></i>
                                  </a>
@@ -188,7 +199,8 @@
                               <li class="nav-item border-bottom w-100">
                                  <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                    aria-controls="flush-collapseThree">
+                                    aria-controls="flush-collapseThree"
+                                    data-value="5" data-type="local">
                                     도호쿠(道北)
                                     <i class="feather-icon icon-chevron-right"></i>
                                  </a>
@@ -216,7 +228,8 @@
                               <li class="nav-item border-bottom w-100">
                                  <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseFour" aria-expanded="false"
-                                    aria-controls="flush-collapseFour">
+                                    aria-controls="flush-collapseFour"
+                                    data-value="6" data-type="local">
                                     간사이((関西))
                                     <i class="feather-icon icon-chevron-right"></i>
                                  </a>
@@ -226,19 +239,19 @@
                                     <div>
                                        <ul class="nav flex-column ms-3">
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="102" data-type="local_detail">미에현(三重県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="102" data-type="local_detail">미에현(三重県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="103" data-type="local_detail">시가현(滋賀県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="103" data-type="local_detail">시가현(滋賀県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="104" data-type="local_detail">교토부(京都府)</button</li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="104" data-type="local_detail">교토부(京都府)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="105" data-type="local_detail">오사카부(大阪府)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="105" data-type="local_detail">오사카부(大阪府)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button"class="nav-link active" href="#!" data-value="106" data-type="local_detail">효고현(兵庫県)</button></li>
+                                          <li class="nav-item"><button type="button"class="nav-link" href="#!" data-value="106" data-type="local_detail">효고현(兵庫県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="107" data-type="local_detail">나라현(奈良県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="107" data-type="local_detail">나라현(奈良県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="108" data-type="local_detail">와카야마현(和歌山県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="108" data-type="local_detail">와카야마현(和歌山県)</button></li>
                                        </ul>
                                     </div>
                                  </div>
@@ -246,7 +259,8 @@
                               <li class="nav-item border-bottom w-100">
                                  <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseFive" aria-expanded="false"
-                                    aria-controls="flush-collapseFive">
+                                    aria-controls="flush-collapseFive"
+                                    data-value="7" data-type="local">
                                     규슈(九州)
                                     <i class="feather-icon icon-chevron-right"></i>
                                  </a>
@@ -256,21 +270,21 @@
                                     <div>
                                        <ul class="nav flex-column ms-3">
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="109" data-type="local_detail">후쿠오카현(福岡県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="109" data-type="local_detail">후쿠오카현(福岡県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="110" data-type="local_detail">사가현(佐賀県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="110" data-type="local_detail">사가현(佐賀県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="111" data-type="local_detail">나가시카현(長崎県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="111" data-type="local_detail">나가시카현(長崎県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="112" data-type="local_detail">구마모토현(熊本県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="112" data-type="local_detail">구마모토현(熊本県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="113" data-type="local_detail">오이타현(大分県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="113" data-type="local_detail">오이타현(大分県)</button></li>
                                           
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="114" data-type="local_detail">미야자키현(宮崎県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="114" data-type="local_detail">미야자키현(宮崎県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="115" data-type="local_detail">가고시마현(鹿児島県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="115" data-type="local_detail">가고시마현(鹿児島県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="116" data-type="local_detail">오키나마현(沖縄県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="116" data-type="local_detail">오키나마현(沖縄県)</button></li>
                                        </ul>
                                     </div>
                                  </div>
@@ -278,7 +292,8 @@
                               <li class="nav-item border-bottom w-100">
                                  <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseSix" aria-expanded="false"
-                                    aria-controls="flush-collapseSix">
+                                    aria-controls="flush-collapseSix"
+                                    data-value="8" data-type="local">
                                     주고쿠(中国)
                                     <i class="feather-icon icon-chevron-right"></i>
                                  </a>
@@ -288,15 +303,15 @@
                                     <div>
                                        <ul class="nav flex-column ms-3">
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="117" data-type="local_detail">돗토리현(鳥取県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="117" data-type="local_detail">돗토리현(鳥取県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="118" data-type="local_detail">시마네현(島根県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="118" data-type="local_detail">시마네현(島根県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="119" data-type="local_detail">오카야마현(岡山県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="119" data-type="local_detail">오카야마현(岡山県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button"class="nav-link active" href="#!" data-value="120" data-type="local_detail">히로시마현(広島県)</button></li>
+                                          <li class="nav-item"><button type="button"class="nav-link" href="#!" data-value="120" data-type="local_detail">히로시마현(広島県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button"class="nav-link active" href="#!" data-value="121" data-type="local_detail">야마구치현(山口県)</button></li>
+                                          <li class="nav-item"><button type="button"class="nav-link" href="#!" data-value="121" data-type="local_detail">야마구치현(山口県)</button></li>
                                        </ul>
                                     </div>
                                  </div>
@@ -305,7 +320,8 @@
                               <li class="nav-item border-bottom w-100">
                                  <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseSeven" aria-expanded="false"
-                                    aria-controls="flush-collapseSeven">
+                                    aria-controls="flush-collapseSeven"
+                                    data-value="9" data-type="local">
                                     시코쿠(四国)
                                     <i class="feather-icon icon-chevron-right"></i>
                                  </a>
@@ -315,13 +331,13 @@
                                     <div>
                                        <ul class="nav flex-column ms-3">
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="122" data-type="local_detail">도쿠시마현(徳島県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="122" data-type="local_detail">도쿠시마현(徳島県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="123" data-type="local_detail">고치현(高知県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="123" data-type="local_detail">고치현(高知県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="124" data-type="local_detail">에히메현(愛媛県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="124" data-type="local_detail">에히메현(愛媛県)</button></li>
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="125" data-type="local_detail">가가와현(香川県)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="125" data-type="local_detail">가가와현(香川県)</button></li>
                                        </ul>
                                     </div>
                                  </div>
@@ -330,7 +346,8 @@
                               <li class="nav-item border-bottom w-100">
                                  <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseEight" aria-expanded="false"
-                                    aria-controls="flush-collapseEight">
+                                    aria-controls="flush-collapseEight"
+                                    data-value="10" data-type="local">
                                     훗카이도(北海道)
                                     <i class="feather-icon icon-chevron-right"></i>
                                  </a>
@@ -340,7 +357,7 @@
                                     <div>
                                        <ul class="nav flex-column ms-3">
                                           <!-- nav item -->
-                                          <li class="nav-item"><button type="button" class="nav-link active" href="#!" data-value="126" data-type="local_detail">훗카이도(北海道)</button></li>
+                                          <li class="nav-item"><button type="button" class="nav-link" href="#!" data-value="126" data-type="local_detail">훗카이도(北海道)</button></li>
                                        </ul>
                                     </div>
                                  </div>
@@ -492,7 +509,7 @@ $('input[data-type="type"]').on('click', function() {
 });
 
 
-
+let selectedFilters = {};
 $(function(){
     let typingTimer; // 입력 중 타이머 변수 선언 (연속 입력 방지용 디바운스)
 
@@ -501,14 +518,36 @@ $(function(){
         clearTimeout(typingTimer); // 이전 타이머 초기화
         typingTimer = setTimeout(function(){
             applyFilterFromUI(1); // 입력이 끝났다고 판단되면 필터 적용
-        }, 500); // 0.5초 지연
+        }, 300); // 0.5초 지연
     });
+  /*   $('#shValue').on('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // 엔터 입력 시 폼 전송 방지
+            applyFilterFromUI(1); // 검색 즉시 실행
+        }
+    }); */
+   
 
-    $('.nav-link[data-type="local_detail"]').on('click', function(e){  // 지역 상세 필터 (local_detail) 클릭 시
-        e.preventDefault(); 	// 기본 링크 이동 방지
-        $('.nav-link[data-type="local_detail"]').removeClass('active'); 
-        $(this).addClass('active'); // 클릭한 버튼만 active 설정
-        applyFilterFromUI(1);  // 필터 적용
+    $(document).on('click', '.nav-link', function (e) {
+        const value = $(this).data('value');
+        const type = $(this).data('type');
+
+        $('.nav-link[data-type="' + type + '"]').removeClass('active');
+        $(this).addClass('active');
+
+        if (type === 'local_detail') {
+            selectedFilters['local_detail'] = value === "" || value === undefined ? null : value;
+            selectedFilters['local'] = null;
+        } else if (type === 'local') {
+            selectedFilters['local'] = value === "" || value === undefined ? null : value;
+            selectedFilters['local_detail'] = null;
+        } else {
+            selectedFilters[type] = (value === "" || value === undefined) ? null : value;
+        }
+
+        console.log("selectedFilters updated:", selectedFilters);
+
+        applyFilterFromUI(1);
     });
     
     if ($('input[data-type="type"]').length === 0) {
@@ -539,23 +578,25 @@ $(function(){
 
 function applyFilterFromUI(thisPage) {
 	
-    var localDetail = $('.nav-link.active[data-type="local_detail"]').data('value') || null;
+	var localType = selectedFilters['local'] || null;
+    var localDetail = selectedFilters['local_detail'] || null;
     var selectedType = $('input[data-type="type"]:checked').data('value') || null;
     var shValue = $('#shValue').val() || '';
     var minPrice = $("#priceRange").slider("values", 0);
     var maxPrice = $("#priceRange").slider("values", 1);
     var seq = $('#seq').val() || null;
     
-    if (selectedType === null) {
+  /*   if (selectedType === null) {
     	  console.log("선택된 타입이 없어서 기본값 처리합니다.");
     	  // 예) 서버에 빈 문자열 보내기
     	  selectedType = "";
-    	}
+    	} */
 
     $.ajax({
         url: '/user/product/addfilter',
         method: 'GET',
         data: {
+        	local: localType,
             local_detail: localDetail,
             type: selectedType,
             shValue: shValue,
