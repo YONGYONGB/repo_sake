@@ -43,8 +43,21 @@
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                      </div>
                      <div class="offcanvas-body ps-lg-2 pt-lg-0">
-                        <div class="mb-8">
-                           <h5 class="mb-3">사케</h5>
+                        <div class="mb-8" >
+ <!-- case 1: seq 1~10 -->
+    <div th:if="${seq != null and seq >= 1 and seq <= 10}"> 
+        <h5 class="mb-3" th:each = "li: ${list}" th:text="${@codeService.selectOneCachedCode(li) + ' 사케 검색'}"></h5>
+    </div>
+
+    <!-- case 2: seq > 20 -->
+    <div th:if="${seq != null and seq > 20}">
+        <h5 class="mb-3" th:each = "li: ${list}"  th:text="${@codeService.selectOneCachedCode(li) + ' 사케 검색'}"></h5>
+    </div>
+
+    <!-- case 3: seq 1~2 or 11~19 -->
+    <div th:if="${seq != null and ((seq >= 1 and seq <= 2) or (seq >= 11 and seq <= 19))}">
+        <h5 class="mb-3" th:text="${'사케 검색'}"></h5>
+    </div>
                            <div class="my-4 input-group">
                               <!-- input -->
                               <input type="search" class="form-control" id="shValue" name="shValue" th:value="${shValue} ?: ''" placeholder="이름 및 브랜드" /> 
@@ -61,7 +74,7 @@
 											</button>
 										</span>
                            </div>
-                           <div th:if="${seq != null and (seq > 0 and seq < 10 or seq > 20)}">
+                           <div th:if="${seq != null and (seq > 0 and seq <= 10 or seq > 20)}">
                               <h5 class="mb-3">사케 명칭</h5>
                               <!-- form check -->
                               <div class="form-check mb-2">

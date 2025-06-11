@@ -76,14 +76,9 @@ public class ProductUserController extends UserBaseController{
 	    @RequestParam(name = "thisPage", required = false, defaultValue = "1") int thisPage,
 	    Model model
 	) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
-		System.out.println("local param: " + local);
-		System.out.println("local_detail param: " + localDetail);
+		
 
 		FilterDto filterDTO = new FilterDto(local, localDetail, type, minPrice, maxPrice);
-		System.out.println("FilterDTO local: " + filterDTO.getLocal());
-		System.out.println("FilterDTO localDetail: " + filterDTO.getLocal_detail());
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
 	    filterDTO.setThisPage(thisPage);
 
 	    if (shValue != null && !shValue.isEmpty()) {
@@ -112,13 +107,13 @@ public class ProductUserController extends UserBaseController{
 	    
 
 
-	    System.out.println("  minPrice: " + minPrice);
-	    System.out.println("  maxPrice: " + maxPrice);
-	    System.out.println("  thisPage: " + thisPage);
-	    System.out.println("");
-	    System.out.println("FilterDto State After Setting:");
-	    System.out.println(filterDTO.toString()); // FilterDto의 toString() 메서드 출력
-	    System.out.println("-------------------------------------");
+//	    System.out.println("  minPrice: " + minPrice);
+//	    System.out.println("  maxPrice: " + maxPrice);
+//	    System.out.println("  thisPage: " + thisPage);
+//	    System.out.println("");
+//	    System.out.println("FilterDto State After Setting:");
+//	    System.out.println(filterDTO.toString()); // FilterDto의 toString() 메서드 출력
+//	    System.out.println("-------------------------------------");
 
 	    model.addAttribute("items", items);
 	    model.addAttribute("ProductVo", filterDTO);
