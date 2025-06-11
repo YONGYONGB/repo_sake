@@ -110,23 +110,15 @@ public class ProductUserController extends UserBaseController{
 
 	    List<ProductDto> items = service.filterProducts(filterDTO);
 	    
-//	    System.out.println("--- Debugging ProductUserController ---");
-//	    System.out.println("Received Request Params:");
-//	    System.out.println("  shValue: " + shValue);
-//	    System.out.println("  seq: " + seq);
-//	    System.out.println("  local (from JS): " + local); 
-//	    System.out.println("  local (from controller): " + filterDTO.getLocal()); 
-//	    System.out.println("  localDetail (from JS): " + localDetail); // JS에서 보낸 local_detail
-//	    System.out.println("  localDetail (from controller): " + filterDTO.getLocal_detail()); 
-//	    System.out.println("  type (from JS): " + type); // JS에서 보낸 type
-//	    
-//	    System.out.println("  minPrice: " + minPrice);
-//	    System.out.println("  maxPrice: " + maxPrice);
-//	    System.out.println("  thisPage: " + thisPage);
-//	    System.out.println("");
-//	    System.out.println("FilterDto State After Setting:");
-//	    System.out.println(filterDTO.toString()); // FilterDto의 toString() 메서드 출력
-//	    System.out.println("-------------------------------------");
+
+
+	    System.out.println("  minPrice: " + minPrice);
+	    System.out.println("  maxPrice: " + maxPrice);
+	    System.out.println("  thisPage: " + thisPage);
+	    System.out.println("");
+	    System.out.println("FilterDto State After Setting:");
+	    System.out.println(filterDTO.toString()); // FilterDto의 toString() 메서드 출력
+	    System.out.println("-------------------------------------");
 
 	    model.addAttribute("items", items);
 	    model.addAttribute("ProductVo", filterDTO);
